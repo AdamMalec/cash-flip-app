@@ -1,0 +1,22 @@
+body {
+	min-height: 100vh;
+}
+
+/* lock class for mobile open menu (stop scroll page) */
+body.lock {
+	overflow: hidden;
+}
+
+/* for hiding content (screen reader only) */
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+	clip: rect(0, 0, 0, 0);
+	clip-path: inset(100%);
+	-webkit-clip-path: inset(100%);
+	overflow: hidden;
+}

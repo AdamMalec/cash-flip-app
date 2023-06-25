@@ -1,0 +1,15 @@
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
