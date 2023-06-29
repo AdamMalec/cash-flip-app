@@ -1,4 +1,10 @@
 :root {
 	--color-main: #7540bf;
 	--color-accent: rgb(255, 162, 58);
+
+	/* z-index */
+	--z-overlay: 99;
+	--z-modal: 100;
+	--z-nav: 101;
+	--z-nav-toggle: 102;
 }

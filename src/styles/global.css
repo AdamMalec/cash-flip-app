@@ -2,9 +2,8 @@ body {
 	min-height: 100vh;
 }
 
-/* lock class for mobile open menu (stop scroll page) */
-body.lock {
-	overflow: hidden;
+svg {
+	fill: currentColor;
 }
 
 /* for hiding content (screen reader only) */
