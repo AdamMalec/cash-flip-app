@@ -16,7 +16,7 @@
 		display: inline-block;
 		width: 4.5rem;
 
-		font-size: 1rem;
+		font-size: 18px;
 		font-weight: bold;
 		text-align: center;
 		text-transform: capitalize;
@@ -26,7 +26,7 @@
 	}
 
 	.inverted {
-		background-color: var(--pico-inv-color);
+		color: var(--pico-inv-color);
 		border: 1px solid var(--pico-inv-color);
 	}
 

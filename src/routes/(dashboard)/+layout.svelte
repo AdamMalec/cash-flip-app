@@ -24,7 +24,7 @@
 
 	@media (width > 768px) {
 		.page {
-			column-gap: 1rem;
+			grid-column-gap: 4rem;
 		}
 
 		.page__header {

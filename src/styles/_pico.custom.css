@@ -22,7 +22,7 @@
 	--pico-secondary-focus: rgba(93, 107, 137, 0.25);
 	--pico-secondary-inverse: #f8f8f8;
 
-	--pico-inv-color: #ceadf8;
+	--pico-inv-color: #b49ad9;
 	--pico-suc-color: #6cf9a9;
 	--pico-err-color: #df6f7d;
 }
@@ -40,7 +40,7 @@
 		--pico-primary-focus: rgba(178, 144, 217, 0.25);
 		--pico-primary-inverse: #f8f8f8;
 
-		--pico-inv-color: #ceadf8;
+		--pico-inv-color: #b49ad9;
 		--pico-suc-color: #6cf9a9;
 		--pico-err-color: #df6f7d;
 	}
@@ -58,7 +58,7 @@
 	--pico-primary-focus: rgba(178, 144, 217, 0.25);
 	--pico-primary-inverse: #fff;
 
-	--pico-inv-color: #ceadf8;
+	--pico-inv-color: #b49ad9;
 	--pico-suc-color: #6cf9a9;
 	--pico-err-color: #df6f7d;
 }
