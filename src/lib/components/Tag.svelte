@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let label: 'draft' | 'sent' |'current' |'late' |'paid' = 'draft';
+	export let label: 'draft' | 'sent' |'current' |'late' |'paid' | 'archive' = 'draft';
 </script>
 
 <span
