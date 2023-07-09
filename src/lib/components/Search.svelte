@@ -15,7 +15,8 @@
 	.search {
 		display: flex;
 		align-items: center;
-		width: 420px;
+		min-width: 320px;
+		width: 40%;
 		margin-bottom: 1rem;
 	}
 	.search svg {
