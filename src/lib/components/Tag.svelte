@@ -15,6 +15,7 @@
 	span {
 		display: inline-block;
 		width: 4.5rem;
+		padding-block: 1px;
 
 		font-size: 18px;
 		font-weight: bold;

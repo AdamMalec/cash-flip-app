@@ -15,12 +15,18 @@
 		justify-content: center;
 
 		min-height: 5.8rem;
-		min-width: 13.8rem;
+		min-width: 15.8rem;
 
 		background-image: url('./images/circle.svg');
 		background-repeat: no-repeat;
 
 		float: right;
+	}
+
+	@media (min-width: 768px) {
+		div {
+			min-width: 14.0rem;
+		}
 	}
 
 	@media (min-width: 1024px) {

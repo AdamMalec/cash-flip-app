@@ -124,8 +124,7 @@
 		text-decoration: none;
 	}
 
-	.menu__link:hover,
-	.menu__link:focus {
+	.menu__link:hover{
 		color: var(--color-accent);
 	}
 

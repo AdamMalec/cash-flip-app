@@ -20,6 +20,7 @@
 
 	.page__content {
 		grid-column: 1 / -1;
+		padding-inline: 1rem;
 	}
 
 	@media (width > 768px) {

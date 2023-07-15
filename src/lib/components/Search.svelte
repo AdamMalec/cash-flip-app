@@ -7,7 +7,7 @@
 			/>
 		</g>
 	</svg>
-	<input type="text" name="search" placeholder="Search by keyword..." />
+	<input type="text" name="search" placeholder="Search by keyword" />
 	<button>Search</button>
 </form>
 
@@ -16,8 +16,8 @@
 		display: flex;
 		align-items: center;
 		min-width: 320px;
-		width: 40%;
-		margin-bottom: 1rem;
+		width: 100%;
+		margin-block: 1rem;
 	}
 	.search svg {
 		align-self: center;
@@ -29,18 +29,22 @@
 		margin-left: 0.4rem;
 		margin-bottom: 0;
 		padding: 0.5rem;
-		border: none;
-		border-bottom: 2px dashed var(--pico-primary);
+		border-width: 2px;
+		border-color: transparent;
+		border-bottom: dashed var(--pico-primary);
 		border-radius: 0;
+		transition: none;
 	}
+
 	.search input::placeholder {
-		color: grey;
+		color: #B3B9C5;
 	}
 
 	.search input:focus {
-		border: none;
-		border-bottom: 2px solid var(--pico-primary);
+		border: 2px dashed var(--color-accent);
+		border-radius: 0.5rem;
 		box-shadow: none;
+				transition: all 0.2s;
 	}
 
 	.search button {
@@ -50,5 +54,12 @@
 		color: var(--pico-primary);
 		background-color: transparent;
 		border: none;
+	}
+
+	@media (width > 768px) {
+	.search {
+		width: 40%;
+		margin-top: 0;
+	}
 	}
 </style>
