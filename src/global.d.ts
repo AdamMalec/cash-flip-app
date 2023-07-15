@@ -13,14 +13,14 @@ interface Invoice {
 }
 
 interface Client {
-	id: string
-	clientStatus: ClientStatus
-	name: string
-	email: string
-	state: string
-	city: string
-	street: string
-	zip: string
+  clientStatus: ClientStatus
+  city: string
+  email: string
+  id: string
+  name: string
+  state: string
+  street: string
+  zip: string
 }
 
 interface lineItems {
@@ -28,15 +28,4 @@ interface lineItems {
 	amount: number
 	quantity: number
 	description: string
-}
-
-enum InvoiceStatus {
-	draft = 'draft',
-	sent = 'sent',
-	paid = 'paid',
-}
-
-enum ClientStatus {
-	active = 'active',
-	archived = 'archived',
 }
