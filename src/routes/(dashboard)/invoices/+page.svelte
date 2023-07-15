@@ -4,6 +4,7 @@
 	import BalloonAmount from '$lib/components/BalloonAmount.svelte';
 	import Search from '$lib/components/Search.svelte';
 	import InvoiceRow from './InvoiceRow.svelte';
+	import { centsToDollars, sumInvoices } from '$lib/utils/moneyHelpers';
 
 	onMount(() => {
 		loadInvoices();
@@ -46,7 +47,7 @@
 		</ul>
 	</div>
 
-	<BalloonAmount label="Total" amount="$1.140.00" />
+	<BalloonAmount label="Total" amount={`$${centsToDollars(sumInvoices($invoices))}`} />
 </div>
 
 <style>
