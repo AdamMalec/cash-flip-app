@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Tag from '$lib/components/Tag.svelte';
+	import { centsToDollars, sumLineItems } from '$lib/utils/moneyHelpers';
 
 	export let invoice: Invoice;
 </script>
@@ -10,7 +11,7 @@
 		<li class="invoice__date">{invoice.dueDate}</li>
 		<li class="invoice__id">{invoice.invoiceNumber}</li>
 		<li class="invoice__name">{invoice.client.name}</li>
-		<li class="invoice__amount">$420.00</li>
+		<li class="invoice__amount">${centsToDollars(sumLineItems(invoice.lineItems))}</li>
 		<li class="invoice__view">
 			<a href="/"
 				><svg
@@ -97,6 +98,9 @@
 	.invoice__name {
 		grid-area: name;
 		font-weight: bold;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 
 	.invoice__amount {
