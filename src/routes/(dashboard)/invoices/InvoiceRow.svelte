@@ -1,14 +1,27 @@
 <script lang="ts">
 	import Tag from '$lib/components/Tag.svelte';
+	import { convertDate, isLate } from '$lib/utils/dateHelpers';
 	import { centsToDollars, sumLineItems } from '$lib/utils/moneyHelpers';
 
 	export let invoice: Invoice;
+
+	function getInvoiceLabel() {
+		if (invoice.invoiceStatus === 'draft') {
+			return 'draft';
+		} else if (invoice.invoiceStatus === 'sent' && !isLate(invoice.dueDate)) {
+			return 'sent';
+		} else if (invoice.invoiceStatus === 'sent' && isLate(invoice.dueDate)) {
+			return 'late';
+		} else if (invoice.invoiceStatus === 'paid') {
+			return 'paid';
+		}
+	}
 </script>
 
 <li class="invoices__item invoice">
 	<ul class="invoice__info">
-		<li class="invoice__status"><Tag label={invoice.invoiceStatus} /></li>
-		<li class="invoice__date">{invoice.dueDate}</li>
+		<li class="invoice__status"><Tag label={getInvoiceLabel()} /></li>
+		<li class="invoice__date">{convertDate(invoice.dueDate)}</li>
 		<li class="invoice__id">{invoice.invoiceNumber}</li>
 		<li class="invoice__name">{invoice.client.name}</li>
 		<li class="invoice__amount">${centsToDollars(sumLineItems(invoice.lineItems))}</li>
