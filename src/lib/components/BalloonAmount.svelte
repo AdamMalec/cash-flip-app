@@ -23,9 +23,27 @@
 		float: right;
 	}
 
+	span:nth-child(1) {
+		/* font-size: 1rem; */
+		font-weight: bold;
+		color: var(--pico-primary);
+	}
+
+	span:nth-child(2) {
+		padding-top: 0.1rem;
+		font-family: monospace;
+		font-size: 1.1rem;
+		font-weight: bold;
+	}
+
 	@media (min-width: 768px) {
 		div {
-			min-width: 14.0rem;
+			min-height: 5.3rem;
+			min-width: 15rem;
+		}
+
+		span:nth-child(2) {
+			padding-top: 0.2rem;
 		}
 	}
 
@@ -39,17 +57,7 @@
 	@media (min-width: 1280px) {
 		div {
 			min-height: 4.6rem;
-			min-width: 13rem;
+			min-width: 12.4rem;
 		}
-	}
-
-	span:nth-child(1) {
-		font-weight: bold;
-	}
-
-	span:nth-child(2) {
-		font-family: monospace;
-		font-size: 1.2rem;
-		font-weight: bold;
 	}
 </style>
