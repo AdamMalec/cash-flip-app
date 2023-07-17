@@ -63,6 +63,8 @@
 		display: flex;
 		flex-direction: column-reverse;
 		justify-content: space-between;
+
+		margin-bottom: 2rem;
 	}
 
 	.invoices__header button {
