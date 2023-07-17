@@ -1,6 +1,8 @@
 :root {
-	--color-main: #7540bf;
-	--color-accent: #ffa23a;
+	--color-main: #7540BF;
+	--color-main-disabled: #EFEAF1;
+	--color-accent: #FFA23A;
+	--color-green: #22c6ae;
 
 	/* z-index */
 	--z-overlay: 99;

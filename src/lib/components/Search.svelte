@@ -17,7 +17,7 @@
 		align-items: center;
 		min-width: 320px;
 		width: 100%;
-		margin-block: 1rem;
+		margin-block: 2rem;
 	}
 	.search svg {
 		align-self: center;
@@ -37,14 +37,14 @@
 	}
 
 	.search input::placeholder {
-		color: #B3B9C5;
+		color: #b3b9c5;
 	}
 
 	.search input:focus {
 		border: 2px dashed var(--color-accent);
 		border-radius: 0.5rem;
 		box-shadow: none;
-				transition: all 0.2s;
+		transition: all 0.2s;
 	}
 
 	.search button {
@@ -57,9 +57,9 @@
 	}
 
 	@media (width > 768px) {
-	.search {
-		width: 40%;
-		margin-top: 0;
-	}
+		.search {
+			width: 40%;
+			margin: 0;
+		}
 	}
 </style>
