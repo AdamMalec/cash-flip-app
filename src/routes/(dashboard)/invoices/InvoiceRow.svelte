@@ -1,9 +1,13 @@
 <script lang="ts">
+	import AdditionalMenu from '$lib/components/AdditionalMenu.svelte';
 	import Tag from '$lib/components/Tag.svelte';
 	import { convertDate, isLate } from '$lib/utils/dateHelpers';
 	import { centsToDollars, sumLineItems } from '$lib/utils/moneyHelpers';
 
 	export let invoice: Invoice;
+
+	let isAddMenuOpen = false;
+	let isAddMenuFull = true;
 
 	function getInvoiceLabel() {
 		if (invoice.invoiceStatus === 'draft') {
@@ -11,11 +15,14 @@
 		} else if (invoice.invoiceStatus === 'sent' && !isLate(invoice.dueDate)) {
 			return 'sent';
 		} else if (invoice.invoiceStatus === 'sent' && isLate(invoice.dueDate)) {
+			isAddMenuFull = false;
 			return 'late';
 		} else if (invoice.invoiceStatus === 'paid') {
 			return 'paid';
 		}
 	}
+
+		// убирать рамку у иконки по клику (blur())
 </script>
 
 <li class="invoices__item invoice">
@@ -44,7 +51,7 @@
 			>
 		</li>
 		<li class="invoice__more">
-			<button>
+			<button on:click={() => (isAddMenuOpen = !isAddMenuOpen)} on:click={() => this.blur()}>
 				<svg
 					width="24"
 					height="24"
@@ -57,6 +64,9 @@
 					<circle cx="19" cy="12" r="2" />
 				</svg>
 			</button>
+			{#if isAddMenuOpen}
+				<AdditionalMenu {isAddMenuFull}/>
+			{/if}
 		</li>
 	</ul>
 </li>
@@ -138,6 +148,8 @@
 	}
 
 	.invoice__more {
+		position: relative;
+
 		grid-area: more;
 	}
 
