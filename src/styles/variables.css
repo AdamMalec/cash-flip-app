@@ -4,6 +4,13 @@
 	--color-accent: #FFA23A;
 	--color-green: #22c6ae;
 
+	/* breakpoints  less than*/
+	--bp-mobile-s: 576px;
+	--bp-mobile: 768px;
+	--bp-tablet: 1024px;
+	--bp-laptop: 1280px;
+	--bp-desktop: 1584px;
+
 	/* z-index */
 	--z-pop-up-menu: 90;
 	--z-nav: 98;
