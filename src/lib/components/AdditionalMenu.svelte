@@ -54,7 +54,7 @@
 		border-radius: 8px;
 		box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 
-		z-index: var(--z-modal);
+		z-index: var(--z-pop-up-menu);
 	}
 
 	.menu__item {

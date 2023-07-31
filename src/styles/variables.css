@@ -5,8 +5,9 @@
 	--color-green: #22c6ae;
 
 	/* z-index */
-	--z-overlay: 99;
-	--z-modal: 100;
-	--z-nav: 101;
-	--z-nav-toggle: 102;
+	--z-pop-up-menu: 90;
+	--z-nav: 98;
+	--z-nav-toggle: 99;
+	--z-overlay: 100;
+	--z-modal: 101;
 }
