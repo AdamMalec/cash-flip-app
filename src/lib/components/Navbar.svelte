@@ -24,9 +24,9 @@
 
 <button class="btn" on:click={() => (isOpen = !isOpen)}>
 	{#if isOpen}
-		<IconClose width={42} height={42} color="var(--color-accent)" />
+		<IconClose size={42} color="var(--color-accent)" />
 	{:else}
-		<IconBurger width={42} height={42}/>
+		<IconBurger size={42} />
 	{/if}
 </button>
 

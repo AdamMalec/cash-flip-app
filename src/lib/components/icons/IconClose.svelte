@@ -1,7 +1,8 @@
 <script lang="ts">
-	export let width: number = 24;
-	export let height: number = 24;
+	export let size: number = 24;
 	export let color: string = "000";
+	let width = size;
+	let height = size;
 </script>
 
 

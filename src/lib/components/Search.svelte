@@ -3,7 +3,7 @@
 </script>
 
 <form class="search" method="POST">
-	<IconSearch width={32} height={32}/>
+	<IconSearch size={32}/>
 	<input type="text" name="search" placeholder="Search by keyword" />
 	<button>Search</button>
 </form>
