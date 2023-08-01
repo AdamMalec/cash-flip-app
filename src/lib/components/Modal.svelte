@@ -44,9 +44,9 @@
 		position: relative;
 
 		width: 100%;
-		max-width: 460px;
-		min-height: 240px;
-		padding: 1.5rem;
+		max-width: 25.6rem;
+		min-height: 13.333rem;
+		padding: 2rem;
 
 		background-color: var(--pico-primary-inverse);
 		border: 2px solid var(--color-black);
@@ -55,8 +55,8 @@
 
 	.modal__close {
 		position: absolute;
-		top: 0.2rem;
-		right: 0.2rem;
+		top: -0.1rem;
+		right: -0.1rem;
 		padding: 0.6rem;
 		color: var(--pico-primary);
 		background-color: transparent;

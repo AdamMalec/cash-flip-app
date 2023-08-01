@@ -23,12 +23,12 @@
 
 	.search input {
 		height: 48px;
-		margin-left: 0.4rem;
+		margin-left: 0.25rem;
 		margin-bottom: 0;
 		padding: 12px 8px;
 		border: none;
 		border-bottom: 0.1875rem dashed var(--pico-primary);
-		transition: none;
+		transition: outline 0.1s ease-in-out;
 	}
 
 	.search input::placeholder {

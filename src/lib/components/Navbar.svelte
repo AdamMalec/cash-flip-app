@@ -10,7 +10,12 @@
 	{#if isOpen}
 		<style>
 			body {
+				padding-right: 17px;
 				overflow: hidden;
+			}
+
+			.btn {
+				right: 17px !important;
 			}
 
 			@media (width > 768px) {
@@ -24,7 +29,7 @@
 
 <button class="btn" on:click={() => (isOpen = !isOpen)}>
 	{#if isOpen}
-		<IconClose size={42} color="var(--color-accent)" />
+		<IconClose size={42} --color="var(--color-accent)" />
 	{:else}
 		<IconBurger size={42} />
 	{/if}

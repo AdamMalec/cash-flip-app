@@ -178,8 +178,8 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
-		row-gap: 1rem;
+		justify-content: space-between;
+		height: 8.8rem;
 		text-align: center;
 	}
 

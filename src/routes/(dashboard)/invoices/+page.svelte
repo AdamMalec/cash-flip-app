@@ -27,7 +27,7 @@
 		{/if}
 
 		<!-- new invoices -->
-		<Button label="+ Invoice" onClick={() => {}}/>
+		<div><Button label="+ Invoice" onClick={() => {}}/></div>
 	</div>
 
 	<div class="invoices__content">
