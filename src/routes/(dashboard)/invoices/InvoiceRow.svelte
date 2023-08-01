@@ -1,5 +1,6 @@
 <script lang="ts">
 	import AdditionalMenu from '$lib/components/AdditionalMenu.svelte';
+	import Button from '$lib/components/Button.svelte';
 	import Tag from '$lib/components/Tag.svelte';
 	import IconThreeDots from '$lib/components/icons/IconThreeDots.svelte';
 	import IconView from '$lib/components/icons/IconView.svelte';

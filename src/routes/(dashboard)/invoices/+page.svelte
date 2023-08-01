@@ -7,6 +7,7 @@
 	import { centsToDollars, sumInvoices } from '$lib/utils/moneyHelpers';
 	import BlankState from './BlankState.svelte';
 	import InvoiceHeader from './InvoiceHeader.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	onMount(() => {
 		loadInvoices();
@@ -26,18 +27,14 @@
 		{/if}
 
 		<!-- new invoices -->
-		<div>
-			<button>+ Invoice</button>
-		</div>
+		<Button label="+ Invoice" onClick={() => {}}/>
 	</div>
 
 	<div class="invoices__content">
-		<!-- invoices header -->
-
 		<!-- invoices list-->
-		{#if $invoices.length === null}
+		{#if $invoices === null}
 			Loading...
-		{:else if $invoices.length === 0}
+		{:else if $invoices.length <= 0}
 			<BlankState />
 		{:else}
 			<InvoiceHeader />
@@ -64,22 +61,6 @@
 		display: flex;
 		flex-direction: column-reverse;
 		justify-content: space-between;
-	}
-
-	.invoices__header button {
-		padding: 0.5rem 1rem;
-		font-weight: bold;
-		box-shadow: 0px 6px 14px rgba(140, 103, 213, 0.18);
-		transition: all 0.12s;
-	}
-
-	.invoices__header button:hover {
-		transform: translateY(-2px);
-		box-shadow: 0px 12px 22px rgba(140, 103, 213, 0.3);
-	}
-
-	.invoices__header button:focus {
-		outline: 4px solid var(--color-accent);
 	}
 
 	.invoices__list {
