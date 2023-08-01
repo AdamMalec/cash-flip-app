@@ -6,7 +6,7 @@
 	.blank-row {
 		height: 75px;
 		margin-bottom: 1rem;
-		background-color: var(--color-main-disabled);
+		background-color: var(--color-primary-disabled);
 		border-radius: 8px;
 	}
 </style>

@@ -70,7 +70,7 @@
 		padding: 0.4rem 0.6rem;
 
 		font-weight: bold;
-		color: var(--pico-inv-color);
+		color: var(--pico-primary-dim);
 		background-color: transparent;
 		border: none;
 	}

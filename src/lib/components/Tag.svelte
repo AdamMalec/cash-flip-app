@@ -27,25 +27,25 @@
 	}
 
 	.inverted {
-		color: var(--pico-inv-color);
-		border: 1px solid var(--pico-inv-color);
+		color: var(--pico-primary-dim);
+		border: 1px solid var(--pico-primary-dim);
 	}
 
 	.success {
-		color: var(--pico-primary-background);
-		background-color: var(--pico-suc-color);
-		border: 1px solid var(--pico-suc-color);
+		color: var(--pico-primary-inverse);
+		background-color: var(--color-success-bg);
+		border: 1px solid var(--color-success-bg);
 	}
 
 	.alert {
 		color: var(--pico-primary-inverse);
-		background-color: var(--pico-err-color);
-		border: 1px solid var(--pico-err-color);
+		background-color: var(--color-error-bg);
+		border: 1px solid var(--color-error-bg);
 	}
 
 	.archive {
 		color: var(--pico-primary-inverse);
-		background-color: var(--pico-inv-color);
-		border: 1px solid var(--pico-inv-color);
+		background-color: var(--pico-primary-dim);
+		border: 1px solid var(--pico-primary-dim);
 	}
 </style>

@@ -1,8 +1,12 @@
 :root {
-	--color-main: #7540BF;
-	--color-main-disabled: #EFEAF1;
+	--color-primary: #8352c5;
+	--color-primary-disabled: #EFEAF1;
+	--color-black: #373c44;
 	--color-accent: #FFA23A;
-	--color-green: #22c6ae;
+	--color-success: #158667;
+	--color-success-bg: #22c697;
+	--color-error: #D53E51;
+	--color-error-bg: #df6f7d;
 
 	/* breakpoints  less than*/
 	--bp-mobile-s: 576px;

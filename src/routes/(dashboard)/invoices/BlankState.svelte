@@ -18,7 +18,7 @@
 		margin-bottom: var(--pico-typography-spacing-vertical);
 		padding-left: 5.8rem;
 		text-align: left;
-		color: var(--color-green);
+		color: var(--color-success-bg);
 	}
 
 	h2::after {

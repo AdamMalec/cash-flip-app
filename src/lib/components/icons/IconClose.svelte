@@ -1,6 +1,5 @@
 <script lang="ts">
 	export let size: number = 24;
-	export let color: string = "000";
 	let width = size;
 	let height = size;
 </script>
@@ -10,7 +9,6 @@
 	{width}
 	{height}
 	viewBox="0 0 24 24"
-	style:color={color}
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"
 >
