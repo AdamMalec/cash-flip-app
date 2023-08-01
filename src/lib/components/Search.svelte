@@ -22,14 +22,12 @@
 	}
 
 	.search input {
-		height: 2rem;
+		height: 48px;
 		margin-left: 0.4rem;
 		margin-bottom: 0;
-		padding: 0.5rem;
-		border-width: 2px;
-		border-color: transparent;
-		border-bottom: dashed var(--pico-primary);
-		border-radius: 0;
+		padding: 12px 8px;
+		border: none;
+		border-bottom: 0.1875rem dashed var(--pico-primary);
 		transition: none;
 	}
 
@@ -38,10 +36,9 @@
 	}
 
 	.search input:focus {
-		border: 2px dashed var(--color-accent);
+		border-bottom-color: transparent;
 		border-radius: 0.5rem;
-		box-shadow: none;
-		transition: all 0.2s;
+		outline: 0.1875rem solid var(--color-accent);
 	}
 
 	.search button {
