@@ -1,16 +1,19 @@
 <script lang="ts">
 	import AdditionalMenu from '$lib/components/AdditionalMenu.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import Modal from '$lib/components/Modal.svelte';
 	import Tag from '$lib/components/Tag.svelte';
 	import IconThreeDots from '$lib/components/icons/IconThreeDots.svelte';
 	import IconView from '$lib/components/icons/IconView.svelte';
+	import { deleteInvoice } from '$lib/stores/InvoiceStore';
 	import { convertDate, isLate } from '$lib/utils/dateHelpers';
 	import { centsToDollars, sumLineItems } from '$lib/utils/moneyHelpers';
 
 	export let invoice: Invoice;
 
 	let isAddMenuOpen = false;
-	let isAddMenuFull = true;
+	let isAddMenuFullOptions = true;
+	let isModalShow = false;
 
 	function getInvoiceLabel() {
 		if (invoice.invoiceStatus === 'draft') {
@@ -18,14 +21,12 @@
 		} else if (invoice.invoiceStatus === 'sent' && !isLate(invoice.dueDate)) {
 			return 'sent';
 		} else if (invoice.invoiceStatus === 'sent' && isLate(invoice.dueDate)) {
-			isAddMenuFull = false;
+			isAddMenuFullOptions = false;
 			return 'late';
 		} else if (invoice.invoiceStatus === 'paid') {
 			return 'paid';
 		}
 	}
-
-	// убирать рамку у иконки по клику (blur())
 </script>
 
 <li class="invoices__item invoice">
@@ -46,11 +47,30 @@
 			</button>
 
 			{#if isAddMenuOpen}
-				<AdditionalMenu {isAddMenuFull} />
+				<AdditionalMenu
+					{isAddMenuFullOptions}
+					on:deleteInvoice={() => {
+						isModalShow = true;
+						isAddMenuOpen = false;
+					}}
+				/>
 			{/if}
 		</li>
 	</ul>
 </li>
+
+<Modal isVisible={isModalShow} on:close={() => (isModalShow = false)}>
+	<div class="modal__content">
+		<h6>Are you sure you want delete this invoice to <span>{invoice.client.name}</span> for <span>${centsToDollars(sumLineItems(invoice.lineItems))}</span>&nbsp;?</h6>
+		<div class="modal__buttons">
+			<Button label="Yes, Delete it" style="destructive" isAnimated={false} onClick={() => {
+				isModalShow = false;
+				deleteInvoice(invoice);
+			}} />
+			<Button label="Cancel" style="secondary" isAnimated={false} onClick={() => {isModalShow = false}} />
+		</div>
+	</div>
+</Modal>
 
 <style>
 	.invoice {
@@ -138,7 +158,7 @@
 	.invoice__more button {
 		display: inline-block;
 		padding: 0.2rem;
-		color: var(--pico-inv-color);
+		color: var(--pico-primary-dim);
 		border-radius: var(--pico-border-radius);
 	}
 
@@ -152,6 +172,28 @@
 	.invoice__more button {
 		background-color: transparent;
 		border: none;
+	}
+
+	.modal__content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		row-gap: 1rem;
+		text-align: center;
+	}
+
+	.modal__content h6 {
+		color: var(--color-black);
+	}
+
+	.modal__content span {
+		color: var(--color-error);
+	}
+
+	.modal__buttons {
+		display: flex;
+		column-gap: 1rem;
 	}
 
 	@media (width > 1024px) {

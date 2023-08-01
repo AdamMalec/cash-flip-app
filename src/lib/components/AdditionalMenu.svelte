@@ -1,17 +1,22 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import IconEdit from '$lib/components/icons/IconEdit.svelte';
 	import IconSend from '$lib/components/icons/IconSend.svelte';
 	import IconTrash from '$lib/components/icons/IconTrash.svelte';
 
-	export let isAddMenuFull: boolean;
+	export let isAddMenuFullOptions: boolean;
+	const dispatch = createEventDispatcher();
 
 	const handleSend = () => console.log('send...');
 	const handleEdit = () => console.log('edit...');
-	const handleDelete = () => console.log('delete...');
+	const handleDelete = () => {
+		dispatch('deleteInvoice');
+		console.log('delete...');
+	};
 </script>
 
 <ul class="menu">
-	{#if isAddMenuFull}
+	{#if isAddMenuFullOptions}
 		<li class="menu__item">
 			<button class="menu__btn" on:click={handleSend}>
 				<IconSend />
