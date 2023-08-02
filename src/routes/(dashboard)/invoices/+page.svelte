@@ -8,6 +8,9 @@
 	import BlankState from './BlankState.svelte';
 	import InvoiceHeader from './InvoiceHeader.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import SlidePanel from '$lib/components/SlidePanel.svelte';
+
+	let isInvoiceFormShow: boolean = false;
 
 	onMount(() => {
 		loadInvoices();
@@ -27,7 +30,7 @@
 		{/if}
 
 		<!-- new invoices -->
-		<div><Button label="+ Invoice" onClick={() => {}}/></div>
+		<div><Button label="+ Invoice" onClick={() => {isInvoiceFormShow = true}}/></div>
 	</div>
 
 	<div class="invoices__content">
@@ -47,6 +50,12 @@
 		{/if}
 	</div>
 </div>
+
+{#if isInvoiceFormShow}
+<SlidePanel on:closePanel={() => {isInvoiceFormShow = false}}>
+	5 let
+</SlidePanel>
+{/if}
 
 <style>
 	.invoices {

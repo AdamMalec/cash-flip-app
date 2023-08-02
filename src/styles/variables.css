@@ -20,5 +20,6 @@
 	--z-nav: 98;
 	--z-nav-toggle: 99;
 	--z-overlay: 100;
-	--z-modal: 101;
+	--z-slide-panel: 101;
+	--z-modal: 102;
 }
