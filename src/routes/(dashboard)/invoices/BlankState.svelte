@@ -17,12 +17,13 @@
 		margin-top: var(--pico-typography-spacing-top);
 		margin-bottom: var(--pico-typography-spacing-vertical);
 		padding-left: 5.8rem;
+		font-family: "Concert One", sans-serif;
 		text-align: left;
 		color: var(--color-success-bg);
 	}
 
 	h2::after {
-		content: '☝';
+		content: '👆';
 		position: absolute;
 		left: 1.4rem;
 		top: -2rem;
@@ -41,7 +42,7 @@
 
 		h2::after {
 			/* left: none; */
-			right: 2rem;
+			right: 1rem;
 			/* bottom: 0.2rem; */
 		}
 	}

@@ -1,0 +1,9 @@
+@font-face {
+	font-family: "Concert One";
+	src: local("Concert One Regular"),
+		local("ConcertOne-Regular"),
+		local("ConcertOne-Regular"),
+		url("/fonts/ConcertOne-Regular.woff2") format("woff2");
+	font-weight: normal;
+	font-display: swap;
+}
