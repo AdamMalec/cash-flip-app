@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-	<title>Invoices | Cash Peek</title>
+	<title>Invoices | Cash Peak</title>
 </svelte:head>
 
 <div class="invoices">
