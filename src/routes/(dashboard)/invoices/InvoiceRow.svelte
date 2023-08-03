@@ -63,11 +63,11 @@
 	<div class="modal__content">
 		<h6>Are you sure you want delete this invoice to <span>{invoice.client.name}</span> for <span>${centsToDollars(sumLineItems(invoice.lineItems))}</span>&nbsp;?</h6>
 		<div class="modal__buttons">
-			<Button label="Yes, Delete it" style="destructive" isAnimated={false} onClick={() => {
+			<Button label="Yes, Delete it" style="destructive"  onClick={() => {
 				isModalShow = false;
 				deleteInvoice(invoice);
 			}} />
-			<Button label="Cancel" style="secondary" isAnimated={false} onClick={() => {isModalShow = false}} />
+			<Button label="Cancel" style="secondary"  onClick={() => {isModalShow = false}} />
 		</div>
 	</div>
 </Modal>

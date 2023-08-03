@@ -17,8 +17,8 @@ label span {
 	color: var(--pico-secondary);
 }
 
-input[type='text']:not(.search),
-input[type='number'],
+input[type='text']:not(.search):not(.line-item),
+input[type='number']:not(.line-item),
 input[type='date'],
 input[type='password'],
 input[type='email'],
@@ -30,7 +30,7 @@ textarea {
 	padding: 0 1rem;
 }
 
-input:focus,
+input:not(.line-item):focus,
 select:focus,
 textarea:focus {
 	border-color: transparent;
@@ -47,6 +47,12 @@ select {
 
 .field {
 	margin-bottom: 1.6rem;
+}
+
+.line {
+	display: grid;
+	grid-template-columns: 1fr 80px 120px 120px 65px;
+	column-gap: 1rem;
 }
 
 /* for hiding content (screen reader only) */

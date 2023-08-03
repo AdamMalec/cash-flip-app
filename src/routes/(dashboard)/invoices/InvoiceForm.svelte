@@ -1,5 +1,15 @@
 <script lang="ts">
+	import LineItemRows from './LineItemRows.svelte';
 	import Button from '$lib/components/Button.svelte';
+
+	const blankItem = [
+		{
+			id: '1',
+			description: "Ready Baby",
+			quantity: 0,
+			amount: 0
+		}
+	]
 </script>
 
 <h2>Add an Invoice</h2>
@@ -42,7 +52,9 @@
 	</div>
 
 	<!-- line items -->
-	<div class="field line-items">Line Items</div>
+	<div class="field line-items">
+		<LineItemRows lineItems={blankItem}/>
+	</div>
 
 	<!-- notes -->
 	<div class="field notes">
