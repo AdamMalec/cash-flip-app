@@ -14,7 +14,7 @@
 	</div>
 	<div class="field client-button">
 		<span>or</span>
-		<Button label="+ Client" style="outline" isAnimated={false} onClick={() => {}} />
+		<Button label="+ Client" style="outline"  onClick={() => {}} />
 	</div>
 
 	<!-- invoice id -->
@@ -59,7 +59,7 @@
 
 	<!-- buttons -->
 	<div class="button">
-		<Button label="Delete" style="destructive" isAnimated={false} onClick={() => {}}/>
+		<Button label="Delete" style="destructive"  onClick={() => {}} />
 	</div>
 	<div class="buttons">
 		<button>Cancel</button>

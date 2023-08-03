@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let label: string;
-	export let style: 'primary' | 'secondary' | 'destructive' | 'outline' = 'primary';
-	export let isAnimated = true;
+	export let style: 'primary' | 'secondary' | 'destructive' | 'outline' | "textOnly" = 'primary';
+	export let isAnimated = false;
 	export let onClick: () => void;
 </script>
 
@@ -10,6 +10,7 @@
 	class:secondary={style === 'secondary'}
 	class:destructive={style === 'destructive'}
 	class:outline={style === 'outline'}
+	class:text-only={style === 'textOnly'}
 	class:isAnimated
 	on:click={() => onClick()}
 >
@@ -77,4 +78,18 @@
 		color: var(--pico-primary-inverse);
 		background-color: var(--pico-primary);
 	}
+
+	.text-only {
+		padding: 0.4rem;
+		font: inherit;
+		font-weight: bold;
+		color: var(--pico-primary);
+		background: none;
+		border: none;
+	}
+
+	.text-only:hover {
+		text-decoration: underline;
+	}
+
 </style>

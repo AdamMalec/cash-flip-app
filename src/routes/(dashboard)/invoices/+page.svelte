@@ -31,7 +31,7 @@
 		{/if}
 
 		<!-- new invoices -->
-		<div><Button label="+ Invoice" onClick={() => {isInvoiceFormShow = true}}/></div>
+		<div><Button label="+ Invoice" isAnimated={true} onClick={() => {isInvoiceFormShow = true}}/></div>
 	</div>
 
 	<div class="invoices__content">
