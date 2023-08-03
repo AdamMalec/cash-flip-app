@@ -1,14 +1,15 @@
 <script lang="ts">
 	export let label: string;
-	export let style: 'primary' | 'secondary' | 'destructive' = 'primary';
+	export let style: 'primary' | 'secondary' | 'destructive' | 'outline' = 'primary';
 	export let isAnimated = true;
 	export let onClick: () => void;
 </script>
 
 <button
-	class:primary={(style === 'primary')}
-	class:secondary={(style === 'secondary')}
-	class:destructive={(style === 'destructive')}
+	class:primary={style === 'primary'}
+	class:secondary={style === 'secondary'}
+	class:destructive={style === 'destructive'}
+	class:outline={style === 'outline'}
 	class:isAnimated
 	on:click={() => onClick()}
 >
@@ -46,7 +47,7 @@
 		box-shadow: 0px 6px 14px rgba(82, 95, 122, 0.18);
 	}
 
-	.secondary:hover  {
+	.secondary:hover {
 		background-color: var(--pico-secondary-hover-background);
 		box-shadow: 0px 6px 14px rgba(82, 95, 122, 0.3);
 	}
@@ -56,14 +57,24 @@
 		box-shadow: 0px 12px 22px rgba(223, 111, 125, 0.18);
 	}
 
-	.destructive:hover  {
+	.destructive:hover {
 		color: #ffd37a;
 		background-color: #e05a6a;
 		box-shadow: 0px 12px 22px rgba(223, 111, 125, 0.3);
 	}
 
-	.destructive:focus  {
+	.destructive:focus {
 		color: #ffd37a;
 		background-color: #e05a6a;
+	}
+
+	.outline {
+		color: var(--pico-primary);
+		border: 2px solid var(--pico-primary);
+	}
+
+	.outline:hover {
+		color: var(--pico-primary-inverse);
+		background-color: var(--pico-primary);
 	}
 </style>

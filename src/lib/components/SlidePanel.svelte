@@ -33,16 +33,19 @@
 
 		width: 75%;
 		height: 100vh;
-		padding-inline: 2rem;
+		padding-inline: 4rem;
 		padding-block: 1.2rem;
 
 		background-color: #f8f8f8;
 		box-shadow: -4px 0 44px rgba(0, 0, 0, 0.16);
 
+		overflow-y: scroll;
 		z-index: var(--z-slide-panel);
 	}
 
 	button {
+		position: relative;
+		left: -2rem;
 		padding: 10px;
 		font: inherit;
 		color: var(--pico-primary-dim);
