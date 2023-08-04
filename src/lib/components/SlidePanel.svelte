@@ -3,6 +3,7 @@
 	import Overlay from './Overlay.svelte';
 	import Portal from './Portal.svelte';
 	import IconArrow from '$lib/components/icons/IconArrow.svelte';
+	import Button from './Button.svelte';
 
 	const dispatch = createEventDispatcher();
 </script>
@@ -18,9 +19,11 @@
 <Portal>
 	<Overlay />
 	<div class="slide-panel">
-		<button on:click={() => dispatch('closePanel')}>
-			<IconArrow />
-		</button>
+		<div class="slide-panel-button">
+			<Button label="" style="icon" onClick={() => dispatch('closePanel')}>
+				<IconArrow />
+			</Button>
+		</div>
 		<slot />
 	</div>
 </Portal>
@@ -43,17 +46,8 @@
 		z-index: var(--z-slide-panel);
 	}
 
-	button {
+	.slide-panel-button {
 		position: relative;
 		left: -2rem;
-		padding: 10px;
-		font: inherit;
-		color: var(--pico-primary-dim);
-		background: none;
-		border: none;
-	}
-
-	button:hover {
-		color: var(--pico-primary);
 	}
 </style>

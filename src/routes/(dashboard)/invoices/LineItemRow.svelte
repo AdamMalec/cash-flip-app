@@ -1,4 +1,5 @@
 <script>
+	import Button from '$lib/components/Button.svelte';
 	import IconTrash from '$lib/components/icons/IconTrash.svelte';
 </script>
 
@@ -20,7 +21,10 @@
 	</div>
 
 	<div>
-		<button><IconTrash /></button>
+		<Button label="" style="icon" onClick={() => {}}>
+			<IconTrash />
+		</Button>
+		<button />
 	</div>
 </div>
 
@@ -31,19 +35,6 @@
 
 	.line-item {
 		margin-bottom: 0.6rem;
-	}
-
-	.line button {
-		padding: 10px;
-		font: inherit;
-		color: var(--pico-primary-dim);
-		background: none;
-		border: none;
-	}
-
-	.line button:hover,
-	.line button:focus {
-		color: var(--pico-primary);
 	}
 
 	input[type='text'],

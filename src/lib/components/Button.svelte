@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let label: string;
-	export let style: 'primary' | 'secondary' | 'destructive' | 'outline' | "textOnly" = 'primary';
+	export let style: 'primary' | 'secondary' | 'destructive' | 'outline' | 'textOnly' | 'icon' =
+		'primary';
 	export let isAnimated = false;
 	export let onClick: () => void;
 </script>
@@ -11,10 +12,12 @@
 	class:destructive={style === 'destructive'}
 	class:outline={style === 'outline'}
 	class:text-only={style === 'textOnly'}
+	class:icon={style === 'icon'}
 	class:isAnimated
 	on:click={() => onClick()}
 >
 	{label}
+	<slot />
 </button>
 
 <style>
@@ -92,4 +95,16 @@
 		text-decoration: underline;
 	}
 
+	.icon {
+		padding: 10px;
+		font: inherit;
+		color: var(--pico-primary-dim);
+		background: none;
+		border: none;
+	}
+
+	.icon:hover,
+	.icon:focus {
+		color: var(--pico-primary);
+	}
 </style>
