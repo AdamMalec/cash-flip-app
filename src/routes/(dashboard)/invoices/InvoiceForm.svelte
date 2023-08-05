@@ -2,14 +2,24 @@
 	import LineItemRows from './LineItemRows.svelte';
 	import Button from '$lib/components/Button.svelte';
 
-	const blankItem = [
-		{
-			id: '1',
-			description: "Ready Baby",
-			quantity: 0,
-			amount: 0
-		}
-	]
+	const blankLineItem = {
+		id: crypto.randomUUID(),
+		description: 'Ready Baby',
+		quantity: 0,
+		amount: 0
+	};
+
+	let lineItems: LineItem[] = [blankLineItem];
+
+	function addLineItem() {
+		lineItems = [...lineItems, {...blankLineItem, id: crypto.randomUUID()}];
+	}
+
+	function removeLineItem(event) {
+		console.log('remove line item');
+		lineItems = lineItems.filter((item) =>  item.id !==event.detail)
+
+	}
 </script>
 
 <h2>Add an Invoice</h2>
@@ -24,7 +34,7 @@
 	</div>
 	<div class="field client-button">
 		<span>or</span>
-		<Button label="+ Client" style="outline"  onClick={() => {}} />
+		<Button label="+ Client" style="outline" onClick={() => {}} />
 	</div>
 
 	<!-- invoice id -->
@@ -53,7 +63,7 @@
 
 	<!-- line items -->
 	<div class="field line-items">
-		<LineItemRows lineItems={blankItem}/>
+		<LineItemRows lineItems={lineItems} on:addLineItem={addLineItem} on:removeLineItem={removeLineItem}/>
 	</div>
 
 	<!-- notes -->
@@ -71,7 +81,7 @@
 
 	<!-- buttons -->
 	<div class="button">
-		<Button label="Delete" style="destructive"  onClick={() => {}} />
+		<Button label="Delete" style="destructive" onClick={() => {}} />
 	</div>
 	<div class="buttons">
 		<button>Cancel</button>

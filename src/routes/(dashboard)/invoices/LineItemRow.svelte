@@ -1,6 +1,11 @@
-<script>
+<script lang="ts">
 	import Button from '$lib/components/Button.svelte';
 	import IconTrash from '$lib/components/icons/IconTrash.svelte';
+	import { createEventDispatcher } from 'svelte';
+
+	export let lineItem: LineItem;
+
+	let dispatch = createEventDispatcher();
 </script>
 
 <div class="line">
@@ -21,10 +26,15 @@
 	</div>
 
 	<div>
-		<Button label="" style="icon" onClick={() => {}}>
+		<Button
+			label=""
+			style="icon"
+			onClick={() => {
+				dispatch('removeLineItem', lineItem.id);
+			}}
+		>
 			<IconTrash />
 		</Button>
-		<button />
 	</div>
 </div>
 

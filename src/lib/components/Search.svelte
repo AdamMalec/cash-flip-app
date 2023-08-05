@@ -16,10 +16,6 @@
 		width: 100%;
 		margin-block: 2rem;
 	}
-	.search svg {
-		align-self: center;
-		padding-top: 0.3rem;
-	}
 
 	.search input {
 		height: 48px;

@@ -1,9 +1,12 @@
 <script lang="ts">
 	import BalloonAmount from '$lib/components/BalloonAmount.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import { createEventDispatcher } from 'svelte';
 	import LineItemRow from './LineItemRow.svelte';
 
-	export let lineItems: lineItems[] | undefined = undefined;
+	export let lineItems: LineItem[] | undefined = undefined;
+
+	let dispatch = createEventDispatcher();
 </script>
 
 <div class="table">
@@ -15,13 +18,13 @@
 
 {#if lineItems}
 	{#each lineItems as lineItem}
-		<LineItemRow />
+		<LineItemRow {lineItem} on:removeLineItem/>
 	{/each}
 {/if}
 
 <div class="line">
 	<div class="line-add">
-		<Button label="+&nbsp;Line" style="textOnly" onClick={() => {}} />
+		<Button label="+&nbsp;Line+&nbsp;Item" style="textOnly" onClick={() => {dispatch('addLineItem')}} />
 	</div>
 	<span class="line-subtitle">Subtotal</span>
 	<span class="line-subtotal">$250.00</span>
