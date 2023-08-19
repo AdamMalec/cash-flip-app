@@ -1,6 +1,8 @@
 <script lang="ts">
 	import LineItemRows from './LineItemRows.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import {slide} from 'svelte/transition';
+	import {states} from '$lib/utils/states';
 
 	const blankLineItem = {
 		id: crypto.randomUUID(),
@@ -10,6 +12,7 @@
 	};
 
 	let lineItems: LineItem[] = [{...blankLineItem}];
+	let isNewClient: boolean = false;
 
 	function addLineItem() {
 		lineItems = [...lineItems, {...blankLineItem, id: crypto.randomUUID()}];
@@ -30,21 +33,65 @@
 <form>
 	<!-- client -->
 	<div class="field client-select">
-		<label for="client">Client</label>
-		<select name="client" id="client">
-			<option value="zeal">ZEAL</option>
-		</select>
-	</div>
-	<div class="field client-button">
-		<span>or</span>
-		<Button label="+ Client" style="outline" onClick={() => {}} />
-	</div>
+		{#if !isNewClient}
+			<label for="client">Client</label>
+			<div class="client-inner">
+				<select name="client" id="client">
+					<option value="zeal">ZEAL</option>
+				</select>
+				<span>or</span>
+				<Button label="+&nbsp;Client" style="outline" onClick={() => {isNewClient = true}} />
+			</div>
+		{:else}
+			<label for="new-client">New Client</label>
+			<div class="client-inner">
+				<input type="text" name="new-client">
+				<span>or</span>
+				<Button label="Existing&nbsp;Client" style="outline" onClick={() => {isNewClient=false}} />
+			</div>
+		{/if}
 
+	</div>
 	<!-- invoice id -->
 	<div class="field invoice-id">
 		<label for="id">Invoice ID</label>
 		<input type="text" name="id" />
 	</div>
+
+	<!-- new-client begin -->
+	{#if	isNewClient}
+		<div class="field new-client" transition:slide>
+			<div class="field new-client__email">
+				<label for="email">Client's Email</label>
+				<input type="email" name="email" id="email">
+			</div>
+
+			<div class="field new-client__address">
+				<label for="address">Address</label>
+				<input type="text" name="address" id="address">
+			</div>
+
+			<div class="field new-client__city">
+				<label for="city">City</label>
+				<input type="text" name="city" id="city">
+			</div>
+
+			<div class="field new-client__state">
+				<label for="state">State</label>
+				<select name="state" id="state">
+					<option />
+					{#each states as state}
+						<option value={state.value}>{state.name}</option>
+					{/each}
+				</select>
+			</div>
+
+			<div class="field new-client__zip">
+				<label for="zip">ZIP</label>
+				<input type="text" name="zip" id="zip">
+			</div>
+		</div>
+	{/if}
 
 	<!-- due data -->
 	<div class="field due-data">
@@ -111,21 +158,38 @@
 	}
 
 	.client-select {
-		grid-column: span 2 / span 2;
+		grid-column: span 4 / span 4;
 	}
 
-	.client-button {
-		grid-column: span 2 / span 2;
+	.client-inner {
 		display: flex;
-		align-items: end;
+		align-items: center;
 		column-gap: 1rem;
 	}
 
-	.client-button span {
+	.client-select span {
 		line-height: 2.5rem;
 	}
 
 	.invoice-id {
+		grid-column: span 2 / span 2;
+	}
+
+	.new-client {
+		grid-column: span 6 / span 6;
+		display: grid;
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+		column-gap: 1rem;
+	}
+
+	.new-client__email,
+	.new-client__address {
+		grid-column: span 6 / span 6;
+	}
+
+	.new-client__city,
+	.new-client__state,
+	.new-client__zip {
 		grid-column: span 2 / span 2;
 	}
 

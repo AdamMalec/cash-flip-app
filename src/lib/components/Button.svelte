@@ -75,6 +75,7 @@
 	.outline {
 		color: var(--pico-primary);
 		border: 2px solid var(--pico-primary);
+		transition: none;
 	}
 
 	.outline:hover {
