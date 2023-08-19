@@ -9,8 +9,12 @@ export function centsToDollars(cents: number): string {
 	return addThousandsSeparator(dollarsWithDecimals);
 }
 
+export function dollarsToCents(dollars: number): number {
+	return dollars * 100;
+}
+
 export function addThousandsSeparator(myNum: string): string {
-	return myNum.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+	return myNum.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 export function sumInvoices(invoices: Invoice[] | undefined): number {
@@ -18,5 +22,5 @@ export function sumInvoices(invoices: Invoice[] | undefined): number {
 	return invoices.reduce((pervValue, curValue) => {
 		const invoiceSum = sumLineItems(curValue.lineItems);
 		return pervValue + invoiceSum;
-	}, 0)
+	}, 0);
 }

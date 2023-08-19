@@ -4,12 +4,12 @@
 
 	const blankLineItem = {
 		id: crypto.randomUUID(),
-		description: 'Ready Baby',
+		description: '',
 		quantity: 0,
 		amount: 0
 	};
 
-	let lineItems: LineItem[] = [blankLineItem];
+	let lineItems: LineItem[] = [{...blankLineItem}];
 
 	function addLineItem() {
 		lineItems = [...lineItems, {...blankLineItem, id: crypto.randomUUID()}];
@@ -17,7 +17,7 @@
 
 	function removeLineItem(event) {
 		console.log('remove line item');
-		lineItems = lineItems.filter((item) =>  item.id !==event.detail)
+		lineItems = lineItems.filter((item) => item.id !== event.detail)
 
 	}
 </script>

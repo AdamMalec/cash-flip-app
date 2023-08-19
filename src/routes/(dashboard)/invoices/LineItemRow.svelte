@@ -1,31 +1,64 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
 	import IconTrash from '$lib/components/icons/IconTrash.svelte';
+	import { dollarsToCents } from '$lib/utils/moneyHelpers';
 	import { createEventDispatcher } from 'svelte';
 
 	export let lineItem: LineItem;
+	export let canDelete: boolean = false;
+
+	let unitPrice: string = (lineItem.amount / lineItem.quantity).toFixed(2);
+	let amount: string = lineItem.amount.toFixed(2);
+
+	$: {
+		amount = (lineItem.quantity * Number(unitPrice)).toFixed(2);
+		lineItem.amount = dollarsToCents(Number(amount));
+	}
 
 	let dispatch = createEventDispatcher();
 </script>
 
 <div class="line">
 	<div>
-		<input class="line-item" type="text" name="description" />
+		<input
+			class="line-item"
+			type="text"
+			name="description"
+			bind:value={lineItem.description}
+			autocomplete="off"
+		/>
 	</div>
 
 	<div>
-		<input class="line-item" type="number" name="quantity" min="0" />
+		<input class="line-item" type="number" name="quantity" min="0" bind:value={lineItem.quantity} />
 	</div>
 
 	<div>
-		<input class="line-item" type="number" name="unitPrice" step="0.01" min="0" />
+		<input
+			class="line-item"
+			type="number"
+			name="unitPrice"
+			step="0.01"
+			min="0"
+			bind:value={unitPrice}
+			on:blur={() => (unitPrice = Number(unitPrice).toFixed(2))}
+		/>
 	</div>
 
 	<div>
-		<input class="line-item" type="number" name="amount" step="0.01" min="0" />
+		<input
+			class="line-item"
+			type="number"
+			name="amount"
+			step="0.01"
+			min="0"
+			bind:value={amount}
+			disabled
+		/>
 	</div>
 
 	<div>
+		{#if canDelete}
 		<Button
 			label=""
 			style="icon"
@@ -35,6 +68,7 @@
 		>
 			<IconTrash />
 		</Button>
+		{/if}
 	</div>
 </div>
 
@@ -57,13 +91,8 @@
 		border-radius: 0;
 	}
 
-	input[type='text']:focus,
-	input[type='number']:focus {
-		box-shadow: none;
-		border-bottom: 4px solid var(--pico-primary-focus);
-	}
-
 	input[type='number'] {
+		padding-right: 0;
 		text-align: right;
 		font-family: monospace;
 	}
@@ -72,7 +101,14 @@
 		text-align: center;
 	}
 
-	input[name='unitPrice'] {
-		text-align: right;
+	input[type='text']:focus,
+	input[type='number']:focus {
+		box-shadow: none;
+		border-bottom: 4px solid var(--pico-primary-focus);
+	}
+
+	input[type='text']:disabled,
+	input[type='number']:disabled {
+		border-bottom: 0;
 	}
 </style>

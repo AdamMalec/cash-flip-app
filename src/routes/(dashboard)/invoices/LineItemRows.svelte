@@ -17,14 +17,14 @@
 </div>
 
 {#if lineItems}
-	{#each lineItems as lineItem}
-		<LineItemRow {lineItem} on:removeLineItem/>
+	{#each lineItems as lineItem, index}
+		<LineItemRow {lineItem} on:removeLineItem canDelete={index > 0}/>
 	{/each}
 {/if}
 
 <div class="line">
 	<div class="line-add">
-		<Button label="+&nbsp;Line+&nbsp;Item" style="textOnly" onClick={() => {dispatch('addLineItem')}} />
+		<Button label="+&nbsp;Line item" style="textOnly" onClick={() => {dispatch('addLineItem')}} />
 	</div>
 	<span class="line-subtitle">Subtotal</span>
 	<span class="line-subtotal">$250.00</span>
