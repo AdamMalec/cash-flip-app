@@ -15,10 +15,13 @@
 		lineItems = [...lineItems, {...blankLineItem, id: crypto.randomUUID()}];
 	}
 
+	function updateLineItem() {
+		lineItems = lineItems;
+	}
+
 	function removeLineItem(event) {
 		console.log('remove line item');
 		lineItems = lineItems.filter((item) => item.id !== event.detail)
-
 	}
 </script>
 
@@ -63,7 +66,11 @@
 
 	<!-- line items -->
 	<div class="field line-items">
-		<LineItemRows lineItems={lineItems} on:addLineItem={addLineItem} on:removeLineItem={removeLineItem}/>
+		<LineItemRows lineItems={lineItems}
+			on:addLineItem={addLineItem}
+			on:removeLineItem={removeLineItem}
+			on:updateLineItem={updateLineItem}
+		/>
 	</div>
 
 	<!-- notes -->

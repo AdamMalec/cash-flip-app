@@ -1,4 +1,4 @@
-export function sumLineItems(lineItems: lineItems[] | undefined) {
+export function sumLineItems(lineItems: LineItem[] | undefined) {
 	if (!lineItems) return 0;
 	return lineItems.reduce((prevValue, curValue) => prevValue + curValue.amount, 0);
 }

@@ -41,7 +41,10 @@
 			step="0.01"
 			min="0"
 			bind:value={unitPrice}
-			on:blur={() => (unitPrice = Number(unitPrice).toFixed(2))}
+			on:blur={() => {
+				(unitPrice = Number(unitPrice).toFixed(2));
+				dispatch('updateLineItem');
+				}}
 		/>
 	</div>
 
@@ -53,6 +56,7 @@
 			step="0.01"
 			min="0"
 			bind:value={amount}
+			on:blur={() => dispatch('updateLineItem')}
 			disabled
 		/>
 	</div>

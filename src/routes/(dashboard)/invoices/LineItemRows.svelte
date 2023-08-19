@@ -3,10 +3,26 @@
 	import Button from '$lib/components/Button.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import LineItemRow from './LineItemRow.svelte';
+	import { centsToDollars, sumLineItems } from '$lib/utils/moneyHelpers';
 
 	export let lineItems: LineItem[] | undefined = undefined;
 
+	let subtotal:string = '0.00';
+	let discount:number;
+	let discountAmount:string = '0.00';
+	let total: string = '0.00';
+
 	let dispatch = createEventDispatcher();
+
+	$: if (sumLineItems(lineItems)) {
+		subtotal = centsToDollars(sumLineItems(lineItems));
+	}
+
+	$: if (subtotal && discount) {
+	 discountAmount = centsToDollars(sumLineItems(lineItems) * (discount / 100));
+	}
+
+	$:total = (parseInt(subtotal) - parseInt(discountAmount)).toFixed(2);
 </script>
 
 <div class="table">
@@ -18,7 +34,11 @@
 
 {#if lineItems}
 	{#each lineItems as lineItem, index}
-		<LineItemRow {lineItem} on:removeLineItem canDelete={index > 0}/>
+		<LineItemRow {lineItem}
+			canDelete={index > 0}
+			on:removeLineItem
+			on:updateLineItem
+		/>
 	{/each}
 {/if}
 
@@ -27,21 +47,21 @@
 		<Button label="+&nbsp;Line item" style="textOnly" onClick={() => {dispatch('addLineItem')}} />
 	</div>
 	<span class="line-subtitle">Subtotal</span>
-	<span class="line-subtotal">$250.00</span>
+	<span class="line-subtotal">${subtotal}</span>
 </div>
 
 <div class="line">
 	<span class="line-discount-title">Discount </span>
 	<div class="line-discount">
-		<input type="number" name="discount" min="0" max="100" />
+		<input type="number" name="discount" min="0" max="100" bind:value={discount}/>
 		<span>%</span>
 	</div>
-	<span class="line-discount-total">$10.00</span>
+	<span class="line-discount-total">${discountAmount}</span>
 </div>
 
 <div class="line">
 	<div class="line-total">
-		<BalloonAmount amount="$1.440.00" />
+		<BalloonAmount amount={`$${total}`} />
 	</div>
 </div>
 
