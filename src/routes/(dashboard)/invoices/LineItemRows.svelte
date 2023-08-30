@@ -36,6 +36,7 @@
 	{#each lineItems as lineItem, index}
 		<LineItemRow {lineItem}
 			canDelete={index > 0}
+			isRequired={index === 0}
 			on:removeLineItem
 			on:updateLineItem
 		/>

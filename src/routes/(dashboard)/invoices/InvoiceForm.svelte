@@ -1,8 +1,12 @@
 <script lang="ts">
+	import { clients, loadClients } from '$lib/stores/ClientStore';
 	import LineItemRows from './LineItemRows.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import {slide} from 'svelte/transition';
 	import {states} from '$lib/utils/states';
+	import { onMount } from 'svelte';
+	import { today } from '$lib/utils/dateHelpers';
+
 
 	const blankLineItem = {
 		id: crypto.randomUUID(),
@@ -26,6 +30,10 @@
 		console.log('remove line item');
 		lineItems = lineItems.filter((item) => item.id !== event.detail)
 	}
+
+	onMount(() => {
+		loadClients();
+	})
 </script>
 
 <h2>Add an Invoice</h2>
@@ -36,8 +44,11 @@
 		{#if !isNewClient}
 			<label for="client">Client</label>
 			<div class="client-inner">
-				<select name="client" id="client">
-					<option value="zeal">ZEAL</option>
+				<select name="client" id="client" required={!isNewClient}>
+					<option />
+					{#each $clients as client}
+						<option value={client.id}>{client.name}</option>
+					{/each}
 				</select>
 				<span>or</span>
 				<Button label="+&nbsp;Client" style="outline" onClick={() => {isNewClient = true}} />
@@ -45,7 +56,7 @@
 		{:else}
 			<label for="new-client">New Client</label>
 			<div class="client-inner">
-				<input type="text" name="new-client">
+				<input type="text" name="new-client" required={isNewClient}>
 				<span>or</span>
 				<Button label="Existing&nbsp;Client" style="outline" onClick={() => {isNewClient=false}} />
 			</div>
@@ -53,9 +64,9 @@
 
 	</div>
 	<!-- invoice id -->
-	<div class="field invoice-id">
-		<label for="id">Invoice ID</label>
-		<input type="text" name="id" />
+	<div class="field invoice-number">
+		<label for="invoiceNumber">Invoice ID</label>
+		<input type="text" name="invoiceNumber" required/>
 	</div>
 
 	<!-- new-client begin -->
@@ -63,7 +74,7 @@
 		<div class="field new-client" transition:slide>
 			<div class="field new-client__email">
 				<label for="email">Client's Email</label>
-				<input type="email" name="email" id="email">
+				<input type="email" name="email" id="email" required={isNewClient}>
 			</div>
 
 			<div class="field new-client__address">
@@ -96,7 +107,7 @@
 	<!-- due data -->
 	<div class="field due-data">
 		<label for="dueDate">Due Data</label>
-		<input type="date" name="dueDate" />
+		<input type="date" name="dueDate"  min={today} required/>
 	</div>
 
 	<!-- issue data -->
@@ -138,8 +149,8 @@
 		<Button label="Delete" style="destructive" onClick={() => {}} />
 	</div>
 	<div class="buttons">
-		<button>Cancel</button>
-		<button>Save</button>
+		<Button label="Cancel" style="secondary" onClick={() => {}}></Button>
+		<button type="submit">Save</button>
 	</div>
 </form>
 
@@ -171,7 +182,7 @@
 		line-height: 2.5rem;
 	}
 
-	.invoice-id {
+	.invoice-number {
 		grid-column: span 2 / span 2;
 	}
 
@@ -231,5 +242,12 @@
 		grid-column: span 4 / span 4;
 		display: flex;
 		justify-content: flex-end;
+	}
+
+	.buttons button:last-child {
+		margin-bottom: 0;
+		margin-left: 0.6rem;
+		padding: 0.5rem 1rem;
+		font-weight: bold;
 	}
 </style>

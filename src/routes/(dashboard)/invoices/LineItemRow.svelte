@@ -6,6 +6,7 @@
 
 	export let lineItem: LineItem;
 	export let canDelete: boolean = false;
+	export let isRequired: boolean = false;
 
 	let unitPrice: string = (lineItem.amount / lineItem.quantity).toFixed(2);
 	let amount: string = lineItem.amount.toFixed(2);
@@ -24,13 +25,20 @@
 			class="line-item"
 			type="text"
 			name="description"
-			bind:value={lineItem.description}
 			autocomplete="off"
+			required={isRequired}
+			bind:value={lineItem.description}
 		/>
 	</div>
 
 	<div>
-		<input class="line-item" type="number" name="quantity" min="0" bind:value={lineItem.quantity} />
+		<input
+			class="line-item"
+			type="number"
+			name="quantity"
+			min="0"
+			required={isRequired}
+			bind:value={lineItem.quantity} />
 	</div>
 
 	<div>

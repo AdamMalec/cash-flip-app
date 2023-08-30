@@ -1,4 +1,6 @@
-import { isBefore } from "date-fns";
+import { isBefore, format } from "date-fns";
+
+export const today = format(new Date(), 'yyyy-MM-dd');
 
 // Convert date from yyyy-mm-dd to d-m-yyyy
 export function convertDate(myDate: string): string {

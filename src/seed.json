@@ -152,5 +152,35 @@
 			],
 			"subject": "Website"
 		}
+	],
+	"clients": [
+		{
+			"city": "Somewhereville",
+			"clientStatus": "active",
+			"email": "compressed@example.com",
+			"id": "1",
+			"name": "Compressed.fm",
+			"state": "TN",
+			"street": "123 Main Street",
+			"zip": "12345"
+		},
+		{
+			"address": "666 Street",
+			"city": "Pasadena",
+			"email": "psydena@gmail.com",
+			"id": "2",
+			"name": "Cooper SH",
+			"state": "Nebraska",
+			"zip": "55555"
+		},
+		{
+			"address": "78 Street",
+			"city": "Coolichicki",
+			"email": "coolichicki@gmail.com",
+			"id": "3",
+			"name": "Sarah OG",
+			"state": "Memphis",
+			"zip": "55555"
+		}
 	]
 }
