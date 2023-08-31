@@ -22,7 +22,7 @@
 	 discountAmount = centsToDollars(sumLineItems(lineItems) * (discount / 100));
 	}
 
-	$:total = (parseInt(subtotal) - parseInt(discountAmount)).toFixed(2);
+	$:total = (Number(subtotal) - Number(discountAmount)).toFixed(2);
 </script>
 
 <div class="table">
