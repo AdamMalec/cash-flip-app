@@ -53,8 +53,8 @@
 </div>
 
 {#if isInvoiceFormShow}
-<SlidePanel on:closePanel={() => {isInvoiceFormShow = false}}>
-	<InvoiceForm />
+<SlidePanel on:closePanel={() => isInvoiceFormShow = false}>
+	<InvoiceForm closePanel={() => isInvoiceFormShow = false}/>
 </SlidePanel>
 {/if}
 

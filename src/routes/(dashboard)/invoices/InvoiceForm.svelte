@@ -1,12 +1,14 @@
 <script lang="ts">
-	import { clients, loadClients } from '$lib/stores/ClientStore';
+	import { addClient, clients, loadClients } from '$lib/stores/ClientStore';
 	import LineItemRows from './LineItemRows.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import {slide} from 'svelte/transition';
 	import {states} from '$lib/utils/states';
 	import { onMount } from 'svelte';
 	import { today } from '$lib/utils/dateHelpers';
+	import { addInvoice } from '$lib/stores/InvoiceStore';
 
+	export let closePanel: () => void = () => {};
 
 	const blankLineItem = {
 		id: crypto.randomUUID(),
@@ -15,20 +17,34 @@
 		amount: 0
 	};
 
-	let lineItems: LineItem[] = [{...blankLineItem}];
+	// let lineItems: LineItem[] = [{...blankLineItem}];
+	let newClient: Partial<Client> = {};
 	let isNewClient: boolean = false;
+	let invoice: Invoice = {
+		client: {} as Client,
+		lineItems: [{...blankLineItem}]
+	} as Invoice;
 
 	function addLineItem() {
-		lineItems = [...lineItems, {...blankLineItem, id: crypto.randomUUID()}];
+		invoice.lineItems = [...(invoice.lineItems as []), {...blankLineItem, id: crypto.randomUUID()}];
 	}
 
 	function updateLineItem() {
-		lineItems = lineItems;
+		invoice.lineItems = invoice.lineItems;
 	}
 
-	function removeLineItem(event) {
-		console.log('remove line item');
-		lineItems = lineItems.filter((item) => item.id !== event.detail)
+	function removeLineItem(event: CustomEvent) {
+		invoice.lineItems = invoice?.lineItems && invoice.lineItems.filter((item) => item.id !== event.detail)
+	}
+
+	function handleSubmit() {
+		if(isNewClient) {
+			invoice.client = newClient as Client;
+			addClient(newClient as Client);
+		}
+
+		addInvoice(invoice);
+		closePanel();
 	}
 
 	onMount(() => {
@@ -38,27 +54,48 @@
 
 <h2>Add an Invoice</h2>
 
-<form>
+<form on:submit|preventDefault={handleSubmit}>
 	<!-- client -->
 	<div class="field client-select">
 		{#if !isNewClient}
 			<label for="client">Client</label>
 			<div class="client-inner">
-				<select name="client" id="client" required={!isNewClient}>
+				<select
+					name="client"
+					id="client"
+					required={!isNewClient}
+					bind:value={invoice.client.id}
+					on:change={() => {
+						const selectedClient = $clients.find((client) => client.id === invoice.client.id);
+						invoice.client.name = selectedClient?.name !== undefined ? selectedClient.name : '';
+				}}>
 					<option />
 					{#each $clients as client}
 						<option value={client.id}>{client.name}</option>
 					{/each}
 				</select>
 				<span>or</span>
-				<Button label="+&nbsp;Client" style="outline" onClick={() => {isNewClient = true}} />
+				<Button
+					label="+&nbsp;Client"
+					style="outline"
+					onClick={() => {
+						isNewClient = true;
+						invoice.client.name = '';
+						invoice.client.email = '';
+					}} />
 			</div>
 		{:else}
 			<label for="new-client">New Client</label>
 			<div class="client-inner">
-				<input type="text" name="new-client" required={isNewClient}>
+				<input type="text" name="new-client" required={isNewClient} bind:value={newClient.name}>
 				<span>or</span>
-				<Button label="Existing&nbsp;Client" style="outline" onClick={() => {isNewClient=false}} />
+				<Button
+					label="Existing&nbsp;Client"
+					style="outline"
+					onClick={() => {
+						isNewClient=false;
+						newClient = {};
+					}} />
 			</div>
 		{/if}
 
@@ -66,7 +103,7 @@
 	<!-- invoice id -->
 	<div class="field invoice-number">
 		<label for="invoiceNumber">Invoice ID</label>
-		<input type="text" name="invoiceNumber" required/>
+		<input type="text" name="invoiceNumber" required bind:value={invoice.invoiceNumber}/>
 	</div>
 
 	<!-- new-client begin -->
@@ -74,22 +111,22 @@
 		<div class="field new-client" transition:slide>
 			<div class="field new-client__email">
 				<label for="email">Client's Email</label>
-				<input type="email" name="email" id="email" required={isNewClient}>
+				<input type="email" name="email" id="email" required={isNewClient} bind:value={newClient.email}>
 			</div>
 
 			<div class="field new-client__address">
 				<label for="address">Address</label>
-				<input type="text" name="address" id="address">
+				<input type="text" name="address" id="address"  bind:value={newClient.street}>
 			</div>
 
 			<div class="field new-client__city">
 				<label for="city">City</label>
-				<input type="text" name="city" id="city">
+				<input type="text" name="city" id="city"  bind:value={newClient.city}>
 			</div>
 
 			<div class="field new-client__state">
 				<label for="state">State</label>
-				<select name="state" id="state">
+				<select name="state" id="state"  bind:value={newClient.state}>
 					<option />
 					{#each states as state}
 						<option value={state.value}>{state.name}</option>
@@ -99,7 +136,7 @@
 
 			<div class="field new-client__zip">
 				<label for="zip">ZIP</label>
-				<input type="text" name="zip" id="zip">
+				<input type="text" name="zip" id="zip"  bind:value={newClient.zip}>
 			</div>
 		</div>
 	{/if}
@@ -107,24 +144,26 @@
 	<!-- due data -->
 	<div class="field due-data">
 		<label for="dueDate">Due Data</label>
-		<input type="date" name="dueDate"  min={today} required/>
+		<input type="date" name="dueDate"  min={today} required  bind:value={invoice.dueDate}/>
 	</div>
 
 	<!-- issue data -->
 	<div class="field issue-data">
 		<label for="issueDate">Issue Data</label>
-		<input type="date" name="issueDate" />
+		<input type="date" name="issueDate" bind:value={invoice.issueDate}/>
 	</div>
 
 	<!-- subjects -->
 	<div class="field subjects">
 		<label for="subject">Subject</label>
-		<input type="text" name="subject" />
+		<input type="text" name="subject" bind:value={invoice.subject}/>
 	</div>
 
 	<!-- line items -->
 	<div class="field line-items">
-		<LineItemRows lineItems={lineItems}
+		<LineItemRows
+			lineItems={invoice.lineItems}
+			discount={invoice.discount}
 			on:addLineItem={addLineItem}
 			on:removeLineItem={removeLineItem}
 			on:updateLineItem={updateLineItem}
@@ -134,13 +173,13 @@
 	<!-- notes -->
 	<div class="field notes">
 		<label for="notes">Notes <span>(optional, displayed on invoice)</span></label>
-		<textarea name="notes" id="notes" />
+		<textarea name="notes" id="notes" bind:value={invoice.notes}/>
 	</div>
 
 	<!-- terms -->
 	<div class="field terms">
 		<label for="terms">Terms <span>(optional, enter your terms and conditions)</span></label>
-		<textarea name="terms" id="terms" />
+		<textarea name="terms" id="terms" bind:value={invoice.terms}/>
 		<span class="formatting">Formatting tips: <strong>*bold*</strong>, <em>_italic_</em></span>
 	</div>
 

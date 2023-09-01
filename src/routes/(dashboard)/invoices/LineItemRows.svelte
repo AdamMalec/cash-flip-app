@@ -6,9 +6,9 @@
 	import { centsToDollars, sumLineItems } from '$lib/utils/moneyHelpers';
 
 	export let lineItems: LineItem[] | undefined = undefined;
+	export let discount:number = 0;
 
 	let subtotal:string = '0.00';
-	let discount:number;
 	let discountAmount:string = '0.00';
 	let total: string = '0.00';
 
