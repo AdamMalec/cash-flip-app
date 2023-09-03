@@ -5,7 +5,7 @@
 	import IconThreeDots from '$lib/components/icons/IconThreeDots.svelte';
 	import IconView from '$lib/components/icons/IconView.svelte';
 	import { convertDate, isLate } from '$lib/utils/dateHelpers';
-	import { centsToDollars, invoiceTotal, sumLineItems } from '$lib/utils/moneyHelpers';
+	import { centsToDollars, invoiceTotal } from '$lib/utils/moneyHelpers';
 	import ConfirmDelete from './ConfirmDelete.svelte';
 	import InvoiceForm from './InvoiceForm.svelte';
 

@@ -2,7 +2,7 @@
 	import Button from "$lib/components/Button.svelte";
 	import Modal from "$lib/components/Modal.svelte";
 	import { deleteInvoice } from "$lib/stores/InvoiceStore";
-	import { centsToDollars, sumLineItems } from "$lib/utils/moneyHelpers";
+	import { centsToDollars, invoiceTotal } from "$lib/utils/moneyHelpers";
 	import { createEventDispatcher } from "svelte";
 
   export let invoice: Invoice;
@@ -13,7 +13,10 @@
 
 <Modal isVisible={isModalShow} on:close>
 	<div class="modal__content">
-		<h6>Are you sure you want delete this invoice to <span>{invoice.client.name}</span> for <span>${centsToDollars(sumLineItems(invoice.lineItems))}</span>&nbsp;?</h6>
+		<h6>Are you sure you want delete this invoice to
+			<span>{invoice.client.name}</span> for
+			<span>${centsToDollars(invoiceTotal(invoice.lineItems, invoice.discount))}</span>&nbsp;?
+		</h6>
 		<div class="modal__buttons">
 			<Button label="Yes, Delete it" style="destructive"  onClick={() => {
 				deleteInvoice(invoice);
