@@ -16,6 +16,6 @@
 		background-color: var(--pico-primary);
 		opacity: 0.6;
 
-		z-index: var(--z-overlay);
+		z-index: var(--modal-overlay, var(--z-overlay));
 	}
 </style>

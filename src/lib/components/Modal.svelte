@@ -18,7 +18,7 @@
 
 {#if isVisible}
 	<Portal>
-		<Overlay />
+		<Overlay --modal-overlay="var(--z-modal-overlay)"/>
 		<div class="modal">
 			<div class="modal__body">
 				<button class="modal__close" on:click={() => dispatch('close')}><IconClose /></button>
