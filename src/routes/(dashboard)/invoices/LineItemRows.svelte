@@ -6,10 +6,10 @@
 	import { centsToDollars, sumLineItems } from '$lib/utils/moneyHelpers';
 
 	export let lineItems: LineItem[] | undefined = undefined;
-	export let discount:number = 0;
+	export let discount: number = 0;
 
-	let subtotal:string = '0.00';
-	let discountAmount:string = '0.00';
+	let subtotal: string = '0.00';
+	let discountAmount: string = '0.00';
 	let total: string = '0.00';
 
 	let dispatch = createEventDispatcher();
@@ -54,7 +54,14 @@
 <div class="line">
 	<span class="line-discount-title">Discount </span>
 	<div class="line-discount">
-		<input type="number" name="discount" min="0" max="100" bind:value={discount}/>
+		<input
+			type="number"
+			name="discount"
+			min="0"
+			max="100"
+			bind:value={discount}
+			on:change={() => {dispatch('updateDiscount', {discount})}}
+		/>
 		<span>%</span>
 	</div>
 	<span class="line-discount-total">${discountAmount}</span>

@@ -14,6 +14,7 @@
 	class:text-only={style === 'textOnly'}
 	class:icon={style === 'icon'}
 	class:isAnimated
+	type="button"
 	on:click={() => onClick()}
 >
 	{label}
@@ -22,6 +23,7 @@
 
 <style>
 	button {
+		margin-bottom: 0;
 		padding: 0.5rem 1rem;
 		font-weight: bold;
 	}

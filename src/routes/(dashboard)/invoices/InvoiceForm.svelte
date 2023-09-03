@@ -6,24 +6,27 @@
 	import {states} from '$lib/utils/states';
 	import { onMount } from 'svelte';
 	import { today } from '$lib/utils/dateHelpers';
-	import { addInvoice } from '$lib/stores/InvoiceStore';
+	import { addInvoice, updateInvoice } from '$lib/stores/InvoiceStore';
+	import ConfirmDelete from './ConfirmDelete.svelte';
 
-	export let closePanel: () => void = () => {};
-
-	const blankLineItem = {
+	var blankLineItem = {
 		id: crypto.randomUUID(),
 		description: '',
 		quantity: 0,
 		amount: 0
 	};
 
-	// let lineItems: LineItem[] = [{...blankLineItem}];
-	let newClient: Partial<Client> = {};
-	let isNewClient: boolean = false;
-	let invoice: Invoice = {
+	export let formState: 'create' | 'edit' = 'create';
+	export let closePanel: () => void = () => {};
+	export let invoice: Invoice = {
 		client: {} as Client,
 		lineItems: [{...blankLineItem}]
 	} as Invoice;
+
+	let newClient: Partial<Client> = {};
+	let isNewClient: boolean = false;
+	let isModalShow: boolean = false;
+	let initialDiscount = invoice.discount || 0;
 
 	function addLineItem() {
 		invoice.lineItems = [...(invoice.lineItems as []), {...blankLineItem, id: crypto.randomUUID()}];
@@ -37,13 +40,22 @@
 		invoice.lineItems = invoice?.lineItems && invoice.lineItems.filter((item) => item.id !== event.detail)
 	}
 
+	function updateDiscount(event: CustomEvent) {
+		invoice.discount = event.detail.discount;
+	}
+
 	function handleSubmit() {
 		if(isNewClient) {
 			invoice.client = newClient as Client;
 			addClient(newClient as Client);
 		}
 
-		addInvoice(invoice);
+		if(formState === 'create') {
+			addInvoice(invoice);
+		} else {
+			updateInvoice(invoice);
+		}
+
 		closePanel();
 	}
 
@@ -52,7 +64,12 @@
 	})
 </script>
 
-<h2>Add an Invoice</h2>
+<h2>
+	{#if formState === "create"}Add
+	{:else}Edit
+	{/if}
+	an Invoice
+</h2>
 
 <form on:submit|preventDefault={handleSubmit}>
 	<!-- client -->
@@ -167,6 +184,7 @@
 			on:addLineItem={addLineItem}
 			on:removeLineItem={removeLineItem}
 			on:updateLineItem={updateLineItem}
+			on:updateDiscount={updateDiscount}
 		/>
 	</div>
 
@@ -185,13 +203,24 @@
 
 	<!-- buttons -->
 	<div class="button">
-		<Button label="Delete" style="destructive" onClick={() => {}} />
+		{#if formState === 'edit'}
+			<Button label="Delete" style="destructive" onClick={() => {isModalShow = true}} />
+		{/if}
 	</div>
 	<div class="buttons">
-		<Button label="Cancel" style="secondary" onClick={() => {}}></Button>
+		<Button label="Cancel" style="secondary" onClick={() => {}} />
 		<button type="submit">Save</button>
 	</div>
 </form>
+
+<ConfirmDelete
+	{invoice}
+	{isModalShow}
+	on:close={() => {
+		isModalShow = false;
+		closePanel();
+	}}
+/>
 
 <style>
 	h2 {

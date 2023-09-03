@@ -8,7 +8,10 @@
 	const dispatch = createEventDispatcher();
 
 	const handleSend = () => console.log('send...');
-	const handleEdit = () => console.log('edit...');
+	const handleEdit = () => {
+		dispatch('editInvoice');
+		console.log('edit...');
+	}
 	const handleDelete = () => {
 		dispatch('deleteInvoice');
 		console.log('delete...');

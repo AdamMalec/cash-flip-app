@@ -1,15 +1,15 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
 	import IconTrash from '$lib/components/icons/IconTrash.svelte';
-	import { dollarsToCents } from '$lib/utils/moneyHelpers';
+	import { centsToDollars, dollarsToCents } from '$lib/utils/moneyHelpers';
 	import { createEventDispatcher } from 'svelte';
 
 	export let lineItem: LineItem;
 	export let canDelete: boolean = false;
 	export let isRequired: boolean = false;
 
-	let unitPrice: string = (lineItem.amount / lineItem.quantity).toFixed(2);
-	let amount: string = lineItem.amount.toFixed(2);
+	let unitPrice: string = centsToDollars(lineItem.amount / lineItem.quantity);
+	let amount: string = centsToDollars(lineItem.amount);
 
 	$: {
 		amount = (lineItem.quantity * Number(unitPrice)).toFixed(2);
@@ -38,7 +38,9 @@
 			name="quantity"
 			min="0"
 			required={isRequired}
-			bind:value={lineItem.quantity} />
+			bind:value={lineItem.quantity}
+			on:input={() => {dispatch('updateLineItem')}}
+		/>
 	</div>
 
 	<div>
@@ -49,8 +51,8 @@
 			step="0.01"
 			min="0"
 			bind:value={unitPrice}
-			on:blur={() => {
-				(unitPrice = Number(unitPrice).toFixed(2));
+			on:input={() => {
+				unitPrice = Number(unitPrice).toFixed(2);
 				dispatch('updateLineItem');
 				}}
 		/>
@@ -64,7 +66,6 @@
 			step="0.01"
 			min="0"
 			bind:value={amount}
-			on:blur={() => dispatch('updateLineItem')}
 			disabled
 		/>
 	</div>

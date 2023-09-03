@@ -1,19 +1,20 @@
 <script lang="ts">
 	import AdditionalMenu from '$lib/components/AdditionalMenu.svelte';
-	import Button from '$lib/components/Button.svelte';
-	import Modal from '$lib/components/Modal.svelte';
+	import SlidePanel from '$lib/components/SlidePanel.svelte';
 	import Tag from '$lib/components/Tag.svelte';
 	import IconThreeDots from '$lib/components/icons/IconThreeDots.svelte';
 	import IconView from '$lib/components/icons/IconView.svelte';
-	import { deleteInvoice } from '$lib/stores/InvoiceStore';
 	import { convertDate, isLate } from '$lib/utils/dateHelpers';
-	import { centsToDollars, sumLineItems } from '$lib/utils/moneyHelpers';
+	import { centsToDollars, invoiceTotal, sumLineItems } from '$lib/utils/moneyHelpers';
+	import ConfirmDelete from './ConfirmDelete.svelte';
+	import InvoiceForm from './InvoiceForm.svelte';
 
 	export let invoice: Invoice;
 
 	let isAddMenuOpen = false;
 	let isAddMenuFullOptions = true;
 	let isModalShow = false;
+	let isInvoiceFormShow = false;
 
 	function getInvoiceLabel() {
 		if (invoice.invoiceStatus === 'draft') {
@@ -27,6 +28,12 @@
 			return 'paid';
 		}
 	}
+
+	function handleEdit() {
+		isInvoiceFormShow = true;
+		isAddMenuOpen = false;
+	}
+
 </script>
 
 <li class="invoices__item invoice">
@@ -35,7 +42,7 @@
 		<li class="invoice__date">{convertDate(invoice.dueDate)}</li>
 		<li class="invoice__id">{invoice.invoiceNumber}</li>
 		<li class="invoice__name">{invoice.client.name}</li>
-		<li class="invoice__amount">${centsToDollars(sumLineItems(invoice.lineItems))}</li>
+		<li class="invoice__amount">${centsToDollars(invoiceTotal(invoice.lineItems, invoice.discount))}</li>
 		<li class="invoice__view">
 			<a href="/">
 				<IconView />
@@ -49,6 +56,7 @@
 			{#if isAddMenuOpen}
 				<AdditionalMenu
 					{isAddMenuFullOptions}
+					on:editInvoice={handleEdit}
 					on:deleteInvoice={() => {
 						isModalShow = true;
 						isAddMenuOpen = false;
@@ -59,18 +67,20 @@
 	</ul>
 </li>
 
-<Modal isVisible={isModalShow} on:close={() => (isModalShow = false)}>
-	<div class="modal__content">
-		<h6>Are you sure you want delete this invoice to <span>{invoice.client.name}</span> for <span>${centsToDollars(sumLineItems(invoice.lineItems))}</span>&nbsp;?</h6>
-		<div class="modal__buttons">
-			<Button label="Yes, Delete it" style="destructive"  onClick={() => {
-				isModalShow = false;
-				deleteInvoice(invoice);
-			}} />
-			<Button label="Cancel" style="secondary"  onClick={() => {isModalShow = false}} />
-		</div>
-	</div>
-</Modal>
+<ConfirmDelete
+	{invoice}
+	{isModalShow}
+	on:close={() => isModalShow = false}
+/>
+
+{#if isInvoiceFormShow}
+<SlidePanel on:closePanel={() => isInvoiceFormShow = false}>
+	<InvoiceForm
+		{invoice}
+		formState="edit"
+		closePanel={() => isInvoiceFormShow = false}/>
+</SlidePanel>
+{/if}
 
 <style>
 	.invoice {
@@ -172,28 +182,6 @@
 	.invoice__more button {
 		background-color: transparent;
 		border: none;
-	}
-
-	.modal__content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: space-between;
-		height: 8.8rem;
-		text-align: center;
-	}
-
-	.modal__content h6 {
-		color: var(--color-black);
-	}
-
-	.modal__content span {
-		color: var(--color-error);
-	}
-
-	.modal__buttons {
-		display: flex;
-		column-gap: 1rem;
 	}
 
 	@media (width > 1024px) {
