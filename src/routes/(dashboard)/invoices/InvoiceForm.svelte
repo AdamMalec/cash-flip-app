@@ -318,4 +318,17 @@
 		padding: 0.5rem 1rem;
 		font-weight: bold;
 	}
+
+	@media (width < 576px) {
+		.client-select {
+			grid-column: span 6 / span 6;
+		}
+		.invoice-number {
+			grid-column: span 6 / span 6;
+		}
+		.due-data,
+		.issue-data {
+			grid-column: span 3 / span 3;
+		}
+	}
 </style>

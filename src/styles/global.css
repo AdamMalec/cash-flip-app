@@ -55,6 +55,50 @@ select {
 	column-gap: 1rem;
 }
 
+@media (width < 1024px)  {
+	.line {
+		grid-template-columns: 1fr 70px 106px 106px 45px;
+		column-gap: 0.8rem;
+	}
+}
+
+/* @media (width < 768px)  {
+	.line {
+		grid-template-columns: none;
+		grid-template-areas:
+			"description description description"
+			"quantity unitPrice amount";
+	}
+} */
+
+@media (width < 576px)  {
+	.line {
+		grid-template-columns: none;
+		grid-template-areas:
+			"description description description"
+			"quantity unitPrice amount";
+		align-items: center;
+		margin-bottom: 1rem;
+		padding-bottom: 0.5rem;
+	}
+
+	.line > .description {
+		grid-area: description;
+	}
+
+	.line > .quantity {
+		grid-area: quantity;
+	}
+
+	.line > .unitPrice {
+		grid-area: unitPrice;
+	}
+
+	.line > .amount {
+		grid-area: amount;
+	}
+}
+
 /* for hiding content (screen reader only) */
 .visually-hidden {
 	position: absolute;

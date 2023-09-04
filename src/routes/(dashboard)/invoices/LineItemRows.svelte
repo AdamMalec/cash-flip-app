@@ -25,7 +25,7 @@
 	$:total = (Number(subtotal) - Number(discountAmount)).toFixed(2);
 </script>
 
-<div class="table">
+<div class="table line">
 	<span class="table-header">Description</span>
 	<span class="table-header">Qty</span>
 	<span class="table-header">Unit Price</span>
@@ -75,9 +75,6 @@
 
 <style>
 	.table {
-		display: grid;
-		grid-template-columns: 1fr 80px 120px 120px 65px;
-		column-gap: 1rem;
 		padding-bottom: 0.5rem;
 		border-bottom: 2px solid var(--pico-primary);
 	}
@@ -86,6 +83,12 @@
 		font-size: 0.8rem;
 		font-weight: bold;
 		color: var(--pico-primary);
+	}
+
+	@media (width < 576px)  {
+		.table-header {
+				display: none;
+		}
 	}
 
 	.table-header:nth-child(2) {
@@ -102,6 +105,12 @@
 
 	.line-add {
 		grid-column: span 2 / span 2;
+	}
+
+	@media (width < 576px)  {
+		.line-add {
+			grid-column: span 1 / span 1;
+		}
 	}
 
 	.line-subtitle {
@@ -124,6 +133,12 @@
 		font-weight: bold;
 		text-align: right;
 		color: var(--pico-secondary-background);
+	}
+
+	@media (width < 576px)  {
+		.line-discount-title {
+			grid-column: span 1 / span 1;
+		}
 	}
 
 	.line-discount {
@@ -162,5 +177,11 @@
 
 	.line-total {
 		grid-column: span 6 / span 6;
+	}
+
+	@media (width < 576px)  {
+		.line-total {
+			grid-column: span 3 / span 3;
+		}
 	}
 </style>

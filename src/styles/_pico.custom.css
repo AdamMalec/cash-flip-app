@@ -1,7 +1,7 @@
 /* Violet color for light color scheme (Default) */
 /* Can be forced with data-theme="light" */
-[data-theme=light],
-:root:not([data-theme=dark]) {
+[data-theme='light'],
+:root:not([data-theme='dark']) {
 	--pico-text-selection-color: rgba(167, 128, 212, 0.25);
 	--pico-primary: #8352c5;
 	--pico-primary-dim: #b49ad9;
@@ -23,4 +23,15 @@
 	--pico-secondary-hover-underline: var(--pico-secondary-hover);
 	--pico-secondary-focus: hsla(221, 19%, 65%, 0.25);
 	--pico-secondary-inverse: #f8f8f8;
+}
+
+@media (width < 1024px) {
+	select:not([multiple], [size]),
+	input[type='text']:not(.search):not(.line-item),
+	input[type='email'],
+	input[type='number'],
+	input[type='date'],
+	textarea {
+		padding-inline: 0.5rem !important;
+	}
 }

@@ -20,10 +20,12 @@
 </script>
 
 <div class="line">
-	<div>
+	<div class="description">
+		<label class="line-label" for="description">Description</label>
 		<input
 			class="line-item"
 			type="text"
+			id="description"
 			name="description"
 			autocomplete="off"
 			required={isRequired}
@@ -31,37 +33,43 @@
 		/>
 	</div>
 
-	<div>
+	<div class="quantity">
+		<label class="line-label" for="quantity">Qty</label>
 		<input
 			class="line-item"
 			type="number"
+			id="quantity"
 			name="quantity"
 			min="0"
 			required={isRequired}
 			bind:value={lineItem.quantity}
-			on:input={() => {dispatch('updateLineItem')}}
+			on:change={() => {dispatch('updateLineItem')}}
 		/>
 	</div>
 
-	<div>
+	<div class="unitPrice">
+		<label class="line-label" for="unitPrice">UnitPrice</label>
 		<input
 			class="line-item"
 			type="number"
+			id="unitPrice"
 			name="unitPrice"
 			step="0.01"
 			min="0"
 			bind:value={unitPrice}
-			on:input={() => {
+			on:change={() => {
 				unitPrice = Number(unitPrice).toFixed(2);
 				dispatch('updateLineItem');
 				}}
 		/>
 	</div>
 
-	<div>
+	<div class="amount">
+		<label class="line-label" for="amount">Amount</label>
 		<input
 			class="line-item"
 			type="number"
+			id="amount"
 			name="amount"
 			step="0.01"
 			min="0"
@@ -70,7 +78,7 @@
 		/>
 	</div>
 
-	<div>
+	<div class="trash">
 		{#if canDelete}
 		<Button
 			label=""
@@ -92,6 +100,37 @@
 
 	.line-item {
 		margin-bottom: 0.6rem;
+	}
+
+	.line-label {
+		display: none;
+	}
+
+	@media (width < 576px)  {
+		.line {
+			position: relative;
+		}
+
+		.line-label {
+			display: block;
+			margin-bottom: 0;
+		}
+
+		.quantity .line-label  {
+			text-align: center;
+		}
+
+		.unitPrice .line-label ,
+		.amount .line-label  {
+			padding-right: 0.5rem;
+			text-align: right;
+		}
+
+		.trash {
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
 	}
 
 	input[type='text'],

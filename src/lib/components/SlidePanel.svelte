@@ -34,9 +34,9 @@
 		top: 0;
 		right: 0;
 
-		width: 75%;
+		width: 100%;
 		height: 100vh;
-		padding-inline: 4rem;
+		padding-inline: 1rem;
 		padding-block: 1.2rem;
 
 		background-color: #f8f8f8;
@@ -48,6 +48,13 @@
 
 	.slide-panel-button {
 		position: relative;
-		left: -2rem;
+		left: -0.5rem;
+	}
+
+	@media (width > 768px) {
+		.slide-panel {
+			width: 75%;
+			padding-inline: 2rem;
+		}
 	}
 </style>
