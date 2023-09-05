@@ -10,6 +10,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import SlidePanel from '$lib/components/SlidePanel.svelte';
 	import InvoiceForm from './InvoiceForm.svelte';
+	import { Toaster } from 'svelte-french-toast';
 
 	let isInvoiceFormShow: boolean = false;
 
@@ -22,6 +23,7 @@
 	<title>Invoices | Cash Peak</title>
 </svelte:head>
 
+<Toaster />
 <div class="invoices">
 	<div class="invoices__header">
 		{#if $invoices.length > 0}

@@ -8,6 +8,7 @@
 	import { today } from '$lib/utils/dateHelpers';
 	import { addInvoice, updateInvoice } from '$lib/stores/InvoiceStore';
 	import ConfirmDelete from './ConfirmDelete.svelte';
+	import toast from 'svelte-french-toast';
 
 	var blankLineItem = {
 		id: crypto.randomUUID(),
@@ -26,7 +27,6 @@
 	let newClient: Partial<Client> = {};
 	let isNewClient: boolean = false;
 	let isModalShow: boolean = false;
-	let initialDiscount = invoice.discount || 0;
 
 	function addLineItem() {
 		invoice.lineItems = [...(invoice.lineItems as []), {...blankLineItem, id: crypto.randomUUID()}];
@@ -52,8 +52,22 @@
 
 		if(formState === 'create') {
 			addInvoice(invoice);
+			toast.success('Your invoice successfully created.', {
+				style: 'font-size: 0.8rem',
+				iconTheme: {
+					primary: '#22c697',
+					secondary: '#f8f8f8'
+				}
+			});
 		} else {
 			updateInvoice(invoice);
+			toast.success('Your invoice successfully updated.', {
+				style: 'font-size: 0.8rem',
+				iconTheme: {
+					primary: '#22c697',
+					secondary: '#f8f8f8'
+				}
+			});
 		}
 
 		closePanel();

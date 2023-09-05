@@ -4,6 +4,7 @@
 	import { deleteInvoice } from "$lib/stores/InvoiceStore";
 	import { centsToDollars, invoiceTotal } from "$lib/utils/moneyHelpers";
 	import { createEventDispatcher } from "svelte";
+	import toast from 'svelte-french-toast';
 
   export let invoice: Invoice;
   export let isModalShow = false;
@@ -20,7 +21,14 @@
 		<div class="modal__buttons">
 			<Button label="Yes, Delete it" style="destructive"  onClick={() => {
 				deleteInvoice(invoice);
-        dispatch('close')
+        dispatch('close');
+				toast.success('Your invoice was successfully deleted.', {
+				style: 'font-size: 0.8rem;',
+				iconTheme: {
+					primary: '#22c697',
+					secondary: '#f8f8f8'
+				}
+			});
 			}} />
 			<Button label="Cancel" style="secondary"  onClick={() => {dispatch('close')}} />
 		</div>
