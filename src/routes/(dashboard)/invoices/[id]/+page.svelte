@@ -45,7 +45,7 @@
 		</div>
 
 		<div class="invoice__client">
-			<span class="invoice__label">Bill To:</span>
+			<span class="invoice__label">Client</span>
 			<p>
 				<strong>ZEAL</strong><br />
 				zeal@example.com<br />
