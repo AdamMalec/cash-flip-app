@@ -119,6 +119,7 @@
 		grid-template-columns: repeat(6, minmax(0, 1fr));
 		row-gap: 1rem;
 		padding: 4rem 6rem;
+    line-height: 125%;
 		background-color: var(--pico-primary-inverse);
 		border-radius: 4px;
 		box-shadow: -2px 0px 26px 0px rgba(0, 0, 0, 0.25);
