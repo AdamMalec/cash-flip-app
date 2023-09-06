@@ -44,7 +44,7 @@
 		<li class="invoice__name">{invoice.client.name}</li>
 		<li class="invoice__amount">${centsToDollars(invoiceTotal(invoice.lineItems, invoice.discount))}</li>
 		<li class="invoice__view">
-			<a href="/">
+			<a href={`/invoices/${invoice.id}`}>
 				<IconView />
 			</a>
 		</li>

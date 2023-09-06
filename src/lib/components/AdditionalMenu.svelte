@@ -58,7 +58,7 @@
 		margin: 0;
 		padding: 0.3rem 0;
 
-		background: #fff;
+		background: var(--pico-primary-inverse);
 		border-radius: 8px;
 		box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 
