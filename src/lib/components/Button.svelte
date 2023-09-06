@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let label: string;
-	export let style: 'primary' | 'secondary' | 'destructive' | 'outline' | 'textOnly' | 'icon' =
-		'primary';
+	export let style: 'primary' | 'secondary' | 'destructive' | 'outline' | 'textOnly' | 'icon' = 'primary';
+	export let height: 'short' | 'regular' = 'regular';
 	export let isAnimated = false;
 	export let onClick: () => void;
 </script>
@@ -13,6 +13,7 @@
 	class:outline={style === 'outline'}
 	class:text-only={style === 'textOnly'}
 	class:icon={style === 'icon'}
+	class:short={height === 'short'}
 	class:isAnimated
 	type="button"
 	on:click={() => onClick()}
@@ -109,5 +110,9 @@
 	.icon:hover,
 	.icon:focus {
 		color: var(--pico-primary);
+	}
+
+	.short {
+		padding-block: 0.3rem !important;
 	}
 </style>
