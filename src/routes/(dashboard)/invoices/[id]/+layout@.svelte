@@ -18,9 +18,8 @@
 />
 
 <main>
-	<div class="container-fluid invoice">
-		<a class="invoice__back-link" href={previousPage || '/invoices'}><IconArrow /></a>
-		<h1>Invoice Page </h1>
+	<div class="container-fluid">
+		<a class="back-link" href={previousPage || '/invoices'}><IconArrow /></a>
 		<slot />
 	</div>
 </main>
@@ -29,17 +28,16 @@
 	main {
 		height: 100%;
 		min-height: 100vh;
-		background-color: var(--pico-primary-inverse);
+		background-color: var(--color-primary-disabled);
 	}
 
-	.invoice {
+	.container-fluid {
 		max-width: 1024px;
 		min-height: 100vh;
     padding-bottom: 0.5rem;
-		background-color: pink;
 	}
 
-	.invoice__back-link {
+	.back-link {
 		position: fixed;
 		top: 1.5rem;
 		left: 1.5rem;
