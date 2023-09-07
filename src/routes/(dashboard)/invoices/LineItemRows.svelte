@@ -3,7 +3,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import LineItemRow from './LineItemRow.svelte';
-	import { centsToDollars, sumLineItems } from '$lib/utils/moneyHelpers';
+	import { centsToDollars, sumLineItems, addThousandsSeparator } from '$lib/utils/moneyHelpers';
 
 	export let lineItems: LineItem[] | undefined = undefined;
 	export let discount: number = 0;
@@ -23,7 +23,10 @@
 	 discountAmount = centsToDollars(sumLineItems(lineItems) * (discount / 100));
 	}
 
-	$:total = (Number(subtotal) - Number(discountAmount)).toFixed(2);
+	$: {
+		const plainSubtotal = subtotal.replace(',', '');
+		total = addThousandsSeparator((Number(plainSubtotal) - Number(discountAmount)).toFixed(2));
+	}
 </script>
 
 <div class="table line">
@@ -159,7 +162,7 @@
 	}
 
 	.line-discount-total {
-		padding-block: 1rem;
+		padding-block: 0.7rem;
 		text-align: right;
 		font-family: monospace;
 		font-size: 1rem;

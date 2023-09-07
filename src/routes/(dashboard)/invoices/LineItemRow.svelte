@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
 	import IconTrash from '$lib/components/icons/IconTrash.svelte';
-	import { centsToDollars, dollarsToCents } from '$lib/utils/moneyHelpers';
+	import { centsToDollarsWithoutCommas, dollarsToCents } from '$lib/utils/moneyHelpers';
 	import { createEventDispatcher } from 'svelte';
 
 	export let lineItem: LineItem;
@@ -9,8 +9,8 @@
 	export let isRequired: boolean = false;
 	export let isEditable: boolean = true;
 
-	let unitPrice: string = centsToDollars(lineItem.amount / lineItem.quantity);
-	let amount: string = centsToDollars(lineItem.amount);
+	let unitPrice: string = centsToDollarsWithoutCommas(lineItem.amount / lineItem.quantity);
+	let amount: string = centsToDollarsWithoutCommas(lineItem.amount);
 
 	$: {
 		amount = (lineItem.quantity * Number(unitPrice)).toFixed(2);

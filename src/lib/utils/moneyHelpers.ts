@@ -9,6 +9,11 @@ export function centsToDollars(cents: number): string {
 	return addThousandsSeparator(dollarsWithDecimals);
 }
 
+export function centsToDollarsWithoutCommas(cents: number): string {
+	const dollars = cents / 100;
+	return dollars.toFixed(2);
+}
+
 export function invoiceTotal(lineItems: LineItem[] | undefined, discount: number | undefined) {
 	const lineItemsSum = sumLineItems(lineItems);
 	if(discount) {
