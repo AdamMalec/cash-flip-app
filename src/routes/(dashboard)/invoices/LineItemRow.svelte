@@ -7,6 +7,7 @@
 	export let lineItem: LineItem;
 	export let canDelete: boolean = false;
 	export let isRequired: boolean = false;
+	export let isEditable: boolean = true;
 
 	let unitPrice: string = centsToDollars(lineItem.amount / lineItem.quantity);
 	let amount: string = centsToDollars(lineItem.amount);
@@ -30,6 +31,7 @@
 			autocomplete="off"
 			required={isRequired}
 			bind:value={lineItem.description}
+			disabled={!isEditable}
 		/>
 	</div>
 
@@ -44,6 +46,7 @@
 			required={isRequired}
 			bind:value={lineItem.quantity}
 			on:change={() => {dispatch('updateLineItem')}}
+			disabled={!isEditable}
 		/>
 	</div>
 
@@ -61,6 +64,7 @@
 				unitPrice = Number(unitPrice).toFixed(2);
 				dispatch('updateLineItem');
 				}}
+			disabled={!isEditable}
 		/>
 	</div>
 
@@ -79,7 +83,7 @@
 	</div>
 
 	<div class="trash">
-		{#if canDelete}
+		{#if canDelete && isEditable}
 		<Button
 			label=""
 			style="icon"
@@ -131,6 +135,10 @@
 			top: 0;
 			right: 0;
 		}
+	}
+
+	input[name='description'] {
+		font-weight: 700;
 	}
 
 	input[type='text'],

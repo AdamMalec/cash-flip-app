@@ -5,7 +5,7 @@ export const today = format(new Date(), 'yyyy-MM-dd');
 // Convert date from yyyy-mm-dd to d-m-yyyy
 export function convertDate(myDate: string): string {
 	const [year, month, day] = myDate.split('-');
-	return `${parseInt(day)}/${parseInt(month)}/${year}`;
+	return `${parseInt(day)} / ${parseInt(month)} / ${year}`;
 }
 
 export const isLate = (myDate: string): boolean => {

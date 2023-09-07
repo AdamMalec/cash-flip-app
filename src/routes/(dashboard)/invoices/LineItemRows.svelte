@@ -7,6 +7,7 @@
 
 	export let lineItems: LineItem[] | undefined = undefined;
 	export let discount: number = 0;
+	export let isEditable: boolean = true;
 
 	let subtotal: string = '0.00';
 	let discountAmount: string = '0.00';
@@ -37,6 +38,7 @@
 		<LineItemRow {lineItem}
 			canDelete={index > 0}
 			isRequired={index === 0}
+			{isEditable}
 			on:removeLineItem
 			on:updateLineItem
 		/>
@@ -45,7 +47,9 @@
 
 <div class="line">
 	<div class="line-add">
-		<Button label="+&nbsp;Line item" style="textOnly" onClick={() => {dispatch('addLineItem')}} />
+		{#if isEditable}
+			<Button label="+&nbsp;Line item" style="textOnly" onClick={() => {dispatch('addLineItem')}} />
+		{/if}
 	</div>
 	<span class="line-subtitle">Subtotal</span>
 	<span class="line-subtotal">${subtotal}</span>
@@ -61,6 +65,7 @@
 			max="100"
 			bind:value={discount}
 			on:change={() => {dispatch('updateDiscount', {discount})}}
+			disabled={!isEditable}
 		/>
 		<span>%</span>
 	</div>

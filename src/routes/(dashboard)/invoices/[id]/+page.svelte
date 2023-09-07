@@ -1,5 +1,11 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
+	import { convertDate } from '$lib/utils/dateHelpers';
+	import LineItemRows from '../LineItemRows.svelte';
+
+	export let data: Invoice;
+
+	let invoice = data;
 
 	function printInvoice() {
 		console.log('Print Invoice ...');
@@ -47,46 +53,51 @@
 		<div class="invoice__client">
 			<span class="invoice__label">Client</span>
 			<p>
-				<strong>ZEAL</strong><br />
-				zeal@example.com<br />
-				789 Stellar Street<br />
-				Anywhereville, CA 56789
+				<strong>{invoice.client.name}</strong><br />
+				{invoice.client.email}<br />
+				{invoice.client.street}<br />
+				{invoice.client.city}, {invoice.client.state}
+				{invoice.client.zip}
 			</p>
 		</div>
 
 		<div class="invoice__id">
 			<span class="invoice__label">Invoice ID</span>
-			<p>12348</p>
+			<p>{invoice.invoiceNumber}</p>
 		</div>
 
 		<div class="invoice__due-data">
 			<span class="invoice__label">Due Date</span>
-			<p>10 / 6 / 2022</p>
+			<p>{convertDate(invoice.dueDate)}</p>
 		</div>
 
 		<div class="invoice__issue-data">
 			<span class="invoice__label">Issue Date</span>
-			<p>7 / 6 / 2022</p>
+			<p>{convertDate(invoice.issueDate)}</p>
 		</div>
 
 		<div class="invoice__subject">
 			<span class="invoice__label">Subject</span>
-			<p>Website</p>
+			<p>{invoice.subject}</p>
 		</div>
 
 		<div class="invoice__items">
-			<!-- Line Items -->
+			<LineItemRows lineItems={invoice.lineItems} isEditable={false} discount={invoice?.discount || 0}/>
 		</div>
 
-		<div class="invoice__notes">
-			<span class="invoice__label">Notes</span>
-			<p>lorem ipsum</p>
-		</div>
+		{#if invoice.notes}
+			<div class="invoice__notes">
+				<span class="invoice__label">Notes</span>
+				<p>{invoice.notes}</p>
+			</div>
+		{/if}
 
-		<div class="invoice__terms">
-			<span class="invoice__label">Terms and Conditions</span>
-			<p>lorem ipsum</p>
-		</div>
+		{#if invoice.terms}
+			<div class="invoice__terms">
+				<span class="invoice__label">Terms and Conditions</span>
+				<p>{invoice.terms}</p>
+			</div>
+		{/if}
 	</div>
 </div>
 
@@ -115,61 +126,63 @@
 	}
 
 	.invoice__body {
-    display: grid;
+		display: grid;
 		grid-template-columns: repeat(6, minmax(0, 1fr));
 		row-gap: 1rem;
 		padding: 4rem 6rem;
-    line-height: 125%;
+		line-height: 125%;
 		background-color: var(--pico-primary-inverse);
 		border-radius: 4px;
 		box-shadow: -2px 0px 26px 0px rgba(0, 0, 0, 0.25);
 	}
 
-  .invoice__label {
-    font-weight: 900;
-    color: var(--pico-secondary-background);
-  }
+	.invoice__label {
+		font-weight: 700;
+		color: #8c8c8c;
+	}
 
-  .invoice__image {
-    grid-column: span 3;
-  }
+	.invoice__label  + p {
+		font-family: var(--pico-font-family-monospace);
+	}
 
-  .invoice__holder {
-    grid-column: 5/ span 2;
-    padding-top: 1rem;
-  }
+	.invoice__image {
+		grid-column: span 3;
+	}
 
-  .invoice__client {
-    grid-column: span 3;
-  }
+	.invoice__holder {
+		grid-column: 5 / span 2;
+		padding-top: 1rem;
+	}
 
-  .invoice__id{
-    grid-column: 5/ span 2;
-  }
+	.invoice__client {
+		grid-column: span 3;
+	}
 
-  .invoice__due-data {
-    grid-column: span 3;
-  }
+	.invoice__id {
+		grid-column: 5 / span 2;
+	}
 
-  .invoice__issue-data {
-    grid-column: 5/ span 2;
-  }
+	.invoice__due-data {
+		grid-column: span 3;
+	}
 
-  .invoice__subject {
-    grid-column: span 6;
-  }
+	.invoice__issue-data {
+		grid-column: 5 / span 2;
+	}
 
-  .invoice__items{
-    grid-column: span 6;
-  }
+	.invoice__subject {
+		grid-column: span 6;
+	}
 
-  .invoice__notes{
-    grid-column: span 6;
-  }
+	.invoice__items {
+		grid-column: span 6;
+	}
 
-  .invoice__terms{
-    grid-column: span 6;
-  }
+	.invoice__notes {
+		grid-column: span 6;
+	}
 
-
+	.invoice__terms {
+		grid-column: span 6;
+	}
 </style>

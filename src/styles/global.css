@@ -30,6 +30,11 @@ textarea {
 	padding: 0 1rem;
 }
 
+input[type='number']:disabled {
+	appearance: none;
+	-moz-appearance: textfield;
+}
+
 input:not(.line-item):focus,
 select:focus,
 textarea:focus {

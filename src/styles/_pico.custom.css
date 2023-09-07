@@ -25,6 +25,10 @@
 	--pico-secondary-inverse: #f8f8f8;
 }
 
+input[disabled] {
+	opacity: 0.8 !important;
+}
+
 @media (width < 1024px) {
 	select:not([multiple], [size]),
 	input[type='text']:not(.search):not(.line-item),
