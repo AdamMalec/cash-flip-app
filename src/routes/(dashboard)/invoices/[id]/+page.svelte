@@ -2,6 +2,8 @@
 	import Button from '$lib/components/Button.svelte';
 	import { convertDate } from '$lib/utils/dateHelpers';
 	import LineItemRows from '../LineItemRows.svelte';
+	import { settings, loadSettings } from '$lib/stores/SettingsStore';
+	import { onMount } from 'svelte';
 
 	export let data: Invoice;
 
@@ -19,6 +21,10 @@
 	function payInvoice() {
 		console.log('Pay Invoice ...');
 	}
+
+	onMount(() => {
+		loadSettings();
+	});
 </script>
 
 <div class="invoice">
@@ -42,12 +48,21 @@
 		</div>
 
 		<div class="invoice__holder">
-			<span class="invoice__label">From</span>
-			<p>
-				Amy Dutton<br />
-				123 Awesome Street<br />
-				Coolville, TN 54321
-			</p>
+			{#if $settings && $settings.name}
+				<span class="invoice__label">From</span>
+				<p>
+					{$settings.name}<br />
+					{#if $settings.street && $settings.city && $settings.state && $settings.zip}
+						{$settings.street}<br />
+						{$settings.city}, {$settings.state}
+						{$settings.zip}
+					{/if}
+				</p>
+			{:else}
+					<div class="invoice__holder-add">
+						<a href="#">Add your contact information</a>
+					</div>
+			{/if}
 		</div>
 
 		<div class="invoice__client">
@@ -82,7 +97,11 @@
 		</div>
 
 		<div class="invoice__items">
-			<LineItemRows lineItems={invoice.lineItems} isEditable={false} discount={invoice?.discount || 0}/>
+			<LineItemRows
+				lineItems={invoice.lineItems}
+				isEditable={false}
+				discount={invoice?.discount || 0}
+			/>
 		</div>
 
 		{#if invoice.notes}
@@ -141,7 +160,7 @@
 		color: #8c8c8c;
 	}
 
-	.invoice__label  + p {
+	.invoice__label + p {
 		font-family: var(--pico-font-family-monospace);
 	}
 
@@ -152,6 +171,26 @@
 	.invoice__holder {
 		grid-column: 5 / span 2;
 		padding-top: 1rem;
+	}
+
+	.invoice__holder-add {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		min-height: 64px;
+		background-color: #dadada;
+		border-radius: 6px;
+	}
+
+	.invoice__holder-add a {
+		font-size: 0.8rem;
+		color: var(--color-black);
+		/* text-decoration-line: underline; */
+	}
+
+	.invoice__holder-add a:hover {
+		text-decoration: none;
 	}
 
 	.invoice__client {

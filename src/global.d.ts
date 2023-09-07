@@ -30,3 +30,12 @@ interface LineItem {
 	quantity: number
 	description: string
 }
+
+interface Settings {
+	name: string
+	email: string
+	street: string
+	city: string
+	state: string
+	zip: string
+}

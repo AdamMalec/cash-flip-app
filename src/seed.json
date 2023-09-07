@@ -183,5 +183,13 @@
 			"state": "Memphis",
 			"zip": "55555"
 		}
-	]
+	],
+	"settings" : {
+		"name": "John Doe",
+		"email": "jd@gmail.com",
+		"street": "12 Cupala pr-t",
+		"city": "Villianstone",
+		"state": "PA",
+		"zip": "55514"
+	}
 }
