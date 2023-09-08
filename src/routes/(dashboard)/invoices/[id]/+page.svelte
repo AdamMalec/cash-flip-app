@@ -10,7 +10,7 @@
 	let invoice = data;
 
 	function printInvoice() {
-		console.log('Print Invoice ...');
+		window.print();
 	}
 	function copyLink() {
 		console.log('Copy Link ...');
