@@ -3,7 +3,9 @@
 	import { convertDate } from '$lib/utils/dateHelpers';
 	import LineItemRows from '../LineItemRows.svelte';
 	import { settings, loadSettings } from '$lib/stores/SettingsStore';
+	import toast from 'svelte-french-toast';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	export let data: Invoice;
 
@@ -13,7 +15,14 @@
 		window.print();
 	}
 	function copyLink() {
-		console.log('Copy Link ...');
+		navigator.clipboard.writeText($page.url.href);
+		toast.success('Link copied!', {
+			style: 'font-size: 0.8rem',
+			iconTheme: {
+				primary: '#22c697',
+				secondary: '#f8f8f8'
+			}
+		});
 	}
 	function sendInvoice() {
 		console.log('Send Invoice ...');
@@ -59,9 +68,9 @@
 					{/if}
 				</p>
 			{:else}
-					<div class="invoice__holder-add">
-						<a href="#">Add your contact information</a>
-					</div>
+				<div class="invoice__holder-add">
+					<a href="#">Add your contact information</a>
+				</div>
 			{/if}
 		</div>
 
