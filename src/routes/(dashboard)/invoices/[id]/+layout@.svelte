@@ -50,4 +50,10 @@
 			color: var(--pico-primary);
 		}
 	}
+
+	@media (width < 768px)  {
+		.back-link {
+			left: 0.6rem;
+		}
+	}
 </style>

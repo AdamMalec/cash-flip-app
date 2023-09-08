@@ -118,6 +118,7 @@
 		.line-label {
 			display: block;
 			margin-bottom: 0;
+			color: #888888;
 		}
 
 		.quantity .line-label  {
@@ -149,6 +150,13 @@
 		border: none;
 		border-bottom: 2px dashed var(--pico-primary-dim);
 		border-radius: 0;
+	}
+
+	@media (width < 576px)  {
+		input[type='text'],
+		input[type='number']  {
+			padding-left: 0;
+		}
 	}
 
 	input[type='number'] {

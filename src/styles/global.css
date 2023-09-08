@@ -10,6 +10,7 @@ svg {
 label {
 	display: block;
 	font-weight: bold;
+	color: #888888;
 }
 
 label span {

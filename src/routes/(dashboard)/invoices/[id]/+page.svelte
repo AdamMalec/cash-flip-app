@@ -137,6 +137,21 @@
 		padding-block: 1.2rem 0.8rem;
 	}
 
+	@media (width < 1280px)  {
+		.invoice__header {
+			padding-left: 4rem;
+		}
+	}
+
+	@media (width < 768px)  {
+		.invoice__header {
+			flex-direction: column;
+			align-items: flex-start;
+			padding-left: 0rem;
+			padding-top: 4rem;
+		}
+	}
+
 	.invoice__title {
 		color: var(--pico-primary);
 	}
@@ -149,8 +164,22 @@
 		list-style: none;
 	}
 
+	@media (width < 768px)  {
+		.invoice__actions {
+			flex-wrap: wrap;
+			gap: 0.5rem;
+		}
+	}
+
 	.invoice__actions li {
 		list-style: none;
+		/* margin-bottom: 2px !important; */
+	}
+
+	@media (width < 768px)  {
+		.invoice__actions li {
+			margin-bottom: 0 !important;
+		}
 	}
 
 	.invoice__body {
@@ -164,9 +193,15 @@
 		box-shadow: -2px 0px 26px 0px rgba(0, 0, 0, 0.25);
 	}
 
+	@media (width < 768px)  {
+		.invoice__body {
+			padding: 2rem 1rem;
+		}
+	}
+
 	.invoice__label {
 		font-weight: 700;
-		color: #8c8c8c;
+		color: #888888;
 	}
 
 	.invoice__label + p {
@@ -177,9 +212,21 @@
 		grid-column: span 3;
 	}
 
+	@media (width < 576px)  {
+		.invoice__image {
+			grid-column: span 6;
+		}
+	}
+
 	.invoice__holder {
 		grid-column: 5 / span 2;
 		padding-top: 1rem;
+	}
+
+	@media (width < 576px)  {
+		.invoice__holder {
+			grid-column: 1 / span 6;
+		}
 	}
 
 	.invoice__holder-add {
@@ -206,16 +253,40 @@
 		grid-column: span 3;
 	}
 
+	@media (width < 576px)  {
+		.invoice__client {
+			grid-column: span 6;
+		}
+	}
+
 	.invoice__id {
 		grid-column: 5 / span 2;
+	}
+
+	@media (width < 576px)  {
+		.invoice__id {
+			grid-column: 1 / span 6;
+		}
 	}
 
 	.invoice__due-data {
 		grid-column: span 3;
 	}
 
+	@media (width < 576px)  {
+		.invoice__due-data {
+			grid-column: span 3;
+		}
+	}
+
 	.invoice__issue-data {
 		grid-column: 5 / span 2;
+	}
+
+	@media (width < 576px)  {
+		.invoice__issue-data {
+			grid-column: 4 / span 3;
+		}
 	}
 
 	.invoice__subject {
