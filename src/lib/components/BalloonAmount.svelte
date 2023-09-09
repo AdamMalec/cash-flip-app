@@ -60,4 +60,12 @@
 			min-width: 12.4rem;
 		}
 	}
+
+	@media print {
+		div {
+			min-width: auto;
+			/* padding-right: 0.5rem; */
+			background-image: none;
+		}
+	}
 </style>

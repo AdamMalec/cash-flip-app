@@ -152,6 +152,12 @@
 		}
 	}
 
+	@media print  {
+		.invoice__header {
+			display: none;
+		}
+	}
+
 	.invoice__title {
 		color: var(--pico-primary);
 	}
@@ -173,7 +179,6 @@
 
 	.invoice__actions li {
 		list-style: none;
-		/* margin-bottom: 2px !important; */
 	}
 
 	@media (width < 768px)  {
@@ -199,6 +204,12 @@
 		}
 	}
 
+	@media print  {
+		.invoice__body {
+			box-shadow: none
+		}
+	}
+
 	.invoice__label {
 		font-weight: 700;
 		color: #888888;
@@ -218,6 +229,12 @@
 		}
 	}
 
+	@media (width < 576px)  {
+		.invoice__image {
+			grid-column: span 3;
+		}
+	}
+
 	.invoice__holder {
 		grid-column: 5 / span 2;
 		padding-top: 1rem;
@@ -226,6 +243,12 @@
 	@media (width < 576px)  {
 		.invoice__holder {
 			grid-column: 1 / span 6;
+		}
+	}
+
+	@media print  {
+		.invoice__holder {
+			grid-column: 5 / span 2;
 		}
 	}
 

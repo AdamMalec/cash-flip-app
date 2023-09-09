@@ -138,6 +138,12 @@
 		}
 	}
 
+	@media print  {
+	.line-label {
+		display: none;
+	}
+}
+
 	input[name='description'] {
 		font-weight: 700;
 	}

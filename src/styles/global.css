@@ -68,15 +68,6 @@ select {
 	}
 }
 
-/* @media (width < 768px)  {
-	.line {
-		grid-template-columns: none;
-		grid-template-areas:
-			"description description description"
-			"quantity unitPrice amount";
-	}
-} */
-
 @media (width < 576px)  {
 	.line {
 		grid-template-columns: none;
@@ -102,6 +93,18 @@ select {
 
 	.line > .amount {
 		grid-area: amount;
+	}
+}
+
+@media print  {
+	.line {
+		grid-template-columns: 1fr 70px 112px 112px;
+		column-gap: 0.4rem;
+		grid-template-areas:
+		"description quantity unitPrice amount";
+		margin-bottom: 0;
+    padding-bottom: 0;
+		border-bottom: none !important;
 	}
 }
 

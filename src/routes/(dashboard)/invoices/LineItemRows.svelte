@@ -87,6 +87,12 @@
 		border-bottom: 2px solid var(--pico-primary);
 	}
 
+	@media print {
+		.table {
+			display: none;
+		}
+	}
+
 	.table-header {
 		font-size: 0.8rem;
 		font-weight: bold;
@@ -128,11 +134,23 @@
 		color: var(--pico-secondary-background);
 	}
 
+	@media (width < 576px)  {
+		.line-subtitle {
+			grid-column: 3 / span 1;
+		}
+	}
+
 	.line-subtotal {
 		padding-block: 1rem;
 		font-family: monospace;
 		font-size: 1rem;
 		text-align: right;
+	}
+	@media (width < 576px)  {
+		.line-subtotal {
+			grid-column: 4 / span 1;
+			padding-right: 0.5rem;
+		}
 	}
 
 	.line-discount-title {
@@ -145,12 +163,30 @@
 
 	@media (width < 576px)  {
 		.line-discount-title {
-			grid-column: span 1 / span 1;
+			grid-column: 1 / span 1;
+		}
+	}
+
+	@media print  {
+		.line-discount-title {
+			grid-column: 1 / span 2;
 		}
 	}
 
 	.line-discount {
 		position: relative;
+	}
+
+	@media (width < 576px)  {
+		.line-discount{
+			grid-column: 2 / span 1;
+		}
+	}
+
+	@media print  {
+		.line-discount {
+			grid-column: 3 / span 1;
+		}
 	}
 
 	.line-discount span {
@@ -166,6 +202,12 @@
 		text-align: right;
 		font-family: monospace;
 		font-size: 1rem;
+	}
+
+	@media (width < 576px)  {
+		.line-discount-total {
+			padding-right: 0.5rem;
+		}
 	}
 
 	input[name='discount'] {
@@ -189,7 +231,7 @@
 
 	@media (width < 576px)  {
 		.line-total {
-			grid-column: span 3 / span 3;
+			grid-column: 4 / span 2;
 		}
 	}
 </style>

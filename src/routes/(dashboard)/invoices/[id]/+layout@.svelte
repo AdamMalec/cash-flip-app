@@ -56,4 +56,18 @@
 			left: 0.6rem;
 		}
 	}
+
+	@media print  {
+		main {
+			background-color: transparent;
+		}
+
+		.container-fluid {
+			padding: 0;
+		}
+
+		.back-link {
+			display: none;
+		}
+	}
 </style>
