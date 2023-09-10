@@ -46,8 +46,8 @@
 				{#each $invoices as invoice}
 					<InvoiceRow {invoice} />
 				{/each}
-				<BalloonAmount label="Total" amount={`$${centsToDollars(sumInvoices($invoices))}`} />
 			</ul>
+			<BalloonAmount label="Total" amount={`$${centsToDollars(sumInvoices($invoices))}`} />
 		{/if}
 	</div>
 </div>
@@ -74,6 +74,8 @@
 	}
 
 	.invoices__list {
+		display: flex;
+    flex-direction: column-reverse;
 		margin: 0;
 		padding: 0;
 	}

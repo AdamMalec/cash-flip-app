@@ -1,5 +1,6 @@
 <script lang="ts">
-	import AdditionalMenu from '$lib/components/AdditionalMenu.svelte';
+	import AdditionalMenuInvoices from '$lib/components/AdditionalMenuInvoices.svelte';
+	import AdditionalMenu from '$lib/components/AdditionalMenuInvoices.svelte';
 	import SlidePanel from '$lib/components/SlidePanel.svelte';
 	import Tag from '$lib/components/Tag.svelte';
 	import IconThreeDots from '$lib/components/icons/IconThreeDots.svelte';
@@ -54,7 +55,7 @@
 			</button>
 
 			{#if isAddMenuOpen}
-				<AdditionalMenu
+				<AdditionalMenuInvoices
 					{isAddMenuFullOptions}
 					on:editInvoice={handleEdit}
 					on:deleteInvoice={() => {

@@ -156,31 +156,33 @@
 	],
 	"clients": [
 		{
-			"city": "Somewhereville",
-			"clientStatus": "active",
-			"email": "compressed@example.com",
 			"id": "1",
 			"name": "Compressed.fm",
+			"email": "compressed@example.com",
+			"clientStatus": "active",
 			"state": "TN",
+			"city": "Somewhereville",
 			"street": "123 Main Street",
 			"zip": "12345"
 		},
 		{
-			"address": "666 Street",
-			"city": "Pasadena",
-			"email": "psydena@gmail.com",
 			"id": "2",
 			"name": "Cooper SH",
+			"email": "psydena@gmail.com",
+			"clientStatus": "active",
 			"state": "Nebraska",
+			"city": "Pasadena",
+			"address": "666 Street",
 			"zip": "55555"
 		},
 		{
-			"address": "78 Street",
-			"city": "Coolichicki",
-			"email": "coolichicki@gmail.com",
 			"id": "3",
 			"name": "Sarah OG",
+			"email": "coolichicki@gmail.com",
+			"clientStatus": "archive",
 			"state": "Memphis",
+			"city": "Coolichicki",
+			"address": "78 Street",
 			"zip": "55555"
 		}
 	],
