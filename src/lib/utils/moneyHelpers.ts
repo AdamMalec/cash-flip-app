@@ -34,7 +34,7 @@ export function addThousandsSeparator(myNum: string): string {
 export function sumInvoices(invoices: Invoice[] | undefined): number {
 	if (!invoices) return 0;
 	return invoices.reduce((pervValue, curValue) => {
-		const invoiceSum = sumLineItems(curValue.lineItems);
+		const invoiceSum = invoiceTotal(curValue.lineItems, curValue.discount);
 		return pervValue + invoiceSum;
 	}, 0);
 }

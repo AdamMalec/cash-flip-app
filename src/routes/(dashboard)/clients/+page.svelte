@@ -56,7 +56,7 @@
 <style>
 	.clients {
 		--grid-t-c: 100px 1fr 110px 110px 32px 32px;
-		--grid-t-c-mobile: 1fr 90px;
+		--grid-t-c-mobile: 1fr 100px;
 		--grid-c-g: 1rem;
 
 		padding-top: 1rem;

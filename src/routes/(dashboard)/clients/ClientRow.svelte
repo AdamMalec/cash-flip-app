@@ -3,6 +3,7 @@
 	import Tag from '$lib/components/Tag.svelte';
 	import IconThreeDots from '$lib/components/icons/IconThreeDots.svelte';
 	import IconView from '$lib/components/icons/IconView.svelte';
+	import { centsToDollars, sumInvoices } from '$lib/utils/moneyHelpers';
 
 	export let client: Client;
 
@@ -25,14 +26,30 @@
 		isAddMenuOpen = false;
 		client.clientStatus = event.detail.archive;
 	}
+
+	const receivedInvoices = () => {
+		if (client?.invoices) {
+			const paidInvoices = client?.invoices?.filter((invoice) => invoice.invoiceStatus === 'paid');
+			return sumInvoices(paidInvoices);
+		}
+		return 0;
+	};
+
+	const balanceInvoices = () => {
+		if (client?.invoices) {
+			const paidInvoices = client?.invoices?.filter((invoice) => invoice.invoiceStatus !== 'paid');
+			return sumInvoices(paidInvoices);
+		}
+		return 0;
+	};
 </script>
 
 <li class="clients__item client">
 	<ul class="client__info">
 		<li class="client__status"><Tag label={client.clientStatus} /></li>
 		<li class="client__name">{client.name}</li>
-		<li class="client__received">$504.00</li>
-		<li class="client__balance">$240.00</li>
+		<li class="client__received">${centsToDollars(receivedInvoices())}</li>
+		<li class="client__balance">${centsToDollars(balanceInvoices())}</li>
 		<li class="client__view">
 			<a href="#">
 				<IconView />
@@ -185,6 +202,11 @@
 
 		.client__received {
 			text-align: right;
+		}
+
+		.client__received,
+		.client__balance {
+			font-size: 0.875rem;
 		}
 
 		.client__received::before,
