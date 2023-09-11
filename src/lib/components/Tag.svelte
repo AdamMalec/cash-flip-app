@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let label: 'draft' | 'sent' |'current' |'late' |'paid' | 'archive' = 'draft';
+	export let label: 'draft' | 'sent' | 'current' | 'late' | 'paid' | 'archive' = 'draft';
 </script>
 
 <span
@@ -25,6 +25,12 @@
 
 		border-radius: 1rem;
 		border: 1px solid var(--pico-secondary);
+	}
+
+	@media (width < 1024px) {
+		span {
+			width: 5rem;
+		}
 	}
 
 	.inverted {

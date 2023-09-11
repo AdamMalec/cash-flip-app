@@ -1,31 +1,32 @@
 <script lang="ts">
-	import AdditionalMenuClients from "$lib/components/AdditionalMenuClients.svelte";
-	import Tag from "$lib/components/Tag.svelte";
-	import IconThreeDots from "$lib/components/icons/IconThreeDots.svelte";
-	import IconView from "$lib/components/icons/IconView.svelte";
+	import AdditionalMenuClients from '$lib/components/AdditionalMenuClients.svelte';
+	import Tag from '$lib/components/Tag.svelte';
+	import IconThreeDots from '$lib/components/icons/IconThreeDots.svelte';
+	import IconView from '$lib/components/icons/IconView.svelte';
 
-  export let client: Client;
+	export let client: Client;
 
-  let isAddMenuOpen = false;
+	let isAddMenuOpen = false;
 	let isAddMenuFullOptions = true;
 	let isModalShow = false;
 	let isClientFormShow = false;
 
-  function handleEdit() {
+	function handleEdit() {
 		isClientFormShow = true;
 		isAddMenuOpen = false;
 	}
 
-  function handleActive(event: CustomEvent) {
-    isAddMenuOpen = false;
-    client.clientStatus = event.detail.active;
-  }
+	function handleActive(event: CustomEvent) {
+		isAddMenuOpen = false;
+		client.clientStatus = event.detail.active;
+	}
 
-  function handleArchive(event: CustomEvent) {
-    isAddMenuOpen = false;
-    client.clientStatus = event.detail.archive;
-  }
+	function handleArchive(event: CustomEvent) {
+		isAddMenuOpen = false;
+		client.clientStatus = event.detail.archive;
+	}
 </script>
+
 <li class="clients__item client">
 	<ul class="client__info">
 		<li class="client__status"><Tag label={client.clientStatus} /></li>
@@ -44,15 +45,15 @@
 
 			{#if isAddMenuOpen}
 				<AdditionalMenuClients
-          {client}
+					{client}
 					{isAddMenuFullOptions}
 					on:editClient={handleEdit}
 					on:deleteClient={() => {
 						isModalShow = true;
 						isAddMenuOpen = false;
 					}}
-          on:activateClient={handleActive}
-          on:archiveClient={handleArchive}
+					on:activateClient={handleActive}
+					on:archiveClient={handleArchive}
 				/>
 			{/if}
 		</li>
@@ -72,9 +73,8 @@
 		display: grid;
 		grid-template-columns: var(--grid-t-c-mobile);
 		grid-template-areas:
-			'id id'
-			'name amount'
-			'date status';
+			'name status'
+			'received balance';
 		grid-column-gap: var(--grid-c-g);
 		align-items: center;
 
@@ -98,8 +98,8 @@
 		text-align: center;
 	}
 
-  .client__name {
-    grid-area: name;
+	.client__name {
+		grid-area: name;
 		grid-area: name;
 		font-weight: bold;
 		white-space: nowrap;
@@ -109,23 +109,35 @@
 
 	.client__received {
 		grid-area: received;
-    font-family: monospace;
-    font-weight: bold;
-    text-align: right;
+		font-family: monospace;
+		font-size: 1rem;
+		font-weight: bold;
+		text-align: left;
+	}
+
+	.client__received::before {
+		content: 'Received:';
+		display: block;
+		font-size: 0.875rem;
 	}
 
 	.client__balance {
 		grid-area: balance;
 		font-family: monospace;
+		font-size: 1rem;
 		font-weight: bold;
 		text-align: right;
-    color: var(--color-error);
+		color: var(--color-error);
+	}
+
+	.client__balance::before {
+		content: 'Balance:';
+		display: block;
+		font-size: 0.875rem;
 	}
 
 	.client__status,
 	.client__name,
-	.client__received,
-	.client__balance,
 	.client__view,
 	.client__more {
 		font-size: 0.875rem;
@@ -162,10 +174,6 @@
 	}
 
 	@media (width > 1024px) {
-		.client {
-			padding: 1.5rem;
-		}
-
 		.client__info {
 			grid-template-columns: var(--grid-t-c);
 			grid-template-areas: 'status name received balance view more';
@@ -175,9 +183,24 @@
 			text-align: left;
 		}
 
+		.client__received {
+			text-align: right;
+		}
+
+		.client__received::before,
+		.client__balance::before {
+			display: none;
+		}
+
 		.client__view,
 		.client__more {
 			display: grid;
+		}
+	}
+
+	@media (width > 1280px) {
+		.client {
+			padding: 1.5rem;
 		}
 	}
 </style>

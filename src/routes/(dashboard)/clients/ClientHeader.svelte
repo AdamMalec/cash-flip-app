@@ -17,7 +17,7 @@
 		grid-template-columns: var(--grid-t-c-mobile);
 		grid-column-gap: var(--grid-c-g);
 
-		padding-inline: 1.5rem;
+		padding-inline: 1rem;
 		padding-top: 1rem;
 
 		font-weight: bold;
@@ -41,6 +41,12 @@
 		.clients__table-header {
 			display: grid;
 			grid-template-columns: var(--grid-t-c);
+		}
+	}
+
+	@media (width > 1280px) {
+		.client {
+			padding: 1.5rem;
 		}
 	}
 </style>
