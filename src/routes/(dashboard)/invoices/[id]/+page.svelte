@@ -6,6 +6,7 @@
 	import toast from 'svelte-french-toast';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import SvelteMarkdown from 'svelte-markdown';
 
 	export let data: Invoice;
 
@@ -116,14 +117,14 @@
 		{#if invoice.notes}
 			<div class="invoice__notes">
 				<span class="invoice__label">Notes</span>
-				<p>{invoice.notes}</p>
+				<SvelteMarkdown source={invoice.notes}></SvelteMarkdown>
 			</div>
 		{/if}
 
 		{#if invoice.terms}
 			<div class="invoice__terms">
 				<span class="invoice__label">Terms and Conditions</span>
-				<p>{invoice.terms}</p>
+				<SvelteMarkdown source={invoice.terms}></SvelteMarkdown>
 			</div>
 		{/if}
 	</div>
