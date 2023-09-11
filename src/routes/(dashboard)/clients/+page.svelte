@@ -3,7 +3,7 @@
 	import Search from '$lib/components/Search.svelte';
 	import ClientHeader from './ClientHeader.svelte';
 	import ClientRow from './ClientRow.svelte';
-	import BlankState from '../invoices/BlankState.svelte';
+	import BlankState from '../clients/BlankState.svelte';
 	import { clients, loadClients } from '$lib/stores/ClientStore';
 	import { onMount } from 'svelte';
 
