@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
 	import { states } from '$lib/utils/states';
-	import { addClient } from '$lib/stores/ClientStore';
+	import { addClient, updateClient } from '$lib/stores/ClientStore';
+	import toast from 'svelte-french-toast';
 
 	export let client: Client = {} as Client;
 	export let closePanel: () => void = () => {};
@@ -11,8 +12,24 @@
 
 
 	function handleSubmit() {
-		if ((formState = 'create')) {
+		if(formState === 'create') {
 			addClient(client);
+			toast.success('Your client was successfully created.', {
+				style: 'font-size: 0.8rem',
+				iconTheme: {
+					primary: '#22c697',
+					secondary: '#f8f8f8'
+				}
+			});
+		} else {
+			updateClient(client);
+			toast.success('Your client was successfully update.', {
+				style: 'font-size: 0.8rem',
+				iconTheme: {
+					primary: '#22c697',
+					secondary: '#f8f8f8'
+				}
+			});
 		}
 
 		closePanel();
@@ -48,7 +65,7 @@
 
 	<div class="field client-state">
 		<label for="state">State</label>
-		<select name="state" id="state">
+		<select name="state" id="state" bind:value={client.state}>
 			<option />
 			{#each states as state}
 				<option value={state.value}>{state.name}</option>
@@ -63,9 +80,9 @@
 
 	<!-- buttons -->
 	<div class="button">
-		<!-- {#if formState === 'edit'}
-			<Button label="Delete" style="destructive" onClick={() => {isModalShow = true}} />
-		{/if} -->
+		{#if formState === 'edit'}
+			<Button label="Delete" style="destructive" onClick={() => {}} />
+		{/if}
 	</div>
 	<div class="buttons">
 		<Button label="Cancel" style="secondary" onClick={() => {}} />

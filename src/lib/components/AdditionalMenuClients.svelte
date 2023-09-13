@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import IconSend from '$lib/components/icons/IconSend.svelte';
+	import IconEdit from '$lib/components/icons/IconEdit.svelte';
 	import IconTrash from '$lib/components/icons/IconTrash.svelte';
 	import IconActive from './icons/iconActive.svelte';
 	import IconArchive from './icons/iconArchive.svelte';
@@ -10,8 +10,9 @@
 
 	const dispatch = createEventDispatcher();
 
-	const handleSend = () => {
-    console.log('send...');
+	const handleEdit = () => {
+		dispatch('editClient');
+    console.log('Edit...');
   }
 
 	const handleActivate = () => {
@@ -31,9 +32,9 @@
 <ul class="menu">
 	{#if isAddMenuFullOptions}
 		<li class="menu__item">
-			<button class="menu__btn" on:click={handleSend}>
-				<IconSend />
-				<span>Send</span>
+			<button class="menu__btn" on:click={handleEdit}>
+				<IconEdit />
+				<span>Edit</span>
 			</button>
 		</li>
 

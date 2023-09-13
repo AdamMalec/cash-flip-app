@@ -75,7 +75,7 @@
 
 	.invoices__list {
 		display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
 		margin: 0;
 		padding: 0;
 	}

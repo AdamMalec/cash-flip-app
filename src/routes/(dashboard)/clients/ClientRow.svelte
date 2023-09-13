@@ -1,9 +1,11 @@
 <script lang="ts">
 	import AdditionalMenuClients from '$lib/components/AdditionalMenuClients.svelte';
+	import SlidePanel from '$lib/components/SlidePanel.svelte';
 	import Tag from '$lib/components/Tag.svelte';
 	import IconThreeDots from '$lib/components/icons/IconThreeDots.svelte';
 	import IconView from '$lib/components/icons/IconView.svelte';
 	import { centsToDollars, sumInvoices } from '$lib/utils/moneyHelpers';
+	import ClientForm from './ClientForm.svelte';
 
 	export let client: Client;
 
@@ -76,6 +78,12 @@
 		</li>
 	</ul>
 </li>
+
+{#if isClientFormShow}
+<SlidePanel on:closePanel={() => isClientFormShow = false}>
+	<ClientForm {client} formState="edit" closePanel={() => isClientFormShow = false}/>
+</SlidePanel>
+{/if}
 
 <style>
 	.client {

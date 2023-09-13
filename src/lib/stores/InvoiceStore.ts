@@ -4,7 +4,7 @@ import data from "../../seed.json"
 export const invoices = writable<Invoice[]>([]);
 
 export const loadInvoices = () => {
-	invoices.set(data.invoices)
+	invoices.set(data.invoices);
 }
 
 export const addInvoice = (invoiceToAdd: Invoice) => {
@@ -14,7 +14,7 @@ export const addInvoice = (invoiceToAdd: Invoice) => {
 }
 
 export const updateInvoice = (invoiceToUpdate: Invoice) => {
-	invoices.update((prev: Invoice[]) => prev.map((cur: Invoice) => cur.id === invoiceToUpdate.id ? invoiceToUpdate : cur))
+	invoices.update((prev: Invoice[]) => prev.map((cur: Invoice) => cur.id === invoiceToUpdate.id ? invoiceToUpdate : cur));
 	return invoiceToUpdate;
 }
 
