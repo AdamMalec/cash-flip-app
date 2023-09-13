@@ -34,7 +34,6 @@
 		isInvoiceFormShow = true;
 		isAddMenuOpen = false;
 	}
-
 </script>
 
 <li class="invoices__item invoice">
@@ -43,7 +42,9 @@
 		<li class="invoice__date">{convertDate(invoice.dueDate)}</li>
 		<li class="invoice__id">{invoice.invoiceNumber}</li>
 		<li class="invoice__name">{invoice.client.name}</li>
-		<li class="invoice__amount">${centsToDollars(invoiceTotal(invoice.lineItems, invoice.discount))}</li>
+		<li class="invoice__amount">
+			${centsToDollars(invoiceTotal(invoice.lineItems, invoice.discount))}
+		</li>
 		<li class="invoice__view">
 			<a href={`/invoices/${invoice.id}`}>
 				<IconView />
@@ -68,19 +69,12 @@
 	</ul>
 </li>
 
-<ConfirmDelete
-	{invoice}
-	{isModalShow}
-	on:close={() => isModalShow = false}
-/>
+<ConfirmDelete {invoice} {isModalShow} on:close={() => (isModalShow = false)} />
 
 {#if isInvoiceFormShow}
-<SlidePanel on:closePanel={() => isInvoiceFormShow = false}>
-	<InvoiceForm
-		{invoice}
-		formState="edit"
-		closePanel={() => isInvoiceFormShow = false}/>
-</SlidePanel>
+	<SlidePanel on:closePanel={() => (isInvoiceFormShow = false)}>
+		<InvoiceForm {invoice} formState="edit" closePanel={() => (isInvoiceFormShow = false)} />
+	</SlidePanel>
 {/if}
 
 <style>
@@ -186,10 +180,6 @@
 	}
 
 	@media (width > 1024px) {
-		.invoice {
-			padding: 1.5rem;
-		}
-
 		.invoice__info {
 			grid-template-columns: var(--grid-t-c);
 			grid-template-areas: 'status date id name amount view more';
@@ -202,6 +192,12 @@
 		.invoice__view,
 		.invoice__more {
 			display: grid;
+		}
+	}
+
+	@media (width > 1280px) {
+		.invoice {
+			padding: 1.5rem;
 		}
 	}
 </style>
