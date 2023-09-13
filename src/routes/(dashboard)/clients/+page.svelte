@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Button from '$lib/components/Button.svelte';
 	import Search from '$lib/components/Search.svelte';
 	import ClientHeader from './ClientHeader.svelte';
@@ -6,6 +6,10 @@
 	import BlankState from '../clients/BlankState.svelte';
 	import { clients, loadClients } from '$lib/stores/ClientStore';
 	import { onMount } from 'svelte';
+	import SlidePanel from '$lib/components/SlidePanel.svelte';
+	import ClientForm from './ClientForm.svelte';
+
+	let isClientFormShow: boolean = false;
 
 	onMount(() => {
 		loadClients();
@@ -18,15 +22,15 @@
 
 <div class="clients">
 	<div class="clients__header">
-		<!-- {#if $clients.length > 0} -->
-		<Search />
-		<!-- {:else}
+		{#if $clients.length > 0}
+			<Search />
+		{:else}
 			<div />
-		{/if} -->
+		{/if}
 
 		<!-- new clients -->
 		<div>
-			<Button label="+ Client" isAnimated={true} onClick={() => {}} />
+			<Button label="+ Client" isAnimated={true} onClick={() => {isClientFormShow = true}} />
 		</div>
 	</div>
 
@@ -40,18 +44,18 @@
 			<ClientHeader />
 			<ul class="clients__list">
 				{#each $clients as client}
-					<ClientRow {client}/>
+					<ClientRow {client} />
 				{/each}
 			</ul>
 		{/if}
 	</div>
 </div>
 
-<!-- {#if isclientFormShow}
-<SlidePanel on:closePanel={() => isclientFormShow = false}>
-	<clientForm closePanel={() => isclientFormShow = false}/>
+{#if isClientFormShow}
+<SlidePanel on:closePanel={() => isClientFormShow = false}>
+	<ClientForm closePanel={() => isClientFormShow = false}/>
 </SlidePanel>
-{/if} -->
+{/if}
 
 <style>
 	.clients {
@@ -69,8 +73,8 @@
 	}
 
 	.clients__list {
-    display: flex;
-    flex-direction: column-reverse;
+		display: flex;
+		flex-direction: column-reverse;
 		margin: 0;
 		padding: 0;
 	}
