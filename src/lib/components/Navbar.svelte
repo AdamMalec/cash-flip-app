@@ -56,15 +56,15 @@
 			<li>
 				<a
 					class="menu__link"
-					class:menu__link--active={$page.url.pathname === '/setting'}
-					href="#setting">Setting</a
+					class:menu__link--active={$page.url.pathname === '/settings'}
+					href="/settings">Settings</a
 				>
 			</li>
 			<li>
 				<a
 					class="menu__link"
 					class:menu__link--active={$page.url.pathname === '/logout'}
-					href="#logout">Logout</a
+					href="/logout">Logout</a
 				>
 			</li>
 		</ul>
