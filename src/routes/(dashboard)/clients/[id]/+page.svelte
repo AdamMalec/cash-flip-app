@@ -9,6 +9,7 @@
 	import SlidePanel from '$lib/components/SlidePanel.svelte';
 	import IconEdit from '$lib/components/icons/IconEdit.svelte';
 	import ClientForm from '../ClientForm.svelte';
+	import { isLate } from '$lib/utils/dateHelpers';
 
   export let data;
   const client = {...data} as Client;
@@ -24,6 +25,26 @@
 	function closePanel() {
 		isClientFormShow = false;
 		isEditingCurrentClient  = false;
+	}
+
+	function getDraft() {
+		const draftInvoices = invoices.filter((invoice) => invoice.invoiceStatus === 'draft');
+		return centsToDollars(sumInvoices(draftInvoices));
+	}
+
+	function getPaid() {
+		const paidInvoices = invoices.filter((invoice) => invoice.invoiceStatus === 'paid');
+		return centsToDollars(sumInvoices(paidInvoices));
+	}
+
+	function getTotalOverdue() {
+		const paidInvoices = invoices.filter((invoice) => invoice.invoiceStatus === 'sent' && isLate(invoice.dueDate));
+		return centsToDollars(sumInvoices(paidInvoices));
+	}
+
+	function getTotalOutstanding() {
+		const paidInvoices = invoices.filter((invoice) => invoice.invoiceStatus === 'sent' && !isLate(invoice.dueDate));
+		return centsToDollars(sumInvoices(paidInvoices));
 	}
 
 </script>
@@ -52,7 +73,7 @@
 			<BlankState />
 		{:else if client.invoices}
 		<div class="info">
-			<h1>Hydra FM</h1>
+			<h1>{client.name}</h1>
 			<button class="edit__btn" on:click={editClient}>
 				<IconEdit />
 				<span>Edit</span>
@@ -62,19 +83,19 @@
 		<ul class="total">
 			<li class="total__item total__item--overdue">
 				<span>Total Overdue</span>
-				<p><sup>$</sup>300.00</p>
+				<p><sup>$</sup>{getTotalOverdue()}</p>
 			</li>
 			<li class="total__item total__item--outstanding">
 				<span>Total&nbsp;Outstanding</span>
-				<p><sup>$</sup>300.00</p>
+				<p><sup>$</sup>{getTotalOutstanding()}</p>
 			</li>
 			<li class="total__item total__item--draft">
 				<span>Total Draft</span>
-				<p><sup>$</sup>300.00</p>
+				<p><sup>$</sup>{getDraft()}</p>
 			</li>
 			<li class="total__item total__item--paid">
 				<span>Total Paid</span>
-				<p><sup>$</sup>300.00</p>
+				<p><sup>$</sup>{getPaid()}</p>
 			</li>
 		</ul>
 
@@ -121,6 +142,11 @@
 		width: 100%;
 	}
 
+	.info h1 {
+		font-size: 2rem;
+		color: var(--color-black);
+	}
+
 	.edit__btn {
 		display: flex;
 		align-items: center;
@@ -149,6 +175,7 @@
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		column-gap: 0.3rem;
 		margin:0;
+		margin-bottom: 1rem;
 		padding: 1rem;
 		list-style:none;
 		border-radius: 0.5rem;
