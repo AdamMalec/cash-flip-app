@@ -37,6 +37,10 @@
 		outline: 0.1875rem solid var(--color-accent);
 	}
 
+	.search input:active {
+		box-shadow: none;
+	}
+
 	.search button {
 		margin-left: 2px;
 		padding: 0.5rem;
