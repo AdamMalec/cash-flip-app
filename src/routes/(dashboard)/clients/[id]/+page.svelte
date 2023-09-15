@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { invoices, loadInvoices } from '$lib/stores/InvoiceStore';
 	import BalloonAmount from '$lib/components/BalloonAmount.svelte';
 	import Search from '$lib/components/Search.svelte';
 	import InvoiceRow from '../../invoices/InvoiceRow.svelte';
@@ -9,16 +7,25 @@
 	import InvoiceHeader from '../../invoices/InvoiceHeader.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import SlidePanel from '$lib/components/SlidePanel.svelte';
-	import InvoiceForm from '../../invoices/InvoiceForm.svelte';
 	import IconEdit from '$lib/components/icons/IconEdit.svelte';
+	import ClientForm from '../ClientForm.svelte';
 
   export let data;
-  const client = {...data};
+  const client = {...data} as Client;
+	const invoices: Invoice[] = client.invoices as Invoice[];
 	let isClientFormShow: boolean = false;
+	let isEditingCurrentClient: boolean = false;
 
-	onMount(() => {
-		loadInvoices();
-	});
+	function editClient() {
+		isClientFormShow = true;
+		isEditingCurrentClient = true;
+	}
+
+	function closePanel() {
+		isClientFormShow = false;
+		isEditingCurrentClient  = false;
+	}
+
 </script>
 
 <svelte:head>
@@ -33,54 +40,63 @@
 			<div />
 		{/if}
 
-		<!-- new invoices -->
 		<div>
 			<Button label="+ Client" isAnimated={true} onClick={() => {isClientFormShow = true}}/>
 		</div>
 	</div>
 
-	<div class="info">
-		<h1>Hydra FM</h1>
-		<button class="edit__btn" on:click={() => {}}>
-			<IconEdit />
-			<span>Edit</span>
-		</button>
-	</div>
-
-	<ul class="total">
-		<li class="total__item total__item--overdue">
-			<span>Total Overdue</span>
-			<p><sup>$</sup>300.00</p>
-		</li>
-		<li class="total__item total__item--outstanding">
-			<span>Total Outstanding</span>
-			<p><sup>$</sup>300.00</p>
-		</li>
-		<li class="total__item total__item--draft">
-			<span>Total Draft</span>
-			<p><sup>$</sup>300.00</p>
-		</li>
-		<li class="total__item total__item--paid">
-			<span>Total Paid</span>
-			<p><sup>$</sup>300.00</p>
-		</li>
-	</ul>
-
-
 	<div class="invoices__content">
-		<InvoiceHeader />
-		<ul class="invoices__list">
-			{#each $invoices as invoice}
-				<InvoiceRow {invoice} />
-			{/each}
+		{#if client.invoices === null}
+			Loading...
+		{:else if client.invoices && client.invoices.length <= 0}
+			<BlankState />
+		{:else if client.invoices}
+		<div class="info">
+			<h1>Hydra FM</h1>
+			<button class="edit__btn" on:click={editClient}>
+				<IconEdit />
+				<span>Edit</span>
+			</button>
+		</div>
+
+		<ul class="total">
+			<li class="total__item total__item--overdue">
+				<span>Total Overdue</span>
+				<p><sup>$</sup>300.00</p>
+			</li>
+			<li class="total__item total__item--outstanding">
+				<span>Total&nbsp;Outstanding</span>
+				<p><sup>$</sup>300.00</p>
+			</li>
+			<li class="total__item total__item--draft">
+				<span>Total Draft</span>
+				<p><sup>$</sup>300.00</p>
+			</li>
+			<li class="total__item total__item--paid">
+				<span>Total Paid</span>
+				<p><sup>$</sup>300.00</p>
+			</li>
 		</ul>
-		<BalloonAmount label="Total" amount={`$${centsToDollars(sumInvoices($invoices))}`} />
+
+			<InvoiceHeader />
+
+			<ul class="invoices__list">
+				{#each invoices as invoice}
+					<InvoiceRow {invoice} />
+				{/each}
+			</ul>
+			<BalloonAmount label="Total" amount={`$${centsToDollars(sumInvoices(invoices))}`} />
+		{/if}
 	</div>
 </div>
 
 {#if isClientFormShow}
-<SlidePanel on:closePanel={() => isClientFormShow = false}>
-	<InvoiceForm closePanel={() => isClientFormShow = false}/>
+<SlidePanel on:closePanel={closePanel}>
+	<ClientForm
+		{closePanel}
+		formState={isEditingCurrentClient ? 'edit' : 'create'}
+		client={isEditingCurrentClient ? client : undefined}
+	/>
 </SlidePanel>
 {/if}
 
@@ -130,13 +146,13 @@
 
 	.total {
 		display: grid;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-		column-gap: 1rem;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		column-gap: 0.3rem;
 		margin:0;
-		padding: 1rem 1.5rem;
+		padding: 1rem;
 		list-style:none;
 		border-radius: 0.5rem;
-		background-color: var(--pico-primary-inverse);
+		background-color: #f3eef9;
 	}
 
 	.total__item {
@@ -148,6 +164,12 @@
 		font-size: 0.875rem;
 		font-weight: bold;
 		color: var(--pico-secondary);
+	}
+
+	.total__item sup {
+		/* position: relative;
+		top: 0.5rem; */
+		font-size: 0.5em;
 	}
 
 	.total__item p {
@@ -171,6 +193,16 @@
 		.invoices__header {
 			flex-direction: row;
 			margin-bottom: 1rem;
+		}
+
+		/* .total {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		} */
+	}
+
+	@media (width > 1024px)  {
+		.total {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
 		}
 	}
 </style>
