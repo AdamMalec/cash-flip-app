@@ -3,7 +3,7 @@
 [data-theme='light'],
 :root:not([data-theme='dark']) {
 	--pico-text-selection-color: rgba(167, 128, 212, 0.25);
-	--pico-primary: #8352c5;
+	--pico-primary: #7a3acf;
 	--pico-primary-dim: #b49ad9;
 	--pico-primary-background: #7540bf;
 	--pico-primary-underline: rgba(131, 82, 197, 0.5);
@@ -28,6 +28,10 @@
 }
 
 
+label {
+	font-size: 0.875rem;
+	margin-bottom:calc(var(--pico-spacing) * .25)
+};
 
 input[disabled] {
 	opacity: 0.8 !important;

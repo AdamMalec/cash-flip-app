@@ -2,6 +2,7 @@
 	import Navbar from '$lib/components/Navbar.svelte';
 	import { loadSettings, settings } from '$lib/stores/SettingsStore';
 	import { states } from '$lib/utils/states';
+  import toast from "svelte-french-toast";
 	import { onMount } from 'svelte';
 
   let mySettings: Settings = {} as Settings;
@@ -101,7 +102,6 @@
     margin-bottom: 0.2rem;
     color: var(--pico-primary);
   }
-
 
   form {
     display:grid;
