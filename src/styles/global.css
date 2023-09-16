@@ -61,6 +61,47 @@ select {
 	column-gap: 1rem;
 }
 
+.auth .field {
+	min-width: 19rem;
+}
+
+.auth .field label {
+	color: var(--color-accent);
+}
+
+.auth .field a {
+	align-self: baseline;
+	display: inline-block;
+	padding: 0.1rem;
+	padding-bottom: 0;
+	font-size: 0.75rem;
+	text-decoration: underline;
+	color: var(--pico-primary-inverse);
+	border-radius: 0.2rem;
+}
+
+.auth .field a:hover {
+	text-decoration: none;
+}
+
+.auth .field a:focus-visible {
+	color: var(--color-accent);
+	text-decoration: none;
+}
+
+.auth .field p {
+	text-align: center;
+}
+
+.auth__btn {
+	width: 100%;
+	margin-top: 0.9rem;
+	padding: 0.5rem 1rem;
+	font-weight: bold;
+	color: var(--color-black);
+	background-color: var(--color-success-bg);
+}
+
 @media (width < 1024px)  {
 	.line {
 		grid-template-columns: 1fr 70px 106px 106px 45px;
