@@ -45,7 +45,7 @@
 	}
 
 	.field a {
-    align-self: center;
+    align-self: baseline;
     display: inline-block;
     padding: 0.1rem;
     padding-bottom: 0;
@@ -55,10 +55,13 @@
     border-radius: 0.2rem;
 	}
 
+	.field a:hover {
+		text-decoration: none;
+	}
+
 	.field a:focus-visible {
-		/* box-shadow: none; */
 		color: var(--color-accent);
-		text-decoration-color: var(--color-accent);
+		text-decoration: none;
 	}
 
 	.field p {
