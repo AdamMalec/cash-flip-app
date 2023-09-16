@@ -317,10 +317,10 @@
   ],
   "settings": {
     "city": "Coolville",
-    "email": "amy@example.com",
-    "myName": "Amy Dutton",
+    "email": "benholder@example.com",
+    "name": "Ben Holder",
     "state": "TN",
-    "street": "123 Awesome Street",
-    "zip": "54321"
+    "street": "13 Awesome Street",
+    "zip": "4291"
   }
 }

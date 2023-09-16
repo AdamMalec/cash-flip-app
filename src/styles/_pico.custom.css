@@ -23,7 +23,11 @@
 	--pico-secondary-hover-underline: var(--pico-secondary-hover);
 	--pico-secondary-focus: hsla(221, 19%, 65%, 0.25);
 	--pico-secondary-inverse: #f8f8f8;
+
+	--pico-line-height: 1.36;
 }
+
+
 
 input[disabled] {
 	opacity: 0.8 !important;

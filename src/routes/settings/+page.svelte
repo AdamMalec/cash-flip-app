@@ -1,6 +1,15 @@
 <script lang="ts">
 	import Navbar from '$lib/components/Navbar.svelte';
+	import { loadSettings, settings } from '$lib/stores/SettingsStore';
 	import { states } from '$lib/utils/states';
+	import { onMount } from 'svelte';
+
+  let mySettings: Settings = {} as Settings;
+
+  onMount(() => {
+    loadSettings();
+    mySettings = {...$settings};
+  })
 </script>
 
 <div class="page container-fluent">
@@ -15,22 +24,22 @@
     <form on:submit|preventDefault={() => {}}>
       <div class="field name">
         <label for="name">Client Name</label>
-        <input type="text" name="name" id="name" required />
+        <input type="text" name="name" id="name" required bind:value={mySettings.name}/>
       </div>
 
       <div class="field address">
         <label for="address">Address</label>
-        <input type="text" name="address" id="address" />
+        <input type="text" name="address" id="address" bind:value={mySettings.street}/>
       </div>
 
       <div class="field city">
         <label for="city">City</label>
-        <input type="text" name="city" id="city" />
+        <input type="text" name="city" id="city" bind:value={mySettings.city}/>
       </div>
 
       <div class="field state">
         <label for="state">State</label>
-        <select name="state" id="state">
+        <select name="state" id="state" bind:value={mySettings.state}>
           <option />
           {#each states as state}
             <option value={state.value}>{state.name}</option>
@@ -40,7 +49,7 @@
 
       <div class="field zip">
         <label for="zip">Zip</label>
-        <input type="text" name="zip" id="zip" minlength="5" />
+        <input type="text" name="zip" id="zip" minlength="5" bind:value={mySettings.zip}/>
       </div>
 
       <button type="submit">Save</button>
@@ -83,9 +92,16 @@
 	}
 
 	.page__content {
+    padding-top: 2rem;
 		grid-column: 1 / -1;
 		padding-inline: 1rem;
 	}
+
+  h2 {
+    margin-bottom: 0.2rem;
+    color: var(--pico-primary);
+  }
+
 
   form {
     display:grid;
@@ -101,7 +117,7 @@
 	.city,
 	.state,
 	.zip {
-		grid-column: span 2 / span 2;
+		grid-column: span 6 / span 6;
 	}
 
   .email,
@@ -112,7 +128,7 @@
   }
 
   button[type='submit'] {
-    grid-column-start: 6;
+    grid-column: 3  / span 2;
 		margin-bottom: 0;
 		padding: 0.5rem 1rem;
 		font-weight: bold;
@@ -130,5 +146,24 @@
 		.page__content {
 			grid-column: span 8 / span 8;
 		}
+
+    .city,
+    .state,
+    .zip {
+      grid-column: span 2 / span 2;
+    }
+
+    button[type='submit'] {
+      grid-column: 5  / span 2;
+    }
 	}
+
+  @media (width > 1024px) {
+    button[type='submit'] {
+    grid-column: 6 / span 1;
+		margin-bottom: 0;
+		padding: 0.5rem 1rem;
+		font-weight: bold;
+	}
+  }
 </style>
