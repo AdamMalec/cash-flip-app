@@ -83,6 +83,7 @@
 		padding: 1rem;
 		list-style: none;
 		border-radius: 0.5rem;
+		background-color: var(--pico-primary-inverse);
 		box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.16);
 	}
 

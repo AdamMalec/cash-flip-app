@@ -16,6 +16,7 @@
 	.page {
 		display: grid;
 		grid-template-columns: repeat(12, minmax(0, 1fr));
+		background-color: var(--color-primary-bg);
 	}
 
 	.page__content {

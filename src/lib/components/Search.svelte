@@ -24,6 +24,7 @@
 		padding: 12px 8px;
 		border: none;
 		border-bottom: 0.1875rem dashed var(--pico-primary);
+		background-color: var(--color-primary-bg);
 		transition: outline 0.1s ease-in-out;
 	}
 
@@ -34,7 +35,13 @@
 	.search input:focus {
 		border-bottom-color: transparent;
 		border-radius: 0.5rem;
+
+		background-color: var(--pico-background-color);
 		outline: 0.1875rem solid var(--color-accent);
+	}
+
+	.search input:focus::placeholder {
+		color: transparent;
 	}
 
 	.search input:active {
