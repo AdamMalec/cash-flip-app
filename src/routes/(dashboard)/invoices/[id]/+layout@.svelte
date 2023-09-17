@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { afterNavigate, goto } from '$app/navigation';
 	import IconArrow from '$lib/components/icons/IconArrow.svelte';
+	import { fly } from 'svelte/transition';
 
 	let previousPage: string | undefined = undefined;
 
@@ -17,7 +18,7 @@
 	}}
 />
 
-<main>
+<main transition:fly={{y: 180, duration: 180}}>
 	<div class="container-fluid">
 		<a class="back-link" href={previousPage || '/invoices'}><IconArrow /></a>
 		<slot />
@@ -28,7 +29,7 @@
 	main {
 		height: 100%;
 		min-height: 100vh;
-		background-color: var(--color-primary-disabled);
+		background-color: var(--color-primary-bg);
 	}
 
 	.container-fluid {
