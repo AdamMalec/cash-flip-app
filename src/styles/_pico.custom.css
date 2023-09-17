@@ -11,7 +11,7 @@
 	--pico-primary-hover-background: #5e3399;
 	--pico-primary-focus: var(--color-accent);
 	--pico-contrast-focus: var(--color-accent);
-	--pico-primary-inverse: #f8f8f8;
+	--pico-primary-inverse: #fafafa;
 
 	--pico-secondary: hsl(221, 19%, 65%);
 	--pico-secondary-background: hsl(221, 20%, 60%);

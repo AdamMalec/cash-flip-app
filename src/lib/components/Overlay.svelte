@@ -11,7 +11,7 @@
 	</style>
 </svelte:head>
 
-<div class="overlay" transition:fade/>
+<div class="overlay" transition:fade={{duration: 100}}/>
 
 <style>
 	.overlay {

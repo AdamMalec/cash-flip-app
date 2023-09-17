@@ -177,8 +177,10 @@
 		margin:0;
 		margin-bottom: 1rem;
 		padding: 1rem;
+
 		list-style:none;
 		border-radius: 0.5rem;
+		box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.16);
 		background-color: #f3eef9;
 	}
 

@@ -62,4 +62,8 @@
 		background-color: transparent;
 		border: none;
 	}
+
+	.modal__close:active {
+		box-shadow: none;
+	}
 </style>
