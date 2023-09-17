@@ -18,7 +18,7 @@
 	}}
 />
 
-<main transition:fly={{y: 180, duration: 180}}>
+<main in:fly={{y: 180, duration: 180}}>
 	<div class="container-fluid">
 		<a class="back-link" href={previousPage || '/invoices'}><IconArrow /></a>
 		<slot />

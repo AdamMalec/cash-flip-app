@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { clickOutside } from '$lib/actions/ClickOutside';
 	import AdditionalMenuInvoices from '$lib/components/AdditionalMenuInvoices.svelte';
 	import AdditionalMenu from '$lib/components/AdditionalMenuInvoices.svelte';
 	import SlidePanel from '$lib/components/SlidePanel.svelte';
@@ -50,7 +51,7 @@
 				<IconView />
 			</a>
 		</li>
-		<li class="invoice__more">
+		<li class="invoice__more" use:clickOutside={() => {isAddMenuOpen = false}}>
 			<button on:click={() => (isAddMenuOpen = !isAddMenuOpen)}>
 				<IconThreeDots />
 			</button>

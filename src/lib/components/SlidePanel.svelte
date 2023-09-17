@@ -5,6 +5,7 @@
 	import IconArrow from '$lib/components/icons/IconArrow.svelte';
 	import Button from './Button.svelte';
 	import { slide } from 'svelte/transition';
+	import { clickOutside } from '$lib/actions/ClickOutside';
 
 	const dispatch = createEventDispatcher();
 </script>
@@ -19,7 +20,7 @@
 
 <Portal>
 	<Overlay />
-	<div class="slide-panel" transition:slide={{duration: 240, axis: 'x' }}>
+	<div class="slide-panel" transition:slide={{duration: 240, axis: 'x' }} use:clickOutside={() => dispatch('closePanel')}>
 		<div class="slide-panel-button">
 			<Button label="" style="icon" onClick={() => dispatch('closePanel')}>
 				<IconArrow />

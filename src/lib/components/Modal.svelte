@@ -3,6 +3,7 @@
 	import Overlay from '$lib/components//Overlay.svelte';
 	import IconClose from './icons/IconClose.svelte';
 	import { createEventDispatcher } from 'svelte';
+	import { clickOutside } from '$lib/actions/ClickOutside';
 
 	export let isVisible: boolean = false;
 	const dispatch = createEventDispatcher();
@@ -20,7 +21,7 @@
 	<Portal>
 		<Overlay --modal-overlay="var(--z-modal-overlay)"/>
 		<div class="modal">
-			<div class="modal__body">
+			<div class="modal__body" use:clickOutside={() => dispatch('close')}>
 				<button class="modal__close" on:click={() => dispatch('close')}><IconClose /></button>
 				<slot />
 			</div>
