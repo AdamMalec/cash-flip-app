@@ -1,3 +1,8 @@
+<script>
+
+	import { fade } from "svelte/transition";
+
+</script>
 <svelte:head>
 	<style>
 		html {
@@ -6,7 +11,7 @@
 	</style>
 </svelte:head>
 
-<div class="overlay" />
+<div class="overlay" transition:fade/>
 
 <style>
 	.overlay {

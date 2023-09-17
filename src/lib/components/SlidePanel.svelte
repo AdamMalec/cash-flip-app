@@ -4,6 +4,7 @@
 	import Portal from './Portal.svelte';
 	import IconArrow from '$lib/components/icons/IconArrow.svelte';
 	import Button from './Button.svelte';
+	import { slide } from 'svelte/transition';
 
 	const dispatch = createEventDispatcher();
 </script>
@@ -18,7 +19,7 @@
 
 <Portal>
 	<Overlay />
-	<div class="slide-panel">
+	<div class="slide-panel" transition:slide={{duration: 240, axis: 'x' }}>
 		<div class="slide-panel-button">
 			<Button label="" style="icon" onClick={() => dispatch('closePanel')}>
 				<IconArrow />
@@ -42,7 +43,7 @@
 		background-color: #f8f8f8;
 		box-shadow: -4px 0 44px rgba(0, 0, 0, 0.16);
 
-		overflow-y: scroll;
+		overflow-y: auto;
 		z-index: var(--z-slide-panel);
 	}
 

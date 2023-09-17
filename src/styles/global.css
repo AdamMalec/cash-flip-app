@@ -78,7 +78,6 @@ select {
 	align-self: baseline;
 	display: inline-block;
 	padding: 0.1rem;
-	padding-bottom: 0;
 	font-size: 0.75rem;
 	text-decoration: underline;
 	color: var(--pico-primary-inverse);
