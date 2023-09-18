@@ -17,6 +17,8 @@
 	--bp-desktop: 1584px;
 
 	/* z-index */
+	--z-row-actions: 9;
+	--z-row: 10;
 	--z-pop-up-menu: 90;
 	--z-nav: 98;
 	--z-nav-toggle: 99;

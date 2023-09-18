@@ -5,7 +5,11 @@
 	import AdditionalMenu from '$lib/components/AdditionalMenuInvoices.svelte';
 	import SlidePanel from '$lib/components/SlidePanel.svelte';
 	import Tag from '$lib/components/Tag.svelte';
+	import IconCancel from '$lib/components/icons/IconCancel.svelte';
+	import IconEdit from '$lib/components/icons/IconEdit.svelte';
+	import IconSend from '$lib/components/icons/IconSend.svelte';
 	import IconThreeDots from '$lib/components/icons/IconThreeDots.svelte';
+	import IconTrash from '$lib/components/icons/IconTrash.svelte';
 	import IconView from '$lib/components/icons/IconView.svelte';
 	import { convertDate, isLate } from '$lib/utils/dateHelpers';
 	import { centsToDollars, invoiceTotal } from '$lib/utils/moneyHelpers';
@@ -38,8 +42,8 @@
 	}
 </script>
 
-<li class="invoices__item invoice" use:swipe>
-	<ul class="invoice__info">
+<li class="invoices__item invoice">
+	<ul class="invoice__info" use:swipe>
 		<li class="invoice__status"><Tag label={getInvoiceLabel()} /></li>
 		<li class="invoice__date">{convertDate(invoice.dueDate)}</li>
 		<li class="invoice__id">{invoice.invoiceNumber}</li>
@@ -52,7 +56,12 @@
 				<IconView />
 			</a>
 		</li>
-		<li class="invoice__more" use:clickOutside={() => {isAddMenuOpen = false}}>
+		<li
+			class="invoice__more"
+			use:clickOutside={() => {
+				isAddMenuOpen = false;
+			}}
+		>
 			<button on:click={() => (isAddMenuOpen = !isAddMenuOpen)}>
 				<IconThreeDots />
 			</button>
@@ -69,6 +78,27 @@
 			{/if}
 		</li>
 	</ul>
+
+	<!-- swipe options -->
+	<ul class="invoice__options">
+		<li class="invoice__option-item">
+			<button class="invoice__option-btn"><IconView size={32}/>View</button>
+		</li>
+		{#if isAddMenuFullOptions}
+			<li class="invoice__option-item">
+				<button class="invoice__option-btn"><IconSend size={32}/>Send</button>
+			</li>
+			<li class="invoice__option-item">
+				<button class="invoice__option-btn"><IconEdit size={32}/>Edit</button>
+			</li>
+		{/if}
+		<li class="invoice__option-item">
+			<button class="invoice__option-btn"><IconTrash size={32}/>Delete</button>
+		</li>
+		<li class="invoice__option-item">
+			<button class="invoice__option-btn"><IconCancel size={32}/>Cancel</button>
+		</li>
+	</ul>
 </li>
 
 <ConfirmDelete {invoice} {isModalShow} on:close={() => (isModalShow = false)} />
@@ -81,15 +111,13 @@
 
 <style>
 	.invoice {
+		position: relative;
 		margin-bottom: 1rem;
-		padding: 1rem;
 		list-style: none;
-		border-radius: 0.5rem;
-		background-color: var(--pico-primary-inverse);
-		box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.16);
 	}
 
 	.invoice__info {
+		position: relative;
 		display: grid;
 		grid-template-columns: var(--grid-t-c-mobile);
 		grid-template-areas:
@@ -100,9 +128,12 @@
 		align-items: center;
 
 		margin: 0;
-		padding: 0;
+		padding: 1rem;
 
 		border-radius: 0.5rem;
+		background-color: var(--pico-primary-inverse);
+		box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.16);
+		z-index: var(--z-row);
 	}
 
 	.invoice__view,
@@ -182,6 +213,41 @@
 		border: none;
 	}
 
+	.invoice__options {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		z-index: var(--z-row-actions);
+	}
+
+	.invoice__option-item {
+		min-width: 5rem;
+		list-style: none;
+	}
+
+	.invoice__option-btn {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		font-weight: bold;
+		color: var(--pico-primary);
+		border: none;
+		background-color: transparent;
+	}
+
+
+	.invoice__option-btn:focus,
+	.invoice__option-btn:focus-visible {
+		box-shadow: none;
+	}
+
 	@media (width > 1024px) {
 		.invoice__info {
 			grid-template-columns: var(--grid-t-c);
@@ -199,7 +265,7 @@
 	}
 
 	@media (width > 1280px) {
-		.invoice {
+		.invoice__info {
 			padding: 1.5rem;
 		}
 	}
