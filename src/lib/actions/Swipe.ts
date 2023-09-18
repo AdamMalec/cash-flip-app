@@ -1,12 +1,14 @@
 import { spring } from "svelte/motion";
 
 interface SwipeProps {
+  triggerReset?: boolean;
 }
 
 export function swipe(node: HTMLElement, params: SwipeProps) {
   let x: number;
   let startingX: number;
   const elementWidth = node.clientWidth;
+  let triggerReset = params?.triggerReset || false;
 
   const coordinates = spring(
     { x: 0, y: 0 },
@@ -55,14 +57,14 @@ export function swipe(node: HTMLElement, params: SwipeProps) {
     // swiped left
     if (movement > 20) {
       x = leftSnapX;
-      updateCoordinates(x);
+      outOfView();
     }
 
     // swiped right
     if (movement < 20) {
       x = rightSnapX;
-      updateCoordinates(x)
     }
+    updateCoordinates(x)
   }
 
   function handleMouseUp(event: MouseEvent) {
@@ -72,9 +74,22 @@ export function swipe(node: HTMLElement, params: SwipeProps) {
     window.removeEventListener('mouseup', handleMouseUp);
   }
 
-  return {
-    update() {
+  function resetItem() {
+    coordinates.update(() => {
+      return{ x:0, y:0 }
+    });
+    triggerReset = false;
+  }
 
+  function outOfView() {
+    node.dispatchEvent(new CustomEvent('outOfView'))
+  }
+
+  return {
+    update(newParams: SwipeProps) {
+      if(newParams.triggerReset) {
+        resetItem()
+      }
     },
     destroy() {
       node.removeEventListener('mousedown', handleMouseDown);

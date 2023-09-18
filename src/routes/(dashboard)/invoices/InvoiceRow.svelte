@@ -2,7 +2,6 @@
 	import { clickOutside } from '$lib/actions/ClickOutside';
 	import { swipe } from '$lib/actions/Swipe';
 	import AdditionalMenuInvoices from '$lib/components/AdditionalMenuInvoices.svelte';
-	import AdditionalMenu from '$lib/components/AdditionalMenuInvoices.svelte';
 	import SlidePanel from '$lib/components/SlidePanel.svelte';
 	import Tag from '$lib/components/Tag.svelte';
 	import IconCancel from '$lib/components/icons/IconCancel.svelte';
@@ -22,6 +21,7 @@
 	let isAddMenuFullOptions = true;
 	let isModalShow = false;
 	let isInvoiceFormShow = false;
+	let triggerReset = false;
 
 	function getInvoiceLabel() {
 		if (invoice.invoiceStatus === 'draft') {
@@ -43,7 +43,7 @@
 </script>
 
 <li class="invoices__item invoice">
-	<ul class="invoice__info" use:swipe>
+	<ul class="invoice__info" use:swipe={{triggerReset}} on:outOfView={() => {triggerReset=false}}>
 		<li class="invoice__status"><Tag label={getInvoiceLabel()} /></li>
 		<li class="invoice__date">{convertDate(invoice.dueDate)}</li>
 		<li class="invoice__id">{invoice.invoiceNumber}</li>
@@ -96,7 +96,7 @@
 			<button class="invoice__option-btn"><IconTrash size={32}/>Delete</button>
 		</li>
 		<li class="invoice__option-item">
-			<button class="invoice__option-btn"><IconCancel size={32}/>Cancel</button>
+			<button class="invoice__option-btn" on:click={() => {triggerReset = true}}><IconCancel size={32}/>Cancel</button>
 		</li>
 	</ul>
 </li>
