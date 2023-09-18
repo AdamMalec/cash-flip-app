@@ -8,7 +8,7 @@ interface SwipeProps {
 export const  swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
   let x: number;
   let startingX: number;
-  const elementWidth = node.clientWidth;
+  let elementWidth = node.clientWidth;
   let triggerReset = params?.triggerReset || false;
 
   const coordinates = spring(
@@ -23,7 +23,28 @@ export const  swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
     node.style.transform = `translate(${$coords.x}px, 0)`
   })
 
-  node.addEventListener('mousedown', handleMouseDown);
+  if (isMobileBreakPoint()) {
+    node.addEventListener('mousedown', handleMouseDown);
+  }
+
+  window.addEventListener('resize', () => {
+    // listening browser resize
+    if (isMobileBreakPoint()) {
+      node.addEventListener('mousedown', handleMouseDown);
+    } else {
+      node.removeEventListener('mousedown', handleMouseDown);
+    }
+
+    // update the item width
+    elementWidth = node.clientWidth;
+  })
+
+  function isMobileBreakPoint() {
+    const mediaQuery = window.matchMedia('(max-width: 1024px)');
+    if (mediaQuery.matches) {
+      return true;
+    }
+  }
 
   function handleMouseDown(event: MouseEvent) {
     x = event.clientX;
