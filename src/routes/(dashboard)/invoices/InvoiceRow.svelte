@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { clickOutside } from '$lib/actions/ClickOutside';
+	import { swipe } from '$lib/actions/Swipe';
 	import AdditionalMenuInvoices from '$lib/components/AdditionalMenuInvoices.svelte';
 	import AdditionalMenu from '$lib/components/AdditionalMenuInvoices.svelte';
 	import SlidePanel from '$lib/components/SlidePanel.svelte';
@@ -37,7 +38,7 @@
 	}
 </script>
 
-<li class="invoices__item invoice">
+<li class="invoices__item invoice" use:swipe>
 	<ul class="invoice__info">
 		<li class="invoice__status"><Tag label={getInvoiceLabel()} /></li>
 		<li class="invoice__date">{convertDate(invoice.dueDate)}</li>
