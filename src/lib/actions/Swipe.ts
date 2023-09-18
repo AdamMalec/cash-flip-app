@@ -1,10 +1,11 @@
+import type { Action } from "svelte/action";
 import { spring } from "svelte/motion";
 
 interface SwipeProps {
   triggerReset?: boolean;
 }
 
-export function swipe(node: HTMLElement, params: SwipeProps) {
+export const  swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
   let x: number;
   let startingX: number;
   const elementWidth = node.clientWidth;
@@ -43,7 +44,7 @@ export function swipe(node: HTMLElement, params: SwipeProps) {
     });
   }
 
-  function updateCoordinates(x) {
+  function updateCoordinates(x:number) {
     coordinates.update(() => {
       return { x, y: 0 }
     });
