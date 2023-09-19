@@ -10,6 +10,7 @@
 	import IconEdit from '$lib/components/icons/IconEdit.svelte';
 	import ClientForm from '../ClientForm.svelte';
 	import { isLate } from '$lib/utils/dateHelpers';
+	import { fly } from 'svelte/transition';
 
   export let data;
   const client = {...data} as Client;
@@ -72,41 +73,41 @@
 		{:else if client.invoices && client.invoices.length <= 0}
 			<BlankState />
 		{:else if client.invoices}
-		<div class="info">
-			<h1>{client.name}</h1>
-			<button class="edit__btn" on:click={editClient}>
-				<IconEdit />
-				<span>Edit</span>
-			</button>
-		</div>
+			<div class="info">
+				<h1>{client.name}</h1>
+				<button class="edit__btn" on:click={editClient}>
+					<IconEdit />
+					<span>Edit</span>
+				</button>
+			</div>
 
-		<ul class="total">
-			<li class="total__item total__item--overdue">
-				<span>Total Overdue</span>
-				<p><sup>$</sup>{getTotalOverdue()}</p>
-			</li>
-			<li class="total__item total__item--outstanding">
-				<span>Total&nbsp;Outstanding</span>
-				<p><sup>$</sup>{getTotalOutstanding()}</p>
-			</li>
-			<li class="total__item total__item--draft">
-				<span>Total Draft</span>
-				<p><sup>$</sup>{getDraft()}</p>
-			</li>
-			<li class="total__item total__item--paid">
-				<span>Total Paid</span>
-				<p><sup>$</sup>{getPaid()}</p>
-			</li>
-		</ul>
-
-			<InvoiceHeader />
-
-			<ul class="invoices__list">
-				{#each invoices as invoice}
-					<InvoiceRow {invoice} />
-				{/each}
-			</ul>
-			<BalloonAmount label="Total" amount={`$${centsToDollars(sumInvoices(invoices))}`} />
+			<div in:fly={{y: 180, duration: 180}}>
+				<ul class="total">
+					<li class="total__item total__item--overdue">
+						<span>Total Overdue</span>
+						<p><sup>$</sup>{getTotalOverdue()}</p>
+					</li>
+					<li class="total__item total__item--outstanding">
+						<span>Total&nbsp;Outstanding</span>
+						<p><sup>$</sup>{getTotalOutstanding()}</p>
+					</li>
+					<li class="total__item total__item--draft">
+						<span>Total Draft</span>
+						<p><sup>$</sup>{getDraft()}</p>
+					</li>
+					<li class="total__item total__item--paid">
+						<span>Total Paid</span>
+						<p><sup>$</sup>{getPaid()}</p>
+					</li>
+				</ul>
+				<InvoiceHeader />
+				<ul class="invoices__list">
+					{#each invoices as invoice}
+						<InvoiceRow {invoice} />
+					{/each}
+				</ul>
+				<BalloonAmount label="Total" amount={`$${centsToDollars(sumInvoices(invoices))}`} />
+			</div>
 		{/if}
 	</div>
 </div>
