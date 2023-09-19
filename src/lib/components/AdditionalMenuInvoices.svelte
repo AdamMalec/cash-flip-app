@@ -7,14 +7,16 @@
 	export let isAddMenuFullOptions: boolean;
 	const dispatch = createEventDispatcher();
 
-	const handleSend = () => console.log('send...');
+	const handleSend = () => {
+		dispatch('sendInvoice');
+	};
+
 	const handleEdit = () => {
 		dispatch('editInvoice');
-		console.log('edit...');
-	}
+	};
+
 	const handleDelete = () => {
 		dispatch('deleteInvoice');
-		console.log('delete...');
 	};
 </script>
 

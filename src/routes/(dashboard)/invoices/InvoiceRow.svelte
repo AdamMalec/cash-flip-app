@@ -36,8 +36,17 @@
 		}
 	}
 
+	function handleSend() {
+		console.log('send....');
+	}
+
 	function handleEdit() {
 		isInvoiceFormShow = true;
+		isAddMenuOpen = false;
+	}
+
+	function handleDelete() {
+		isModalShow = true;
 		isAddMenuOpen = false;
 	}
 </script>
@@ -69,11 +78,9 @@
 			{#if isAddMenuOpen}
 				<AdditionalMenuInvoices
 					{isAddMenuFullOptions}
+					on:sendInvoice={handleSend}
 					on:editInvoice={handleEdit}
-					on:deleteInvoice={() => {
-						isModalShow = true;
-						isAddMenuOpen = false;
-					}}
+					on:deleteInvoice={handleDelete}
 				/>
 			{/if}
 		</li>
@@ -82,18 +89,18 @@
 	<!-- swipe options -->
 	<ul class="invoice__options">
 		<li class="invoice__option-item">
-			<button class="invoice__option-btn"><IconView size={32}/>View</button>
+			<a href={`/invoices/${invoice.id}`} class="invoice__option-btn"><IconView size={32}/>View</a>
 		</li>
 		{#if isAddMenuFullOptions}
 			<li class="invoice__option-item">
-				<button class="invoice__option-btn"><IconSend size={32}/>Send</button>
+				<button class="invoice__option-btn" on:click={handleSend}><IconSend size={32}/>Send</button>
 			</li>
 			<li class="invoice__option-item">
-				<button class="invoice__option-btn"><IconEdit size={32}/>Edit</button>
+				<button class="invoice__option-btn" on:click={handleEdit}><IconEdit size={32}/>Edit</button>
 			</li>
 		{/if}
 		<li class="invoice__option-item">
-			<button class="invoice__option-btn"><IconTrash size={32}/>Delete</button>
+			<button class="invoice__option-btn"on:click={handleDelete}><IconTrash size={32}/>Delete</button>
 		</li>
 		<li class="invoice__option-item">
 			<button class="invoice__option-btn" on:click={() => {triggerReset = true}}><IconCancel size={32}/>Cancel</button>
@@ -237,6 +244,7 @@
 		justify-content: center;
 
 		font-weight: bold;
+		text-decoration: none;
 		color: var(--pico-primary);
 		border: none;
 		background-color: transparent;
