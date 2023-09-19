@@ -43,8 +43,8 @@
 		{:else}
 			<InvoiceHeader />
 			<ul class="invoices__list">
-				{#each $invoices as invoice}
-					<InvoiceRow {invoice} />
+				{#each $invoices as invoice, index}
+					<InvoiceRow {invoice} --z-row={900 - index}/>
 				{/each}
 			</ul>
 			<BalloonAmount label="Total" amount={`$${centsToDollars(sumInvoices($invoices))}`} />
