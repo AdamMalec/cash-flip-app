@@ -3,31 +3,46 @@
 	import AdditionalMenuClients from '$lib/components/AdditionalMenuClients.svelte';
 	import SlidePanel from '$lib/components/SlidePanel.svelte';
 	import Tag from '$lib/components/Tag.svelte';
+	import IconEdit from '$lib/components/icons/IconEdit.svelte';
 	import IconThreeDots from '$lib/components/icons/IconThreeDots.svelte';
+	import IconTrash from '$lib/components/icons/IconTrash.svelte';
 	import IconView from '$lib/components/icons/IconView.svelte';
+	import IconCancel from '$lib/components/icons/IconCancel.svelte';
 	import { centsToDollars, sumInvoices } from '$lib/utils/moneyHelpers';
 	import ClientForm from './ClientForm.svelte';
+	import { swipe } from '$lib/actions/Swipe';
+	import IconActive from '$lib/components/icons/iconActive.svelte';
+	import IconArchive from '$lib/components/icons/iconArchive.svelte';
 
 	export let client: Client;
 
 	let isAddMenuOpen = false;
-	let isAddMenuFullOptions = true;
 	let isModalShow = false;
 	let isClientFormShow = false;
+	let triggerReset = false;
 
 	function handleEdit() {
 		isClientFormShow = true;
 		isAddMenuOpen = false;
 	}
 
-	function handleActive(event: CustomEvent) {
+	function handleDelete() {
+		isModalShow = true;
 		isAddMenuOpen = false;
-		client.clientStatus = event.detail.active;
 	}
 
-	function handleArchive(event: CustomEvent) {
+	function handleActive(event: CustomEvent | MouseEvent) {
 		isAddMenuOpen = false;
-		client.clientStatus = event.detail.archive;
+		event.type !== 'click'
+		? client.clientStatus = event.detail.active
+		: client.clientStatus = 'active';
+	}
+
+	function handleArchive(event: CustomEvent | MouseEvent) {
+		isAddMenuOpen = false;
+		event.type !== 'click'
+		? client.clientStatus = event.detail.archive
+		: client.clientStatus = 'archive';
 	}
 
 	const receivedInvoices = () => {
@@ -48,7 +63,7 @@
 </script>
 
 <li class="clients__item client">
-	<ul class="client__info">
+	<ul class="client__info" use:swipe={{triggerReset}} on:outOfView={() => {triggerReset=false}}>
 		<li class="client__status"><Tag label={client.clientStatus} /></li>
 		<li class="client__name">{client.name}</li>
 		<li class="client__received">${centsToDollars(receivedInvoices())}</li>
@@ -66,19 +81,42 @@
 			{#if isAddMenuOpen}
 				<AdditionalMenuClients
 					{client}
-					{isAddMenuFullOptions}
+
 					on:editClient={handleEdit}
-					on:deleteClient={() => {
-						isModalShow = true;
-						isAddMenuOpen = false;
-					}}
+					on:deleteClient={handleDelete}
 					on:activateClient={handleActive}
 					on:archiveClient={handleArchive}
 				/>
 			{/if}
 		</li>
 	</ul>
+	<ul class="client__options">
+		<li class="client__option-item">
+			<a href={`/clients/${client.id}`} class="client__option-btn"><IconView size={32}/>View</a>
+		</li>
+		<li class="client__option-item">
+			<button class="client__option-btn" on:click={handleEdit}><IconEdit size={32}/>Edit</button>
+		</li>
+		{#if client.clientStatus !== 'active'}
+			<li class="client__option-item">
+				<button class="client__option-btn" on:click={handleActive}><IconActive size={32}/>Activate</button>
+			</li>
+		{/if}
+		{#if client.clientStatus !== 'archive'}
+		<li class="client__option-item">
+			<button class="client__option-btn" on:click={handleArchive}><IconArchive size={32}/>Archive</button>
+		</li>
+	{/if}
+		<li class="client__option-item">
+			<button class="client__option-btn"on:click={handleDelete}><IconTrash size={32}/>Delete</button>
+		</li>
+		<li class="client__option-item">
+			<button class="client__option-btn" on:click={() => {triggerReset = true}}><IconCancel size={32}/>Cancel</button>
+		</li>
+	</ul>
 </li>
+
+<!-- <ConfirmDelete {client} {isModalShow} on:close={() => (isModalShow = false)} /> -->
 
 {#if isClientFormShow}
 <SlidePanel on:closePanel={() => isClientFormShow = false}>
@@ -88,15 +126,13 @@
 
 <style>
 	.client {
+		position: relative;
 		margin-bottom: 1rem;
-		padding: 1rem;
 		list-style: none;
-		border-radius: 0.5rem;
-		box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.16);
-		background-color: var(--pico-primary-inverse);
 	}
 
 	.client__info {
+		position: relative;
 		display: grid;
 		grid-template-columns: var(--grid-t-c-mobile);
 		grid-template-areas:
@@ -106,9 +142,11 @@
 		align-items: center;
 
 		margin: 0;
-		padding: 0;
-
+		padding: 1rem;
 		border-radius: 0.5rem;
+		box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.16);
+		background-color: var(--pico-primary-inverse);
+		z-index: var(--z-row);
 	}
 
 	.client__view,
@@ -200,6 +238,43 @@
 		border: none;
 	}
 
+	.client__options {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		z-index: var(--z-row-actions);
+	}
+
+	.client__option-item {
+		min-width: 5rem;
+		list-style: none;
+	}
+
+	.client__option-btn {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		margin: 0 auto;
+
+		font-weight: bold;
+		text-decoration: none;
+		color: var(--pico-primary);
+		border: none;
+		background-color: transparent;
+	}
+
+
+	.client__option-btn:focus,
+	.client__option-btn:focus-visible {
+		box-shadow: none;
+	}
+
 	@media (width > 1024px) {
 		.client__info {
 			grid-template-columns: var(--grid-t-c);
@@ -231,7 +306,7 @@
 	}
 
 	@media (width > 1280px) {
-		.client {
+		.client__info {
 			padding: 1.5rem;
 		}
 	}

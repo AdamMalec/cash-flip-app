@@ -6,7 +6,6 @@
 	import IconArchive from './icons/iconArchive.svelte';
 
 	export let client: Client;
-	export let isAddMenuFullOptions: boolean;
 
 	const dispatch = createEventDispatcher();
 
@@ -30,7 +29,6 @@
 </script>
 
 <ul class="menu">
-	{#if isAddMenuFullOptions}
 		<li class="menu__item">
 			<button class="menu__btn" on:click={handleEdit}>
 				<IconEdit />
@@ -62,14 +60,6 @@
 				<span>Delete</span>
 			</button>
 		</li>
-	{:else}
-		<li class="menu__item">
-			<button class="menu__btn" on:click={handleDelete}>
-				<IconTrash />
-				<span>Delete</span>
-			</button>
-		</li>
-	{/if}
 </ul>
 
 <style>

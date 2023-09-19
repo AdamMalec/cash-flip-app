@@ -106,7 +106,7 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
   }
 
   function moveItemOver(endingX: number) {
-    const leftSnapX = elementWidth * -.95
+    const leftSnapX = elementWidth * -.975
     const rightSnapX = 0;
     const movement = startingX - endingX;
 

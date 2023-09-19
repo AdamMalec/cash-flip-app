@@ -43,8 +43,8 @@
 		{:else}
 			<ClientHeader />
 			<ul class="clients__list">
-				{#each $clients as client}
-					<ClientRow {client} />
+				{#each $clients as client, index}
+					<ClientRow {client} --z-row={900 - index}/>
 				{/each}
 			</ul>
 		{/if}

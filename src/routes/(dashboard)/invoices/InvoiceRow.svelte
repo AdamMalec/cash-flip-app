@@ -242,6 +242,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		margin: 0 auto;
 
 		font-weight: bold;
 		text-decoration: none;
