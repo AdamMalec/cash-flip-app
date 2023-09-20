@@ -54,6 +54,7 @@
 
 	@media (width < 768px)  {
 		.back-link {
+			position: absolute;
 			left: 0.6rem;
 		}
 	}
