@@ -27,7 +27,7 @@
 	{/if}
 </svelte:head>
 
-<button class="btn" on:click={() => (isOpen = !isOpen)}>
+<button class="btn" style:background-color={isOpen ? 'transparent' : ''} on:click={() => (isOpen = !isOpen)}>
 	{#if isOpen}
 		<IconClose size={42} --color="var(--color-accent)" />
 	{:else}
@@ -79,8 +79,12 @@
 		right: 0;
 
 		color: var(--color);
-		background-color: transparent;
+		background-color: var(--color-primary-bg);
 		border: none;
+	}
+
+	.btn--open {
+		background-color: transparent;
 	}
 
 	.btn:focus {
