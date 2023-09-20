@@ -251,7 +251,7 @@
 	}
 
 	.client__option-item {
-		min-width: 5rem;
+		min-width: 4rem;
 		list-style: none;
 	}
 
@@ -273,6 +273,18 @@
 	.client__option-btn:focus,
 	.client__option-btn:focus-visible {
 		box-shadow: none;
+	}
+
+	@media (width > 576px) {
+		.client__option-item {
+			min-width: 4.5rem;
+		}
+	}
+
+	@media (width > 768px) {
+		.client__option-item {
+			min-width: 5rem;
+		}
 	}
 
 	@media (width > 1024px) {

@@ -233,7 +233,7 @@
 	}
 
 	.invoice__option-item {
-		min-width: 5rem;
+		min-width: 4rem;
 		list-style: none;
 	}
 
@@ -251,10 +251,21 @@
 		background-color: transparent;
 	}
 
-
 	.invoice__option-btn:focus,
 	.invoice__option-btn:focus-visible {
 		box-shadow: none;
+	}
+
+	@media (width > 576px) {
+		.invoice__option-item {
+			min-width: 4.5rem;
+		}
+	}
+
+	@media (width > 768px) {
+		.invoice__option-item {
+			min-width: 5rem;
+		}
 	}
 
 	@media (width > 1024px) {
