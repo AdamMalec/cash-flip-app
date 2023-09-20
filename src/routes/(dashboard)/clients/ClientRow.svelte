@@ -69,7 +69,7 @@
 		<li class="client__received">${centsToDollars(receivedInvoices())}</li>
 		<li class="client__balance">${centsToDollars(balanceInvoices())}</li>
 		<li class="client__view">
-			<a href={`/clients/${client.id}`}>
+			<a href={`/clients/${client.id}`} title="Client Page">
 				<IconView />
 			</a>
 		</li>

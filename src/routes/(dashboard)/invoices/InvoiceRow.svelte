@@ -61,7 +61,7 @@
 			${centsToDollars(invoiceTotal(invoice.lineItems, invoice.discount))}
 		</li>
 		<li class="invoice__view">
-			<a href={`/invoices/${invoice.id}`}>
+			<a href={`/invoices/${invoice.id}`} title="Show Invoice">
 				<IconView />
 			</a>
 		</li>
