@@ -1,6 +1,6 @@
-@import "styles/reset.css";
-@import "styles/_pico.min.css";
-@import "styles/_pico.custom.css";
-@import "styles/global.css";
-@import "styles/fonts.css";
-@import "styles/variables.css";
+@import "lib/styles/reset.css";
+@import "lib/styles/_pico.min.css";
+@import "lib/styles/_pico.custom.css";
+@import "lib/styles/global.css";
+@import "lib/styles/fonts.css";
+@import "lib/styles/variables.css";
