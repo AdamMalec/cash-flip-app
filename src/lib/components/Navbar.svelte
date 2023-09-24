@@ -75,16 +75,13 @@
 	.btn {
 		position: fixed;
 		z-index: var(--z-nav-toggle);
-		top: 0;
-		right: 0;
+		top: 7px;
+		right: 4px;
 
+		padding: 0.5rem;
 		color: var(--color);
 		background-color: var(--color-primary-bg);
 		border: none;
-	}
-
-	.btn--open {
-		background-color: transparent;
 	}
 
 	.btn:focus {
