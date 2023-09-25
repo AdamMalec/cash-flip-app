@@ -16,6 +16,10 @@
 
     width: 100%;
     height: 100vh;
+
+    background-image: url('/images/bg-thankYou.svg');
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   h1 {
