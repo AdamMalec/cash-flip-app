@@ -14,7 +14,7 @@
 
   export let data;
   const client = {...data} as Client;
-	const invoices: Invoice[] = client.invoices as Invoice[];
+	const invoices: Invoice[] = client.invoice as Invoice[];
 	let isClientFormShow: boolean = false;
 	let isEditingCurrentClient: boolean = false;
 
@@ -56,7 +56,7 @@
 
 <div class="invoices">
 	<div class="invoices__header">
-		{#if client.invoices && client.invoices.length > 0}
+		{#if client.invoice && client.invoice.length > 0}
 			<Search />
 		{:else}
 			<div />
@@ -68,11 +68,11 @@
 	</div>
 
 	<div class="invoices__content">
-		{#if client.invoices === null}
+		{#if client.invoice === null}
 			Loading...
-		{:else if client.invoices && client.invoices.length <= 0}
+		{:else if client.invoice && client.invoice.length <= 0}
 			<BlankState />
-		{:else if client.invoices}
+		{:else if client.invoice}
 			<div class="info">
 				<h1>{client.name}</h1>
 				<button class="edit__btn" on:click={editClient}>

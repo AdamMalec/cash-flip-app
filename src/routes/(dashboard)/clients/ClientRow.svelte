@@ -46,16 +46,16 @@
 	}
 
 	const receivedInvoices = () => {
-		if (client?.invoices) {
-			const paidInvoices = client?.invoices?.filter((invoice) => invoice.invoiceStatus === 'paid');
+		if (client?.invoice) {
+			const paidInvoices = client?.invoice?.filter((invoice) => invoice.invoiceStatus === 'paid');
 			return sumInvoices(paidInvoices);
 		}
 		return 0;
 	};
 
 	const balanceInvoices = () => {
-		if (client?.invoices) {
-			const paidInvoices = client?.invoices?.filter((invoice) => invoice.invoiceStatus !== 'paid');
+		if (client?.invoice) {
+			const paidInvoices = client?.invoice?.filter((invoice) => invoice.invoiceStatus !== 'paid');
 			return sumInvoices(paidInvoices);
 		}
 		return 0;
