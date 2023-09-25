@@ -11,7 +11,6 @@
 
 	const handleEdit = () => {
 		dispatch('editClient');
-    console.log('Edit...');
   }
 
 	const handleActivate = () => {
