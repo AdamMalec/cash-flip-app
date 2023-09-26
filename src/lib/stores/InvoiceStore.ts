@@ -1,5 +1,6 @@
 import supabase from "$lib/utils/supabase";
 import { writable } from "svelte/store";
+import { displayErrorMessage } from "$lib/utils/handleError";
 
 export const invoices = writable<Invoice[]>([]);
 
@@ -11,11 +12,7 @@ export const loadInvoices = async() => {
 	console.log(data);
 
 	if (error) {
-		console.log(
-			'%cSUPER LOG: ',
-			'color: yellow; background-color: blue;',
-			error
-		);
+    displayErrorMessage(error as Error)
 		return
 	}
 
@@ -43,7 +40,7 @@ export const getInvoiceById = async(id: string) => {
 	console.log(data);
 
 	if (error) {
-		console.error(error);
+		displayErrorMessage(error as Error)
 		return
 	}
 

@@ -1,3 +1,4 @@
+import { displayErrorMessage } from "$lib/utils/handleError";
 import supabase from "$lib/utils/supabase";
 import { writable } from "svelte/store";
 
@@ -9,7 +10,7 @@ export async function loadClients() {
     .select('*, invoice(id, invoiceStatus, lineItems(*))')
 
   if (error) {
-    console.error(error);
+    displayErrorMessage(error as Error);
     return;
   }
 
@@ -25,7 +26,7 @@ export const addClient = async (clientToAdd: Client) => {
     .select()
 
   if (error) {
-    console.error(error);
+    displayErrorMessage(error as Error);
     return;
   }
 
@@ -47,7 +48,7 @@ export async function getClientById(id: string) {
     .eq('id', id);
 
   if (error) {
-    console.error(error);
+    displayErrorMessage(error as Error)
     return;
   }
 

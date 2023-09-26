@@ -40,3 +40,10 @@ interface Settings {
 	state: string
 	zip: string
 }
+
+interface Error {
+  code: string
+  details: string,
+  hint: string,
+  message: string
+}
