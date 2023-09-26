@@ -1,5 +1,6 @@
 import { displayErrorMessage } from "$lib/utils/handleError";
 import supabase from "$lib/utils/supabase";
+import toast from "svelte-french-toast";
 import { writable } from "svelte/store";
 
 export const clients = writable<Client[]>([]);
@@ -33,6 +34,15 @@ export const addClient = async (clientToAdd: Client) => {
   const id = data[0].id;
 
   clients.update((prev: Client[]) => [...prev, { ...clientToAdd, clientStatus: "active", id }]);
+
+  toast.success('Your client was successfully created.', {
+    style: 'font-size: 0.8rem',
+    iconTheme: {
+      primary: '#22c697',
+      secondary: '#f8f8f8'
+    }
+  });
+
   return clientToAdd;
 }
 

@@ -14,13 +14,6 @@
 	function handleSubmit() {
 		if(formState === 'create') {
 			addClient(client);
-			toast.success('Your client was successfully created.', {
-				style: 'font-size: 0.8rem',
-				iconTheme: {
-					primary: '#22c697',
-					secondary: '#f8f8f8'
-				}
-			});
 		} else {
 			updateClient(client);
 			toast.success('Your client was successfully update.', {

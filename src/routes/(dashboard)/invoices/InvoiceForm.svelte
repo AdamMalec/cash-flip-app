@@ -44,21 +44,14 @@
 		invoice.discount = event.detail.discount;
 	}
 
-	function handleSubmit() {
+	async function handleSubmit() {
 		if(isNewClient) {
 			invoice.client = newClient as Client;
 			addClient(newClient as Client);
 		}
 
 		if(formState === 'create') {
-			addInvoice(invoice);
-			toast.success('Your invoice successfully created.', {
-				style: 'font-size: 0.8rem',
-				iconTheme: {
-					primary: '#22c697',
-					secondary: '#f8f8f8'
-				}
-			});
+			await addInvoice(invoice);
 		} else {
 			updateInvoice(invoice);
 			toast.success('Your invoice successfully updated.', {
@@ -174,13 +167,13 @@
 
 	<!-- due data -->
 	<div class="field due-data">
-		<label for="dueDate">Due Data</label>
+		<label for="dueDate">Due Date</label>
 		<input type="date" name="dueDate"  min={today} required  bind:value={invoice.dueDate}/>
 	</div>
 
 	<!-- issue data -->
 	<div class="field issue-data">
-		<label for="issueDate">Issue Data</label>
+		<label for="issueDate">Issue Date</label>
 		<input type="date" name="issueDate" bind:value={invoice.issueDate}/>
 	</div>
 
