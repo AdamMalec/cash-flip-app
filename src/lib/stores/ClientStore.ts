@@ -46,7 +46,19 @@ export const addClient = async (clientToAdd: Client) => {
   return clientToAdd;
 }
 
-export function updateClient(clientToUpdate: Client) {
+export async function updateClient(clientToUpdate: Client) {
+  const {invoice, ...newClient} = clientToUpdate;
+
+  const { data, error } = await supabase
+  .from('client')
+  .update(newClient)
+  .eq('id', newClient.id)
+
+  if (error) {
+    displayErrorMessage(error as Error);
+    return;
+  }
+
 	clients.update(prev => prev.map((cur: Client) => cur.id === clientToUpdate.id ? clientToUpdate : cur));
 	return clientToUpdate;
 }
