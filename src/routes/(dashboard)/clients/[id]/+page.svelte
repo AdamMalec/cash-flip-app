@@ -63,7 +63,7 @@
 		{/if}
 
 		<div>
-			<Button label="+ Client" isAnimated={true} onClick={() => {isClientFormShow = true}}/>
+			<Button label="+ Invoice" isAnimated={true} onClick={() => {isClientFormShow = true}}/>
 		</div>
 	</div>
 

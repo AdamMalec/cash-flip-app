@@ -16,9 +16,23 @@ export async function loadClients() {
   clients.set(data as Client[]);
 }
 
-export function addClient(clientToAdd: Client) {
-	clients.update((prev: Client[]) => [...prev, {...clientToAdd, clientStatus: 'active'}]);
-	return clientToAdd;
+export const addClient = async (clientToAdd: Client) => {
+  const { data, error } = await supabase
+    .from('client')
+    .insert([
+      { ...clientToAdd, clientStatus: "active" },
+    ])
+    .select()
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  const id = data[0].id;
+
+  clients.update((prev: Client[]) => [...prev, { ...clientToAdd, clientStatus: "active", id }]);
+  return clientToAdd;
 }
 
 export function updateClient(clientToUpdate: Client) {
